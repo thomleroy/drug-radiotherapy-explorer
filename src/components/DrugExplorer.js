@@ -263,23 +263,33 @@ const DrugExplorer = () => {
     <div className="min-h-screen bg-gray-50">
       <Card className="w-full max-w-7xl mx-auto my-8 shadow-xl">
         {/* Header avec logo SFRO */}
-        <CardHeader className="bg-gradient-to-r from-sfro-primary to-sfro-secondary text-white rounded-t-lg">
-          <div className="flex items-center justify-between p-6">
-            <div>
-              <CardTitle className="text-3xl font-bold tracking-tight">
-                Drug-Radiotherapy Association Explorer
-              </CardTitle>
-              <p className="mt-2 text-white/90">
-                Explore drug interactions and timing with different radiotherapy types
-              </p>
-            </div>
-            <img 
-              src="/sfro-logo.png" 
-              alt="SFRO Logo" 
-              className="h-16 w-auto ml-4"
-            />
-          </div>
-        </CardHeader>
+        <CardHeader className="relative overflow-hidden bg-gradient-to-r from-[#00BFF3] to-[#0080A5] text-white rounded-t-lg">
+  {/* Background pattern subtil */}
+  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+  
+  <div className="relative flex items-center justify-between p-8">
+    {/* Contenu gauche */}
+    <div className="flex-grow">
+      <CardTitle className="text-4xl font-bold tracking-tight mb-2">
+        Drug-Radiotherapy Association Explorer
+      </CardTitle>
+      <p className="text-lg text-white/90 max-w-2xl">
+        Explore drug interactions and timing with different radiotherapy types
+      </p>
+    </div>
+    
+    {/* Logo avec fond blanc pour meilleur contraste */}
+    <div className="flex-shrink-0 ml-8">
+      <div className="bg-white p-4 rounded-lg shadow-lg">
+        <img 
+          src="/sfro-logo.png" 
+          alt="SFRO Logo" 
+          className="h-20 w-auto"
+        />
+      </div>
+    </div>
+  </div>
+</CardHeader>
 
         <CardContent className="p-6 space-y-6">
           {/* Dashboard statistiques */}
