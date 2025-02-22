@@ -1130,4 +1130,110 @@ export const allDrugs = [
   stereotacticRT: "21days",
   intracranialRT: "0"
 },
+// Antibody-drug conjugates
+{
+  name: "Trastuzumab Deruxtecan",
+  class: "Antibody-drug conjugates",
+  category: "targeted",
+  halfLife: "7 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0",
+  references: "[277]"
+},
+{
+  name: "Enfortumab Vedotin",
+  class: "Antibody-drug conjugates (Nectin 4)",
+  category: "targeted",
+  halfLife: "3.6 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0",
+  references: "[278,279]"
+},
+{
+  name: "Sacituzumab govitecan",
+  class: "Antibody-drug conjugates (TROP2)",
+  category: "targeted",
+  halfLife: "15h to 19h",
+  normofractionatedRT: "5 days",
+  palliativeRT: "5 days",
+  stereotacticRT: "5 days",
+  intracranialRT: "5 days",
+  references: "[280]"
+},
+
+// Immunotherapy drugs
+{
+  name: "Nivolumab",
+  class: "PD1 inhibitors",
+  category: "immunotherapy",
+  halfLife: "25 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Pembrolizumab",
+  class: "PD1 inhibitors",
+  category: "immunotherapy",
+  halfLife: "22 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Atezolizumab",
+  class: "PDL1 inhibitors",
+  category: "immunotherapy",
+  halfLife: "27 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Avelumab",
+  class: "PDL1 inhibitors",
+  category: "immunotherapy",
+  halfLife: "6 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Durvalumab",
+  class: "PDL1 inhibitors",
+  category: "immunotherapy",
+  halfLife: "18 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Ipilimumab",
+  class: "CTLA4 inhibitors",
+  category: "immunotherapy",
+  halfLife: "15 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Tremelimumab",
+  class: "CTLA4 inhibitors",
+  category: "immunotherapy",
+  halfLife: "14.2 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
 ];
