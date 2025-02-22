@@ -60,25 +60,6 @@ const DrugExplorer = () => {
     return header + rows;
   };
 
-  // Fonction de téléchargement améliorée avec gestion des erreurs
-  const downloadCSV = useCallback(() => {
-    try {
-      const csv = formatForCSV(filterAndSortDrugs());
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Error downloading CSV:', error);
-      // Ici vous pourriez ajouter une notification d'erreur UI
-    }
-  }, [filterAndSortDrugs]);
-
   // Fonction de tri améliorée avec gestion des types de données
   const requestSort = useCallback((key) => {
     let direction = 'asc';
@@ -133,6 +114,26 @@ const DrugExplorer = () => {
 
     return filteredDrugs;
   }, [searchTerm, selectedCategory, halfLifeFilter, rtTypeFilter, sortConfig]);
+
+  
+  // Fonction de téléchargement améliorée avec gestion des erreurs
+  const downloadCSV = useCallback(() => {
+    try {
+      const csv = formatForCSV(filterAndSortDrugs());
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading CSV:', error);
+      // Ici vous pourriez ajouter une notification d'erreur UI
+    }
+  }, [filterAndSortDrugs]);
 
   // Stats calculées pour le dashboard
   const stats = [
