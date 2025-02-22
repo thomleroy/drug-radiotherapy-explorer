@@ -471,7 +471,7 @@ const DrugExplorer = () => {
         <div className="border-t border-gray-200 mt-8 p-6 bg-sfro-light">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-sfro-dark">
             <div className="mb-4 md:mb-0">
-              © 2024 SFRO - Société Française de Radiothérapie Oncologique
+              © 2025 SFRO - Société Française de Radiothérapie Oncologique
             </div>
             <div className="flex gap-4">
               <a href="#" className="hover:text-sfro-primary transition-colors">À propos</a>
