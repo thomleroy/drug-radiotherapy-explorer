@@ -239,62 +239,53 @@ const DrugExplorer = () => {
           </button>
         </div>
 
-        {isMobileView ? (
-          <div className="space-y-4">
-            {filterAndSortDrugs().map((drug, index) => (
-              <DrugCard key={index} drug={drug} />
-            ))}
-          </div>
-        ) : (
-          <div className="overflow-hidden border border-gray-200 rounded-lg shadow-lg">
-            <table className="w-full border-collapse bg-white">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-100" onClick={() => requestSort('name')}>
-                    Drug Name <HelpCircle className="inline-block w-4 h-4 ml-1 text-gray-400" />
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-100" onClick={() => requestSort('class')}>
-                    Class <HelpCircle className="inline-block w-4 h-4 ml-1 text-gray-400" />
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Category</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:bg-gray-100" onClick={() => requestSort('halfLife')}>
-                    Half-life <HelpCircle className="inline-block w-4 h-4 ml-1 text-gray-400" />
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Normofractionated RT</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Palliative RT</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Stereotactic RT</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900">Intracranial RT</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filterAndSortDrugs().map((drug, index) => (
-                  <tr key={index} className="hover:bg-gray-50 transition-colors duration-150 ease-in-out">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{drug.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{drug.class}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(drug.category)}`}>
-                        {drug.category.charAt(0).toUpperCase() + drug.category.slice(1)}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{drug.halfLife}</td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${getCellColor(drug.normofractionatedRT)}`}>
-                      {drug.normofractionatedRT}
-                    </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${getCellColor(drug.palliativeRT)}`}>
-                      {drug.palliativeRT}
-                    </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${getCellColor(drug.stereotacticRT)}`}>
-                      {drug.stereotacticRT}
-                    </td>
-                    <td className={`px-6 py-4 whitespace-nowrap text-sm ${getCellColor(drug.intracranialRT)}`}>
-                      {drug.intracranialRT}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        // Modifiez la section du tableau dans le rendu
+<div className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg">
+  <table className="w-full border-collapse bg-white table-fixed">
+    <thead className="sticky top-0 bg-gray-50 z-10">
+      <tr>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/6">Drug Name</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/6">Class</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/12">Category</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/12">Half-life</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/12">Normo RT</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/12">Pallia RT</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/12">Stereo RT</th>
+        <th className="px-3 py-2 text-left text-xs font-semibold text-gray-900 w-1/12">Intra RT</th>
+      </tr>
+    </thead>
+    <tbody className="divide-y divide-gray-200">
+      {filterAndSortDrugs().map((drug, index) => (
+        <tr key={index} className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs">
+          <td className="px-3 py-2 whitespace-normal">{drug.name}</td>
+          <td className="px-3 py-2 whitespace-normal text-gray-500">
+            <Tooltip content={drug.class}>
+              {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
+            </Tooltip>
+          </td>
+          <td className="px-3 py-2">
+            <span className={`inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(drug.category)}`}>
+              {drug.category.substring(0, 3)}
+            </span>
+          </td>
+          <td className="px-3 py-2 whitespace-nowrap text-gray-500">{drug.halfLife}</td>
+          <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.normofractionatedRT)}`}>
+            {drug.normofractionatedRT}
+          </td>
+          <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.palliativeRT)}`}>
+            {drug.palliativeRT}
+          </td>
+          <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.stereotacticRT)}`}>
+            {drug.stereotacticRT}
+          </td>
+          <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.intracranialRT)}`}>
+            {drug.intracranialRT}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
         <div className="flex flex-wrap gap-6 text-sm text-gray-600 mt-4">
           <div className="flex items-center gap-2">
