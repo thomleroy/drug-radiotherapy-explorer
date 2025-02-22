@@ -429,19 +429,18 @@ const DrugExplorer = () => {
                             {drug.category.substring(0, 3)}
                           </Badge>
                         </td>
-                        <td className="px-3 py-2 whitespace-nowrap text-gray-500">{drug.halfLife}</td>
-                        <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.normofractionatedRT)}`}>
-                          {drug.normofractionatedRT}
-                        </td>
-                        <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.palliativeRT)}`}>
-                          {drug.palliativeRT}
-                        </td>
-                        <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.stereotacticRT)}`}>
-                          {drug.stereotacticRT}
-                        </td>
-                        <td className={`px-3 py-2 whitespace-nowrap ${getCellColor(drug.intracranialRT)}`}>
-                          {drug.intracranialRT}
-                        </td>
+                       <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
+  {drug.normofractionatedRT}
+</td>
+<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.palliativeRT)}`}>
+  {drug.palliativeRT}
+</td>
+<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.stereotacticRT)}`}>
+  {drug.stereotacticRT}
+</td>
+<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.intracranialRT)}`}>
+  {drug.intracranialRT}
+</td>
                       </tr>
                     ))}
                   </tbody>
