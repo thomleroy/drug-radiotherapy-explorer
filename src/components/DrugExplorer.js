@@ -419,17 +419,18 @@ const DrugExplorer = () => {
                         className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs"
                       >
                         <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">{drug.name}</td>
-                        <td className="px-3 py-2 whitespace-normal text-gray-500">
-                          <Tooltip content={drug.class}>
-                            {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
-                          </Tooltip>
-                        </td>
-                        <td className="px-3 py-2">
-                          <Badge color={getCategoryColor(drug.category)}>
-                            {drug.category.substring(0, 3)}
-                          </Badge>
-                        </td>
-                       <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
+<td className="px-3 py-2 whitespace-normal text-gray-500">
+  <Tooltip content={drug.class}>
+    {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
+  </Tooltip>
+</td>
+<td className="px-3 py-2">
+  <Badge color={getCategoryColor(drug.category)}>
+    {drug.category.substring(0, 3)}
+  </Badge>
+</td>
+<td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
+<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
   {drug.normofractionatedRT}
 </td>
 <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.palliativeRT)}`}>
