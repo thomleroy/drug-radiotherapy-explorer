@@ -70,12 +70,12 @@ const DrugExplorer = () => {
   }, [sortConfig]);
 
   // Fonction pour obtenir la couleur des cellules avec accessibilité améliorée
-  const getCellColor = (value) => {
-  if (value === '0' || value.includes('0 (except')) return 'bg-green-100 text-green-800';
+  const getCellColor = useCallback((value) => {
+    if (value === '0' || value.includes('0 (except')) return 'bg-green-100 text-green-800';
   if (value.includes('48h')) return 'bg-yellow-100 text-yellow-800';
   if (value.includes('days')) return 'bg-red-100 text-red-800';
-  return '';
-}; []);
+    return '';
+  }, []);
 
   // Fonction de filtrage améliorée avec performances optimisées
   const filterAndSortDrugs = useCallback(() => {
