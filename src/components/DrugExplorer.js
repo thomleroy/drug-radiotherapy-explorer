@@ -239,7 +239,6 @@ const DrugExplorer = () => {
           </button>
         </div>
 
-        // Modifiez la section du tableau dans le rendu
 <div className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg">
   <table className="w-full border-collapse bg-white table-fixed">
     <thead className="sticky top-0 bg-gray-50 z-10">
