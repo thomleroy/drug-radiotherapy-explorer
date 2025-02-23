@@ -6,6 +6,7 @@ import { allDrugs } from '../data/drugs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Filter, X } from 'lucide-react'; // Ajoutez aux imports existants
 import { referencesData, formatReference } from '../data/references';
+import DotsOverlay from '../components/ui/DotsOverlay';
 
 const DrugExplorer = () => {
   // États
@@ -350,26 +351,56 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
   return (
     <div className="min-h-screen bg-gray-50">
       <Card className="w-full max-w-7xl mx-auto my-8 shadow-xl">
-        <CardHeader className="relative overflow-hidden bg-gradient-to-r from-[#00BFF3] to-[#0080A5] text-white rounded-t-lg">
-  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+        <CardHeader className="relative overflow-hidden bg-gradient-to-br from-[#00BFF3] via-[#0080A5] to-[#006080] text-white rounded-t-xl">
+  {/* Fond décoratif avec motif et animation */}
+  <div className="absolute inset-0">
+  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent animate-pulse" />
+  <div 
+    className="absolute inset-0 opacity-20"
+    style={{
+      backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
+      backgroundSize: '20px 20px'
+    }}
+  />
+</div>
   
-  <div className="relative flex items-center justify-between p-8">
-    <div className="flex-grow">
-      <CardTitle className="text-7xl font-bold tracking-tight mb-2">
-        Radiosync
-      </CardTitle>
-      <p className="text-lg text-white/90 max-w-2xl">
-        A web-app to know when and how long to stop anticancer therapies before radiotherapy
-      </p>
-    </div>
-    
-    <div className="flex-shrink-0 ml-8">
-      <div className="bg-white p-4 rounded-lg shadow-lg">
-        <img 
-          src="/sfro-logo.png" 
-          alt="SFRO Logo" 
-          className="h-20 w-auto"
-        />
+  <div className="relative px-4 pt-8 pb-6 md:px-8 md:pt-12 md:pb-10">
+    {/* Section titre et description */}
+    <div className="max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        <div className="flex-grow text-center md:text-left max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-3 bg-clip-text">
+              <span className="relative">
+                Radiosync
+                <span className="absolute -inset-1 md:-inset-2 bg-white/5 rounded-lg blur-sm" />
+              </span>
+            </h1>
+            <p className="text-sm md:text-lg text-white/90 max-w-2xl leading-relaxed">
+              A web-app to know when and how long to stop anticancer therapies before radiotherapy
+            </p>
+          </motion.div>
+        </div>
+        
+        {/* Logo SFRO */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex-shrink-0 md:ml-8"
+        >
+          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/sfro-logo.png" 
+              alt="SFRO Logo" 
+              className="h-12 md:h-20 w-auto"
+            />
+          </div>
+        </motion.div>
       </div>
     </div>
   </div>
