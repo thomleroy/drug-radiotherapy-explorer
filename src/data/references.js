@@ -381,74 +381,74 @@ export const referencesData = {
   },
   "263": {
     text: "Herfarth K, Borchmann P, Schnaidt S, Hohloch K, Budach V, Engelhard M, et al. Rituximab With Involved Field Irradiation for Early-stage Nodal Follicular Lymphoma.",
-    url: "https://doi.org/10.1200/JCO.2013.31.15_suppl.8567"
+    url: "https://doi.org/10.1097/HS9.0000000000000160"
   },
   "264": {
     text: "Debbi K, Loganadane G, Roulin L, Belhadj K, Boukhobza C, Saoudi A, et al. Combined daratumumab-pomalidomide and ultra-fractionated whole breast irradiation is safe!",
-    url: "https://doi.org/10.1016/j.breast.2022.08.094"
+    url: "https://doi.org/10.5603/rpor.100780"
   },
   "265": {
     text: "Lee YL, Hsu JF, Yang CJ. Tracheoesophageal Fistula in a Patient with Advanced Non-Small Cell Lung Cancer Who Received Chemoradiotherapy and Ramucirumab.",
-    url: "https://doi.org/10.1016/j.lungcan.2014.02.007"
+    url: "https://doi.org/10.1016/j.jtho.2018.08.2031"
   },
   "266": {
     text: "Akahane K, Shirai K, Wakatsuki M, Ogawa K, Minato K, Hamamoto K, et al. Severe esophageal stenosis in a patient with metastatic colon cancer following palliative radiotherapy, ramucirumab, and chemotherapy.",
-    url: "https://doi.org/10.1016/j.ejca.2014.02.748"
+    url: "https://doi.org/10.1002/ccr3.2751"
   },
   "267": {
     text: "Drappatz J, Wong ET, Schiff D, Kesari S, Batchelor TT, Doherty L, et al. A pilot safety study of lenalidomide and radiotherapy for patients with newly diagnosed glioblastoma multiforme.",
-    url: "https://doi.org/10.1016/j.ijrobp.2010.05.036"
+    url: "https://doi.org/10.1016/j.ijrobp.2008.03.046"
   },
   "268": {
     text: "Bohli M, Jaffel H, El Fida Noubbigh G, Tbessi S, Msadek F, Kochbati L. Synergistic Effect and Tolerance of Concurrent Radiotherapy and Lenalidomide Use in Relapsing Mantle Cell Lymphoma: A Case Report.",
-    url: "https://doi.org/10.1016/j.htct.2021.09.005"
+    url: "https://doi.org/10.7812/tpp/19.156"
   },
   "269": {
     text: "Hoang T, Dahlberg SE, Schiller JH, Mehta MP, Fitzgerald TJ, Belinsky SA, et al. Randomized phase III study of thoracic radiation in combination with paclitaxel and carboplatin with or without thalidomide in patients with stage III non-small-cell lung cancer.",
-    url: "https://doi.org/10.1200/JCO.2008.16.6748"
+    url: "https://doi.org/10.1200/jco.2011.36.9116"
   },
   "270": {
     text: "Atkins MB, Sosman JA, Agarwala S, Logan T, Clark JI, Ernstoff MS, et al. Temozolomide, thalidomide, and whole brain radiation therapy for patients with brain metastasis from metastatic melanoma.",
-    url: "https://doi.org/10.1200/JCO.2007.13.0110"
+    url: "https://doi.org/10.1002/cncr.23805"
   },
   "271": {
     text: "Hsu WC, Chan SC, Ting LL, Chung NN, Wang PM, Ying KS, et al. Results of three-dimensional conformal radiotherapy and thalidomide for advanced hepatocellular carcinoma.",
-    url: "https://doi.org/10.1016/j.radonc.2008.07.015"
+    url: "https://doi.org/10.1093/jjco/hyi242"
   },
   "272": {
     text: "Prevo R, Deutsch E, Sampson O, Diplexcito J, Cengel K, Harper J, et al. Class I PI3 kinase inhibition by the pyridinylfuranopyrimidine inhibitor PI-103 enhances tumor radiosensitivity.",
-    url: "https://doi.org/10.1158/0008-5472.CAN-08-1378"
+    url: "https://doi.org/10.1158/0008-5472.can-08-0757"
   },
   "273": {
     text: "Deutsch E, Le Péchoux C, Faivre L, Rivera S, Tao Y, Pignon JP, et al. Phase I trial of everolimus in combination with thoracic radiotherapy in non-small-cell lung cancer.",
-    url: "https://doi.org/10.1016/j.ijrobp.2010.04.024"
+    url: "https://doi.org/10.1093/annonc/mdv105"
   },
   "274": {
     text: "Eren MF, Ay Eren A, Sayan M, Yücel B, Elagöz Ş, Özgüven Y, et al. The Impact of Everolimus and Radiation Therapy on Pulmonary Fibrosis.",
-    url: "https://doi.org/10.1016/j.rpor.2021.11.003"
+    url: "https://doi.org/10.3390/medicina56070348"
   },
   "275": {
     text: "Wu SY, Fang PQ, Wang EB, Ahmed S, Duvic M, Jain P, et al. Safety of Concurrent Radiation Therapy With Brentuximab Vedotin in the Treatment of Lymphoma.",
-    url: "https://doi.org/10.1200/JCO.2021.39.15_suppl.7536"
+    url: "https://doi.org/10.1016/j.adro.2023.101279"
   },
   "276": {
     text: "Kumar A, Casulo C, Yahalom J, Schöder H, Barr PM, Caron P, et al. Brentuximab vedotin and AVD followed by involved-site radiotherapy in early stage, unfavorable risk Hodgkin lymphoma.",
-    url: "https://doi.org/10.1200/JCO.2021.39.15_suppl.7535"
+    url: "https://doi.org/10.1182/blood-2016-03-703470"
   },
   "277": {
     text: "Bouziane J, Loap P, Cao K, Allali S, Gounane Y, Loganadane G, et al. Concurrent Use of Trastuzumab Deruxtecan and Radiation Therapy in HER2-positive and HER2-low Metastatic Breast Cancer: A Single-center Experience and Review of the Literature.",
-    url: "https://doi.org/10.1016/j.breast.2022.08.089"
+    url: "https://doi.org/10.1097/coc.0000000000001135"
   },
   "278": {
     text: "Soni YS, Lock D, Ballas LK, Hwang L, Cole S, D'Souza A, et al. Bi-Institutional Safety Analysis of Combining Radiotherapy and Enfortumab Vedotin in Advanced Urothelial Cancer.",
-    url: "https://doi.org/10.1016/j.annonc.2022.07.1143"
+    url: "https://doi.org/10.1016/j.ijrobp.2024.07.129"
   },
   "279": {
     text: "Seyedin SN, Harada GK, Garemanian E, Rafizadeh D, Kaakour D, Dwabe S, et al. Safety Analysis of Co-Administration of Radiation Therapy with Enfortumab Vedotin Based Regimens in Metastatic Urothelial Carcinoma.",
-    url: "https://doi.org/10.1200/JCO.2022.40.16_suppl.4632"
+    url: "https://doi.org/10.1016/j.clgc.2024.102243"
   },
   "280": {
     text: "Krug D, Tio J, Abaci A, Beurer B, Brügge S, Elsayad K, et al. The Safety and Efficacy of the Combination of Sacituzumab Govitecan and Palliative Radiotherapy—A Retrospective Multi-Center Cohort Study.",
-    url: "https://doi.org/10.3390/cancers15010182"
+    url: "https://doi.org/10.3390/cancers16091649"
   }
 };
