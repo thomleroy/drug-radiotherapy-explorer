@@ -273,31 +273,31 @@ export const referencesData = {
   },
   "236": {
     text: "Wang XS, Bai YF, Verma V, Yu RL, Tian W, Ao R, et al. Randomized Trial of First-Line Tyrosine Kinase Inhibitor With or Without Radiotherapy for Synchronous Oligometastatic EGFR-Mutated Non-Small Cell Lung Cancer.",
-    url: "https://doi.org/10.1016/j.jtho.2022.08.014"
+    url: "https://doi.org/10.1093/jnci/djac015"
   },
   "237": {
     text: "Banla LI, Tzeng A, Baillieul JP, Kandekhar MJ, Fitzgerald KJ, LoPiccolo J, et al. Pneumonitis in Patients Receiving Thoracic Radiotherapy and Osimertinib: A Multi-Institutional Study.",
-    url: "https://doi.org/10.1016/j.lungcan.2021.03.014"
+    url: "https://doi.org/10.1016/j.jtocrr.2023.100559"
   },
   "238": {
     text: "Nepote A, Poletto S, Bertaglia V, Carnio S, Piumatti C, Lanzetta C, et al. Role of osimertinib plus brain radiotherapy versus osimertinib single therapy in EGFR-mutated non-small-cell lung cancer with brain metastases: A meta-analysis and systematic review.",
-    url: "https://doi.org/10.1016/j.lungcan.2021.09.006"
+    url: "https://doi.org/10.1016/j.critrevonc.2024.104540"
   },
   "239": {
     text: "Khan M, Zhao Z, Arooj S, Zheng T, Liao G. Lapatinib Plus Local Radiation Therapy for Brain Metastases From HER-2 Positive Breast Cancer Patients and Role of Trastuzumab: A Systematic Review and Meta-Analysis.",
-    url: "https://doi.org/10.2147/OTT.S325201"
+    url: "https://doi.org/10.3389/fonc.2020.576926"
   },
   "240": {
     text: "Ramesh S, Cifci A, Javeri S, Minne RL, Longhurst CA, Nickel KP, et al. MET Inhibitor Capmatinib Radiosensitizes MET Exon 14-Mutated and MET-Amplified Non-Small Cell Lung Cancer.",
-    url: "https://doi.org/10.1158/1538-7445.AM2022-1610"
+    url: "https://doi.org/10.1101/2023.10.26.564232"
   },
   "241": {
     text: "Loo Gan C, Huang J, Pan E, Xie W, Schmidt AL, Labaki C, et al. Real-world Practice Patterns and Safety of Concurrent Radiotherapy and Cabozantinib in Metastatic Renal Cell Carcinoma.",
-    url: "https://doi.org/10.1016/j.clgc.2023.100330"
+    url: "https://doi.org/10.1016/j.euo.2022.10.004"
   },
   "242": {
     text: "Schiff D, Desjardins A, Cloughesy T, Mikkelsen T, Glantz M, Chamberlain MC, et al. Phase 1 dose escalation trial of the safety and pharmacokinetics of cabozantinib concurrent with temozolomide and radiotherapy or temozolomide after radiotherapy in newly diagnosed patients with high-grade gliomas.",
-    url: "https://doi.org/10.1016/j.ijrobp.2014.04.055"
+    url: "https://doi.org/10.1002/cncr.29798"
   },
   "243": {
     text: "Olsen MR, Denu RA, Lyon JB, Gulliver JM, Capitini CM, DeSantes KB. Undifferentiated and Unresectable Sarcoma With NTRK3-Fusion in a Pediatric Patient Treated With Larotrectinib and Proton Beam Radiotherapy.",
