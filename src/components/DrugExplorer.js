@@ -727,7 +727,7 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
       
       <a href="mailto:contact@sfro.fr" className="hover:text-sfro-primary transition-colors flex items-center gap-2">
         <Mail className="h-4 w-4" />
-        contact@sfro.fr
+        contact
       </a>
       <div className="flex gap-4">
         <a href="#" className="hover:text-sfro-primary transition-colors">{t('footer.about')}</a>
