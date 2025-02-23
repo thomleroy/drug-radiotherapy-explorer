@@ -125,39 +125,39 @@ export const referencesData = {
   },
   "212": {
     text: "Salama MM, Ghorab EM, Al-Abyad AG, Al-Bahy KM. Concomitant weekly vincristine and radiation followed by adjuvant vincristine and carboplatin in the treatment of high risk medulloblastoma: Ain Shams University Hospital and Sohag Cancer Center study. J Egypt Natl Cancer Inst. 2006 Jun;18(2):167–74.",
-    url: "https://pubmed.ncbi.nlm.nih.gov/18309745/"
+    url: "https://pubmed.ncbi.nlm.nih.gov/17496943/"
   },
   "213": {
     text: "Singhal N, Mislang A, Karapetis CS, Stephens S, Borg M, Woodman RJ, et al. Oral vinorelbine and cisplatin with concomitant radiotherapy in stage III non-small-cell lung cancer: an open-label phase II multicentre trial (COVeRT study). Anticancer Drugs. 2015 Nov;26(10):1083–8.",
-    url: "https://doi.org/10.1097/CAD.0000000000000274"
+    url: "https://doi.org/10.1159/000092062"
   },
   "214": {
     text: "Arnold CR, Lindner AK, Schachtner G, Tulchiner G, Tulchiner N, Mangesius J, et al. Vinorelbine in bladder-preserving multimodality treatment for muscle-invasive bladder cancer-a valid option for cisplatin-unfit patients? Strahlenther Onkol Organ Dtsch Rontgengesellschaft Al. 2022 Jan;198(1):25–32.",
-    url: "https://doi.org/10.1007/s00066-021-01887-6"
+    url: "https://doi.org/10.1007/s00066-021-01837-7"
   },
   "165": {
     text: "Pan Z, Yang G, He H, Zhao G, Yuan T, Li Y, et al. Concurrent radiotherapy and intrathecal methotrexate for treating leptomeningeal metastasis from solid tumors with adverse prognostic factors: A prospective and single-arm study.",
-    url: "https://doi.org/10.21037/atm-21-6314"
+    url: "https://doi.org/10.1002/ijc.30214"
   },
   "166": {
     text: "Kim A, Lee JE, Jang WS, Lee SJ, Park S, Kang HJ, et al. A combination of methotrexate and irradiation promotes cell death in NK/T-cell lymphoma cells via down-regulation of NF-κB signaling.",
-    url: "https://doi.org/10.1016/j.biopha.2017.12.080"
+    url: "https://doi.org/10.1016/j.leukres.2011.07.027"
   },
   "167": {
     text: "Hapani S, Chu D, Wu S. Risk of gastrointestinal perforation in patients with cancer treated with bevacizumab: a meta-analysis.",
-    url: "https://doi.org/10.1016/j.ejca.2009.10.026"
+    url: "https://doi.org/10.1016/s1470-2045(09)70112-3"
   },
   "168": {
     text: "Kim N, Choi SH, Chang JS, Kim YT, Kim SW, Kim GM, et al. Use of bevacizumab before or after radiotherapy increases the risk of fistula formation in patients with cervical cancer.",
-    url: "https://doi.org/10.1016/j.ygyno.2013.10.020"
+    url: "https://doi.org/10.1136/ijgc-2020-002031"
   },
   "169": {
     text: "Chen F, Niu J, Wang M, Zhu H, Guo Z. The incidence of and risk factors for radiation pneumonitis in patients treated with simultaneous bevacizumab and thoracic radiotherapy.",
-    url: "https://doi.org/10.1016/j.radonc.2010.07.018"
+    url: "https://doi.org/10.1186/s13014-024-02458-x"
   },
   "81": {
     text: "Meattini I, Becherini C, Caini S, Coles CE, Cortes J, Curigliano G, et al. International multidisciplinary consensus on the integration of radiotherapy with new systemic treatments for breast cancer: European Society for Radiotherapy and Oncology (ESTRO)-endorsed recommendations. Lancet Oncol. 2024 Feb 1;25(2):e73–83.",
-    url: "https://doi.org/10.1016/S1470-2045(23)00670-3"
+    url: "https://doi.org/10.1016/S1470-2045(23)00534-X"
   },
   "82": {
     text: "Esfahani K, Roudaia L, Buhlaiga N, Del Rincon SV, Papneja N, Miller WH. A review of cancer immunotherapy: from the past, to the present, to the future. Curr Oncol Tor Ont. 2020 Apr;27(Suppl 2):S87–97.",
@@ -165,7 +165,7 @@ export const referencesData = {
   },
   "109": {
     text: "Jabbour SK, Houghton B, Robinson AG, Quantin X, Wehler T, Kowalski D, et al. Phase 3, randomized, placebo-controlled study of stereotactic body radiotherapy (SBRT) with or without pembrolizumab in patients with unresected stage I or II non–small cell lung cancer (NSCLC): KEYNOTE-867. J Clin Oncol. 2022 Jun;40(16_suppl):TPS8597–TPS8597.",
-    url: "https://doi.org/10.1200/JCO.2022.40.16_suppl.TPS8597"
+    url: "https://doi.org/10.1016/j.ijrobp.2022.07.1516"
   },
   "150": {
     text: "Chemoradiotherapy for Cervical Cancer Meta-Analysis Collaboration. Reducing uncertainties about the effects of chemoradiotherapy for cervical cancer: a systematic review and meta-analysis of individual patient data from 18 randomized trials. J Clin Oncol Off J Am Soc Clin Oncol. 2008 Dec 10;26(35):5802–12.",
