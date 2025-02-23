@@ -169,11 +169,11 @@ export const referencesData = {
   },
   "150": {
     text: "Chemoradiotherapy for Cervical Cancer Meta-Analysis Collaboration. Reducing uncertainties about the effects of chemoradiotherapy for cervical cancer: a systematic review and meta-analysis of individual patient data from 18 randomized trials. J Clin Oncol Off J Am Soc Clin Oncol. 2008 Dec 10;26(35):5802–12.",
-    url: "https://doi.org/10.1200/JCO.2008.17.6847"
+    url: "https://doi.org/10.1002/14651858.CD008285"
   },
   "170": {
     text: "Peters NAJB, Richel DJ, Verhoeff JJC, Stalpers LJA. Bowel perforation after radiotherapy in a patient receiving sorafenib. J Clin Oncol Off J Am Soc Clin Oncol. 2008 May 10;26(14):2405–6.",
-    url: "https://doi.org/10.1200/JCO.2007.15.7611"
+    url: "https://doi.org/10.1200/jco.2007.15.8451"
   },
   "171": {
     text: "Guimond E, Tsai CJ, Hosni A, O'Kane G, Yang J, Barry A. Safety and Tolerability of Metastasis-Directed Radiation Therapy in the Era of Evolving Systemic, Immune, and Targeted Therapies. Adv Radiat Oncol. 2022 Jul 14;7(6):101022.",
@@ -185,43 +185,43 @@ export const referencesData = {
   },
   "184": {
     text: "Loap P, Loirat D, Berger F, Rodrigues M, Bazire L, Pierga JY, et al. Concurrent Olaparib and Radiotherapy in Patients With Triple-Negative Breast Cancer: The Phase 1 Olaparib and Radiation Therapy for Triple-Negative Breast Cancer Trial. JAMA Oncol. 2022 Dec 1;8(12):1802–8.",
-    url: "https://doi.org/10.1001/jamaoncol.2022.4687"
+    url: "https://doi.org/10.1001/jamaoncol.2022.5074"
   },
    "215": {
     text: "Nguyen PL, Kollmeier M, Rathkopf DE, Hoffman KE, Zurita AJ, Spratt DE, et al. FORMULA-509: A multicenter randomized trial of post-operative salvage radiotherapy (SRT) and 6 months of GnRH agonist with or without abiraterone acetate/prednisone (AAP) and apalutamide (Apa) post-radical prostatectomy (RP).",
-    url: "https://doi.org/10.1200/JCO.2023.41.6_suppl.LBA14"
+    url: "https://doi.org/10.1200/JCO.2023.41.6_suppl.303"
   },
   "216": {
     text: "Zhang T, Howard L, Koontz BF, Tagawa ST, Nagar H, Bitting RL, et al. Intensifying Salvage Therapy in Prostate-specific Antigen Recurrent Prostate Cancer After Radical Prostatectomy with Apalutamide, Salvage Radiation, and Docetaxel: The Phase 2 STARTAR Trial.",
-    url: "https://doi.org/10.1016/j.eururo.2023.03.009"
+    url: "https://doi.org/10.1016/j.euo.2024.06.013"
   },
   "217": {
     text: "Tran PT, Lowe K, Tsai HL, Song DY, Hung AY, Hearn JWD, et al. Phase II Randomized Study of Salvage Radiation Therapy Plus Enzalutamide or Placebo for High-Risk Prostate-Specific Antigen Recurrent Prostate Cancer After Radical Prostatectomy: The SALV-ENZA Trial.",
-    url: "https://doi.org/10.1016/j.eururo.2022.11.010"
+    url: "https://doi.org/10.1200/jco.22.01662"
   },
   "218": {
     text: "Sargos P, Bellera C, Bentahila R, Guerni M, Benziane-Ouaritini N, Teyssonneau D, et al. Short-term Darolutamide (ODM-201) Concomitant to Radiation Therapy for Patients with Unfavorable Intermediate-risk Prostate Cancer: The Darius (AFU-GETUG P15) Phase 2 Trial Protocol.",
-    url: "https://doi.org/10.1016/j.prnil.2023.100180"
+    url: "https://doi.org/10.1016/j.euo.2024.04.023"
   },
   "219": {
     text: "Attard G, Murphy L, Clarke NW, Cross W, Jones RJ, Parker CC, et al. Abiraterone acetate and prednisolone with or without enzalutamide for high-risk non-metastatic prostate cancer.",
-    url: "https://doi.org/10.1056/NEJMoa2207751"
+    url: "https://doi.org/10.1016/s0140-6736(21)02437-5"
   },
   "220": {
     text: "Francolini G, Allegra AG, Detti B, Di Cataldo V, Caini S, Bruni A, et al. Stereotactic Body Radiation Therapy and Abiraterone Acetate for Patients Affected by Oligometastatic Castrate-Resistant Prostate Cancer: A Randomized Phase II Trial (ARTO).",
-    url: "https://doi.org/10.3390/cancers14092251"
+    url: "https://doi.org/10.1200/jco.23.00985"
   },
   "221": {
     text: "Wang J, Yang Q, Haffty BG, Li X, Moran MS. Fulvestrant radiosensitizes human estrogen receptor-positive breast cancer cells. Biochem Biophys Res Commun. 2013 Feb 8;431(2):146–51.",
-    url: "https://doi.org/10.1016/j.bbrc.2012.12.104"
+    url: "https://doi.org/10.1016/j.bbrc.2013.01.006"
   },
   "222": {
     text: "Ding J, Guo Y, Jiang X, Li K, Fu W, Cao Y. Concomitant fulvestrant with reirradiation for unresectable locoregional recurrent estrogen receptor positive (ER+) breast cancer.",
-    url: "https://doi.org/10.21037/tcr-22-1314"
+    url: "https://doi.org/10.1097/MD.0000000000021344"
   },
   "223": {
     text: "Azria D, Belkacemi Y, Romieu G, Gourgou S, Gutowski M, Zaman K, et al. Concurrent or sequential adjuvant letrozole and radiotherapy after conservative surgery for early-stage breast cancer (CO-HO-RT): a phase 2 randomised trial.",
-    url: "https://doi.org/10.1016/S1470-2045(23)00670-3"
+    url: "https://doi.org/10.1016/s1470-2045(10)70013-9"
   },
   "224": {
     text: "Antoni D, Burckel H, Noel G. Combining Radiation Therapy with ALK Inhibitors in Anaplastic Lymphoma Kinase-Positive Non-Small Cell Lung Cancer (NSCLC): A Clinical and Preclinical Overview. Cancers. 2021 May 15;13(10):2394.",
@@ -229,27 +229,27 @@ export const referencesData = {
   },
   "225": {
     text: "Occhipinti M, Falcone R, Onesti CE, Botticelli A, Mazzuca F, Marchetti P, et al. Crizotinib plus radiotherapy in brain oligoprogressive NSCLC ROS1 rearranged and PD-L1 strong. J Thorac Dis. 2017 Nov;9(11):E985–9.",
-    url: "https://doi.org/10.21037/jtd.2017.09.92"
+    url: "https://doi.org/10.21037/jtd.2017.09.74"
   },
   "226": {
     text: "Dai Y, Wei Q, Schwager C, Moustafa M, Zhou C, Lipson KE, et al. Synergistic effects of crizotinib and radiotherapy in experimental EML4-ALK fusion positive lung cancer.",
-    url: "https://doi.org/10.1016/j.canlet.2017.10.008"
+    url: "https://doi.org/10.1016/j.radonc.2014.12.009"
   },
   "227": {
     text: "Gan GN, Weickhardt AJ, Scheier B, Doebele RC, Gaspar LE, Kavanagh BD, et al. Stereotactic radiation therapy can safely and durably control sites of extra-central nervous system oligoprogressive disease in anaplastic lymphoma kinase-positive lung cancer patients receiving crizotinib.",
-    url: "https://doi.org/10.1016/j.ijrobp.2014.04.056"
+    url: "https://doi.org/10.1016/j.ijrobp.2013.11.010"
   },
   "228": {
     text: "Broniscer A, Baker SD, Wetmore C, Pai Panandiker AS, Huang J, Davidoff AM, et al. Phase I trial, pharmacokinetics, and pharmacodynamics of vandetanib and dasatinib in children with newly diagnosed diffuse intrinsic pontine glioma.",
-    url: "https://doi.org/10.1200/JCO.2012.46.3511"
+    url: "https://doi.org/10.1158/1078-0432.ccr-13-0306"
   },
   "229": {
     text: "Stagno F, Vigneri P, Fabro VD, Stella S, Restuccia N, Giallongo C, et al. Concomitant and feasible treatment with dasatinib and the anti-EGFR antibody cetuximab plus radiotherapy in a CML patient with multiple squamous neoplasias.",
-    url: "https://doi.org/10.3892/mco.2016.1029"
+    url: "https://doi.org/10.3109/02841860903302913"
   },
   "230": {
     text: "Joensuu H, Eriksson M, Collan J, Balk MH, Leyvraz S, Montemurro M. Radiotherapy for GIST progressing during or after tyrosine kinase inhibitor therapy: A prospective study.",
-    url: "https://doi.org/10.1016/j.radonc.2015.10.020"
+    url: "https://doi.org/10.1016/j.radonc.2015.07.025"
   },
   "231": {
     text: "Cote GM, Barysauskas CM, DeLaney TF, Schwab J, Raskin K, Lozano-Calderon S, et al. A Phase 1 Study of Nilotinib Plus Radiation in High-Risk Chordoma.",
