@@ -253,7 +253,7 @@ export const referencesData = {
   },
   "231": {
     text: "Cote GM, Barysauskas CM, DeLaney TF, Schwab J, Raskin K, Lozano-Calderon S, et al. A Phase 1 Study of Nilotinib Plus Radiation in High-Risk Chordoma.",
-    url: "https://doi.org/10.1016/j.ijrobp.2015.07.1013"
+    url: "https://doi.org/10.1016/j.ijrobp.2018.07.2013"
   },
   "232": {
     text: "Tan B, Huang Y, Zhang B, Lin N. The effect of ibrutinib on radiosensitivity in pancreatic cancer cells by targeting EGFR/AKT/mTOR signaling pathway. Biomed Pharmacother Biomedecine Pharmacother. 2020 Aug;128:110133.",
@@ -261,11 +261,11 @@ export const referencesData = {
   },
   "233": {
     text: "De Wolf K, Rottey S, Vermaelen K, Decaestecker K, Sundahl N, De Lobel L, et al. Combined high dose radiation and pazopanib in metastatic renal cell carcinoma: a phase I dose escalation trial.",
-    url: "https://doi.org/10.1016/j.radonc.2015.10.012"
+    url: "https://doi.org/10.1186/s13014-017-0893-x"
   },
   "234": {
     text: "Sherman EJ, Harris J, Bible KC, Xia P, Ghossein RA, Chung CH, et al. Radiotherapy and paclitaxel plus pazopanib or placebo in anaplastic thyroid cancer: a randomised, double-blind, placebo-controlled, multicentre, phase 2 trial.",
-    url: "https://doi.org/10.1016/j.ejca.2016.02.017"
+    url: "https://doi.org/10.1016/S1470-2045(22)00763-X"
   },
   "235": {
     text: "Eze C, Hegemann NS, Roengvoraphoj O, Dantes M, Manapov F. Concurrent Afatinib and Whole-Brain Radiotherapy in Exon 19-del-EGFR Mutant Lung Adenocarcinoma: A Case Report and Mini Review of the Literature. Front Oncol. 2017;7:88.",
