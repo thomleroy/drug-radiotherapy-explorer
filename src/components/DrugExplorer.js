@@ -7,12 +7,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, Filter, X } from 'lucide-react'; // Ajoutez aux imports existants
 import { referencesData, formatReference } from '../data/references';
 import DotsOverlay from '../components/ui/DotsOverlay';
+import { Globe, Mail } from 'lucide-react';
+import { translations } from './translations';
+import LanguageToggle from './LanguageToggle';
 
 const DrugExplorer = () => {
   // États
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [halfLifeFilter, setHalfLifeFilter] = useState('all');
+  const [lang, setLang] = useState('en');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [classFilter, setClassFilter] = useState('all')
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
@@ -32,7 +36,19 @@ const DrugExplorer = () => {
   const [zoomedCell, setZoomedCell] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
-
+const t = (key) => {
+  const keys = key.split('.');
+  let value = translations[lang];
+  for (const k of keys) {
+    // Add a check to handle nested translations safely
+    if (value && typeof value === 'object') {
+      value = value[k];
+    } else {
+      return key; // Return the original key if translation not found
+    }
+  }
+  return value || key;
+};
   // Gestionnaire de redimensionnement responsive
   useEffect(() => {
     const handleResize = () => {
@@ -192,27 +208,27 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
   // Stats calculées pour le dashboard
   const stats = [
     { 
-      label: 'Total Drugs',
+      label: t('categories.all'),
       value: filterAndSortDrugs().length,
       color: 'bg-sfro-light text-sfro-dark'
     },
     { 
-      label: 'Chemotherapy',
+      label: t('categories.chemotherapy'),
       value: filterAndSortDrugs().filter(d => d.category === 'chemotherapy').length,
       color: 'bg-blue-50 text-blue-800'
     },
     { 
-      label: 'Endocrine',
+      label: t('categories.endocrine'),
       value: filterAndSortDrugs().filter(d => d.category === 'endocrine').length,
       color: 'bg-purple-50 text-purple-800'
     },
     { 
-      label: 'Targeted',
+      label: t('categories.targeted'),
       value: filterAndSortDrugs().filter(d => d.category === 'targeted').length,
       color: 'bg-orange-50 text-orange-800'
     },
     { 
-      label: 'Immunotherapy',
+      label: t('categories.immunotherapy'),
       value: filterAndSortDrugs().filter(d => d.category === 'immunotherapy').length,
       color: 'bg-green-50 text-green-800'
     }
@@ -312,38 +328,43 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
       <div className="space-y-4">
         <Input
           type="text"
-          placeholder="Search..."
+          placeholder={t('search')}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full"
         />
         <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full border rounded-md p-2"
-        >
-          <option value="all">All categories</option>
-          <option value="chemotherapy">Chemotherapy</option>
-          <option value="endocrine">Endocrine Therapy</option>
-          <option value="targeted">Targeted Therapy</option>
-          <option value="immunotherapy">Immunotherapy</option>
-        </select>
+  value={selectedCategory}
+  onChange={(e) => setSelectedCategory(e.target.value)}
+  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+>
+  <option value="all">{t('categories.all')}</option>
+  <option value="chemotherapy">{t('categories.chemotherapy')}</option>
+  <option value="endocrine">{t('categories.endocrine')}</option>
+  <option value="targeted">{t('categories.targeted')}</option>
+  <option value="immunotherapy">{t('categories.immunotherapy')}</option>
+</select>
+
+<select
+  value={classFilter}
+  onChange={(e) => setClassFilter(e.target.value)}
+  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+>
+  <option value="all">{t('drugClass.all')}</option>
+  {[...new Set(allDrugs.map(drug => drug.class))].sort().map(drugClass => (
+    <option key={drugClass} value={drugClass}>
+      {lang === 'fr' && translations.fr.drugClasses?.[drugClass] 
+        ? translations.fr.drugClasses[drugClass] 
+        : drugClass}
+    </option>
+  ))}
+</select>
       </div>
     </motion.div>
   );
 
   const formatColumnName = (column) => {
-    const names = {
-      name: 'Drug Name',
-      class: 'Class',
-      category: 'Category',
-      halfLife: 'Half-life',
-      normofractionatedRT: 'Normofractionated RT',
-      palliativeRT: 'Palliative RT',
-      stereotacticRT: 'Stereotactic RT',
-      intracranialRT: 'Intracranial RT'
-    };
-    return names[column] || column;
+    return t(`columns.${column}`);
   };
 
 
@@ -352,55 +373,46 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
     <div className="min-h-screen bg-gray-50">
       <Card className="w-full max-w-7xl mx-auto my-8 shadow-xl">
         <CardHeader className="relative overflow-hidden bg-gradient-to-br from-[#00BFF3] via-[#0080A5] to-[#006080] text-white rounded-t-xl">
+  {/* Position absolue pour le toggle de langue */}
+  <div className="absolute top-4 right-4 z-20">
+    <LanguageToggle lang={lang} setLang={setLang} />
+  </div>
+
   {/* Fond décoratif avec motif et animation */}
   <div className="absolute inset-0">
-  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent animate-pulse" />
-  <div 
-    className="absolute inset-0 opacity-20"
-    style={{
-      backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
-      backgroundSize: '20px 20px'
-    }}
-  />
-</div>
+    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent animate-pulse" />
+    <div 
+      className="absolute inset-0 opacity-20"
+      style={{
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
+        backgroundSize: '20px 20px'
+      }}
+    />
+  </div>
   
-  <div className="relative px-4 pt-8 pb-6 md:px-8 md:pt-12 md:pb-10">
-    {/* Section titre et description */}
+  <div className="relative py-6 px-4 sm:px-6 md:px-8">
     <div className="max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
-        <div className="flex-grow text-center md:text-left max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-3 bg-clip-text">
-              <span className="relative">
-                Radiosync
-                <span className="absolute -inset-1 md:-inset-2 bg-white/5 rounded-lg blur-sm" />
-              </span>
-            </h1>
-            <p className="text-sm md:text-lg text-white/90 max-w-2xl leading-relaxed">
-              A web-app to know when and how long to stop anticancer therapies before radiotherapy
-            </p>
-          </motion.div>
+      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+        {/* Texte et Titre */}
+        <div className="flex-grow text-center sm:text-left">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-2">
+            {t('title')}
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-white/90 max-w-2xl">
+            {t('subtitle')}
+          </p>
         </div>
         
-        {/* Logo SFRO */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex-shrink-0 md:ml-8"
-        >
-          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-xl shadow-lg hover:shadow-xl transition-all">
             <img 
               src="/sfro-logo.png" 
               alt="SFRO Logo" 
-              className="h-12 md:h-20 w-auto"
+              className="h-10 sm:h-12 md:h-16 lg:h-20 w-auto"
             />
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   </div>
@@ -438,35 +450,37 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
               </div>
 
               <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-              >
-                <option value="all">All Categories</option>
-                <option value="chemotherapy">Chemotherapy</option>
-                <option value="endocrine">Endocrine Therapy</option>
-                <option value="targeted">Targeted Therapy</option>
-                <option value="immunotherapy">Immunotherapy</option>
-              </select>
+  value={selectedCategory}
+  onChange={(e) => setSelectedCategory(e.target.value)}
+  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+>
+  <option value="all">{t('categories.all')}</option>
+  <option value="chemotherapy">{t('categories.chemotherapy')}</option>
+  <option value="endocrine">{t('categories.endocrine')}</option>
+  <option value="targeted">{t('categories.targeted')}</option>
+  <option value="immunotherapy">{t('categories.immunotherapy')}</option>
+</select>
 
               <select
-                value={halfLifeFilter}
-                onChange={(e) => setHalfLifeFilter(e.target.value)}
-                className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-              >
-                <option value="all">All Half-lives</option>
-                <option value="short">Short (≤24h)</option>
-                <option value="long">Long (>24h)</option>
-              </select>
+  value={halfLifeFilter}
+  onChange={(e) => setHalfLifeFilter(e.target.value)}
+  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+>
+  <option value="all">{t('halfLife.all')}</option>
+  <option value="short">{t('halfLife.short')}</option>
+  <option value="long">{t('halfLife.long')}</option>
+</select>
 
               <select
   value={classFilter}
   onChange={(e) => setClassFilter(e.target.value)}
   className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
 >
-  <option value="all">All Classes</option>
+  <option value="all">{t('drugClass.all')}</option>
   {[...new Set(allDrugs.map(drug => drug.class))].sort().map(drugClass => (
-    <option key={drugClass} value={drugClass}>{drugClass}</option>
+    <option key={drugClass} value={drugClass}>
+      {t(`drugClasses.${drugClass}`) || drugClass}
+    </option>
   ))}
 </select>
             </div>
@@ -481,7 +495,7 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
     className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 transition-colors px-6 py-3 rounded-lg text-gray-700 shadow-sm font-medium"
   >
     <Settings className="h-5 w-5" />
-    Manage Columns
+    {t('buttons.manageColumns')}
   </motion.button>
 
   <motion.button
@@ -491,7 +505,7 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
     className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
   >
     <Download className="h-5 w-5" />
-    Export to CSV
+    {t('buttons.exportCSV')}
   </motion.button>
 </div>
 
@@ -529,7 +543,7 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
         className="bg-white rounded-lg shadow-xl p-6 w-80 max-w-full mx-4"
       >
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-sfro-dark">Visible Columns</h3>
+          <h3 className="text-lg font-semibold text-sfro-dark">{t('columnManager.title')}</h3>
           <button 
             onClick={() => setShowColumnManager(false)}
             className="text-gray-400 hover:text-gray-600 rounded-full p-1 hover:bg-gray-100"
@@ -565,37 +579,51 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
 
                 <table className="w-full border-collapse bg-white table-fixed">
                   <thead className="sticky top-0 bg-sfro-light z-10">
-                    <tr>
-                      {visibleColumns.name && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">
-                          <button className="flex items-center hover:text-sfro-primary" onClick={() => requestSort('name')}>
-                            Drug Name <HelpCircle className="ml-1 h-3 w-3" />
-                          </button>
-                        </th>
-                      )}
-                      {visibleColumns.class && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">Class</th>
-                      )}
-                      {visibleColumns.category && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Category</th>
-                      )}
-                      {visibleColumns.halfLife && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Half-life</th>
-                      )}
-                      {visibleColumns.normofractionatedRT && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Normo RT</th>
-                      )}
-                      {visibleColumns.palliativeRT && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Pallia RT</th>
-                      )}
-                      {visibleColumns.stereotacticRT && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Stereo RT</th>
-                      )}
-                      {visibleColumns.intracranialRT && (
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Intra RT</th>
-                      )}
-                    </tr>
-                  </thead>
+  <tr>
+    {visibleColumns.name && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">
+        <button className="flex items-center hover:text-sfro-primary" onClick={() => requestSort('name')}>
+          {t('columns.name')} <HelpCircle className="ml-1 h-3 w-3" />
+        </button>
+      </th>
+    )}
+    {visibleColumns.class && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">
+        {t('columns.class')}
+      </th>
+    )}
+    {visibleColumns.category && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">
+        {t('columns.category')}
+      </th>
+    )}
+    {visibleColumns.halfLife && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">
+        {t('columns.halfLife')}
+      </th>
+    )}
+    {visibleColumns.normofractionatedRT && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">
+        {t('columns.normofractionatedRT')}
+      </th>
+    )}
+    {visibleColumns.palliativeRT && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">
+        {t('columns.palliativeRT')}
+      </th>
+    )}
+    {visibleColumns.stereotacticRT && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">
+        {t('columns.stereotacticRT')}
+      </th>
+    )}
+    {visibleColumns.intracranialRT && (
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">
+        {t('columns.intracranialRT')}
+      </th>
+    )}
+  </tr>
+</thead>
                   <tbody className="divide-y divide-gray-200">
                     {filterAndSortDrugs().map((drug, index) => (
                       <tr key={index} className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs">
@@ -610,12 +638,14 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
                           </td>
                         )}
                         {visibleColumns.class && (
-                          <td className="px-3 py-2 whitespace-normal text-gray-500">
-                            <Tooltip content={drug.class}>
-                              {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
-                            </Tooltip>
-                          </td>
-                        )}
+  <td className="px-3 py-2 whitespace-normal text-gray-500 truncate max-w-[200px]">
+    <Tooltip content={drug.class}>
+      {lang === 'fr' 
+        ? (t(`drugClasses.${drug.class}`) || drug.class) 
+        : drug.class}
+    </Tooltip>
+  </td>
+)}
                         {visibleColumns.category && (
                           <td className="px-3 py-2">
                             <Badge color={getCategoryColor(drug.category)}>
@@ -658,32 +688,38 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
           <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-green-100 border rounded"></div>
-              <span>No delay required (0)</span>
+              <span>{t('legend.noDelay')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
-              <span>48h delay</span>
+              <span>{t('legend.shortDelay')}</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-red-100 border rounded"></div>
-              <span>Multiple days delay</span>
+              <span>{t('legend.longDelay')}</span>
             </div>
           </div>
         </CardContent>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 mt-8 p-6 bg-sfro-light">
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-sfro-dark">
-            <div className="mb-4 md:mb-0">
-              © 2025 SFRO - Société Française de Radiothérapie Oncologique
-            </div>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-sfro-primary transition-colors">About</a>
-              <a href="#" className="hover:text-sfro-primary transition-colors">Contact</a>
-              <a href="#" className="hover:text-sfro-primary transition-colors">Legal Notice</a>
-            </div>
-          </div>
-        </div>
+<div className="border-t border-gray-200 mt-8 p-6 bg-sfro-light">
+  <div className="flex flex-col md:flex-row justify-between items-center text-sm text-sfro-dark space-y-4 md:space-y-0">
+    <div>
+      © 2025 SFRO - Société Française de Radiothérapie Oncologique
+    </div>
+    <div className="flex items-center gap-6">
+      
+      <a href="mailto:contact@sfro.fr" className="hover:text-sfro-primary transition-colors flex items-center gap-2">
+        <Mail className="h-4 w-4" />
+        contact@sfro.fr
+      </a>
+      <div className="flex gap-4">
+        <a href="#" className="hover:text-sfro-primary transition-colors">{t('footer.about')}</a>
+        <a href="#" className="hover:text-sfro-primary transition-colors">{t('footer.legal')}</a>
+      </div>
+    </div>
+  </div>
+</div>
       </Card>
 
       {/* References Popup */}
