@@ -301,55 +301,55 @@ export const referencesData = {
   },
   "243": {
     text: "Olsen MR, Denu RA, Lyon JB, Gulliver JM, Capitini CM, DeSantes KB. Undifferentiated and Unresectable Sarcoma With NTRK3-Fusion in a Pediatric Patient Treated With Larotrectinib and Proton Beam Radiotherapy.",
-    url: "https://doi.org/10.3390/cancers12030545"
+    url: "https://doi.org/10.1097/mph.0000000000002358"
   },
   "244": {
     text: "Rao SS, Thompson C, Cheng J, Haimovitz-Friedman A, Powell SN, Fuks Z, et al. Axitinib sensitization of high Single Dose Radiotherapy.",
-    url: "https://doi.org/10.1158/1538-7445.AM2019-2263"
+    url: "https://doi.org/10.1016/j.radonc.2014.02.010"
   },
   "245": {
     text: "Hu K, Ma MW, Gao XS, Chen JY, Li XY, Qin SB, et al. Mid-Term Analysis of the Combination Therapy of Axitinib, Toripalimab, and Stereotactic Ablative Body Radiotherapy (SABR) in the Treatment of Recurrent Metastatic Renal Cell Carcinoma.",
-    url: "https://doi.org/10.21147/j.issn.1000-9604.2022.02.07"
+    url: "https://doi.org/10.1016/j.ijrobp.2024.07.1192"
   },
   "246": {
     text: "Weng YS, Chiang IT, Tsai JJ, Liu YC, Hsu FT. Lenvatinib Synergistically Promotes Radiation Therapy in Hepatocellular Carcinoma by Inhibiting Src/STAT3/NF-κB-Mediated Epithelial–Mesenchymal Transition and Metastasis.",
-    url: "https://doi.org/10.3390/cancers14092228"
+    url: "https://doi.org/10.1016/j.ijrobp.2022.09.060"
   },
   "247": {
     text: "Ji X, Xu Z, Sun J, Li W, Duan X, Wang Q. Lenvatinib with or without stereotactic body radiotherapy for hepatocellular carcinoma with portal vein tumor thrombosis: a retrospective study.",
-    url: "https://doi.org/10.1016/j.ejca.2022.06.023"
+    url: "https://doi.org/10.1186/s13014-023-02270-z"
   },
   "248": {
     text: "Morikawa A, Grkovski M, Patil S, Jhaveri KL, Tang K, Humm JL, et al. A phase I trial of sorafenib with whole brain radiotherapy (WBRT) in breast cancer patients with brain metastases and a correlative study of FLT-PET brain imaging.",
-    url: "https://doi.org/10.1016/j.ijrobp.2014.10.011"
+    url: "https://doi.org/10.1007/s10549-021-06209-4"
   },
   "249": {
     text: "O'Steen S, Green DJ, Gopal AK, Orozco JJ, Kenoyer AL, Lin Y, et al. Venetoclax Synergizes with Radiotherapy for Treatment.",
-    url: "https://doi.org/10.1158/1538-7445.AM2022-1605"
+    url: "https://doi.org/10.1158/0008-5472.CAN-17-0082"
   },
   "250": {
     text: "Mueller S, Yang X, Sottero TL, Gragg A, Prasad G, Polley MY, et al. Cooperation of the HDAC inhibitor vorinostat and radiation in metastatic neuroblastoma: efficacy and underlying mechanisms.",
-    url: "https://doi.org/10.1158/1078-0432.CCR-14-1578"
+    url: "https://doi.org/10.1016/j.canlet.2011.03.010"
   },
   "251": {
     text: "Ree AH, Dueland S, Folkvord S, Hole KH, Seierstad T, Johansen M, et al. Vorinostat, a histone deacetylase inhibitor, combined with pelvic palliative radiotherapy for gastrointestinal carcinoma: the Pelvic Radiation and Vorinostat (PRAVO) phase 1 study.",
-    url: "https://doi.org/10.1016/j.radonc.2014.10.009"
+    url: "https://doi.org/10.1016/S1470-2045(10)70058-9"
   },
   "252": {
     text: "Shi W, Palmer JD, Werner-Wasik M, Andrews DW, Evans JJ, Glass J, et al. Phase I trial of panobinostat and fractionated stereotactic re-irradiation therapy for recurrent high grade gliomas.",
-    url: "https://doi.org/10.1016/j.ijrobp.2014.10.004"
+    url: "https://doi.org/10.1007/s11060-016-2059-3"
   },
   "253": {
     text: "EL-Ghoubaira J, Drappatz J, Mantica M. Retrospective study of ivosidenib for patients with recurrent IDH mutant gliomas. JCO 42, 2040-2040(2024).",
-    url: "https://doi.org/10.1200/JCO.2024.42.4_suppl.2040"
+    url: "https://doi.org/10.1200/JCO.2024.42.16_suppl.2040"
   },
   "254": {
     text: "Kubicek GJ, Axelrod RS, Machtay M, Ahn PH, Anne PR, Fogh S, et al. Phase I trial using the proteasome inhibitor bortezomib and concurrent chemoradiotherapy for head-and-neck malignancies.",
-    url: "https://doi.org/10.1016/j.ijrobp.2010.05.020"
+    url: "https://doi.org/10.1016/j.ijrobp.2011.09.023"
   },
   "255": {
     text: "Kubicek GJ, Werner-Wasik M, Machtay M, Mallon G, Myers T, Ramirez M, et al. Phase I trial using proteasome inhibitor bortezomib and concurrent temozolomide and radiotherapy for central nervous system malignancies.",
-    url: "https://doi.org/10.1016/j.ijrobp.2010.05.037"
+    url: "https://doi.org/10.1016/j.ijrobp.2008.08.050"
   },
   "256": {
     text: "Lao CD, Friedman J, Tsien CI, Normolle DP, Chapman C, Cao Y, et al. Concurrent whole brain radiotherapy and bortezomib for brain metastasis.",
