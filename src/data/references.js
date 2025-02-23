@@ -57,71 +57,71 @@ export const referencesData = {
   },
   "200": {
     text: "Cailleteau A, Maingon P, Choquet S, Bourdais R, Antoni D, Lioure B, et al. Phase 1 Study of the Combination of Escalated Total Marrow Irradiation Using Helical Tomotherapy and Fixed High-Dose Melphalan (140 mg/m2) Followed by Autologous Stem Cell Transplantation at First Relapse in Multiple Myeloma. Int J Radiat Oncol Biol Phys. 2023 Mar 1;115(3):677–85.",
-    url: "https://doi.org/10.1016/j.ijrobp.2023.02.043"
+    url: "https://doi.org/10.1016/j.ijrobp.2022.09.069"
   },
   "201": {
     text: "Zachariae C, Overgaard J. Interactions of radiation, cyclophosphamide and nimorazole in a C3H mammary carcinoma in vivo. Int J Radiat Oncol Biol Phys. 1986 Aug;12(8):1445–8.",
-    url: "https://doi.org/10.1016/0360-3016(86)90177-8"
+    url: "https://doi.org/10.1016/0360-3016(86)90191-4"
   },
   "202": {
     text: "Byar D, Kenis Y, Van Andel JG, de Jong M, Laval P, Marion L, et al. Results of a E.O.R.T.C. randomized trial of cyclophosphamide and radiotherapy in inoperable lung cancer: Prognostic factors and treatment results. Eur J Cancer 1965. 1978 Sep 1;14(9):919–30.",
-    url: "https://doi.org/10.1016/0014-2964(78)90136-9"
+    url: "https://doi.org/10.1016/0014-2964(78)90018-x"
   },
   "203": {
     text: "Eckert F, Matuschek C, Mueller AC, Weinmann M, Hartmann JT, Belka C, et al. Definitive radiotherapy and single-agent radiosensitizing ifosfamide in patients with localized, irresectable soft tissue sarcoma: a retrospective analysis. Radiat Oncol Lond Engl. 2010 Jun 16;5:55.",
-    url: "https://doi.org/10.1186/1748-717X-5-55"
+    url: "https://doi.org/10.1186/1748-717x-5-55"
   },
   "204": {
     text: "Spalek MJ, Koseła-Paterczyk H, Borkowska A, Wagrodzki M, Szumera-Cieckiewicz A, Czarnecka AM, et al. Combined Preoperative Hypofractionated Radiotherapy With Doxorubicin-Ifosfamide Chemotherapy in Marginally Resectable Soft Tissue Sarcomas: Results of a Phase 2 Clinical Trial. Int J Radiat Oncol. 2021 Jul 15;110(4):1053–63.",
-    url: "https://doi.org/10.1016/j.ijrobp.2020.11.009"
+    url: "https://doi.org/10.1016/j.ijrobp.2021.02.019"
   },
   "205": {
     text: "Nahi H, Svedmyr E, Lerner R. Bendamustine in combination with high-dose radiotherapy and thalidomide is effective in treatment of multiple myeloma with central nervous system involvement. Eur J Haematol. 2014;92(5):454–5.",
-    url: "https://doi.org/10.1111/ejh.12255"
+    url: "https://doi.org/10.1111/ejh.12247"
   },
   "206": {
     text: "Pan E, Yu D, Zhao X, Neuger A, Smith P, Chinnaiyan P, et al. Phase I study of bendamustine with concurrent whole brain radiation therapy in patients with brain metastases from solid tumors. J Neurooncol. 2014 Sep;119(2):413–20.",
-    url: "https://doi.org/10.1007/s11060-014-1509-7"
+    url: "https://doi.org/10.1007/s11060-014-1510-6"
   },
   "207": {
     text: "Arcicasa M, Roncadin M, Bidoli E, Dedkov A, Gigante M, Trovò MG. Reirradiation and lomustine in patients with relapsed high-grade gliomas. Int J Radiat Oncol Biol Phys. 1999 Mar 1;43(4):789–93.",
-    url: "https://doi.org/10.1016/S0360-3016(98)00431-3"
+    url: "https://doi.org/10.1016/s0360-3016(98)00457-x"
   },
   "208": {
     text: "Herrlinger U, Rieger J, Koch D, Loeser S, Blaschke B, Kortmann RD, et al. Phase II Trial of Lomustine Plus Temozolomide Chemotherapy in Addition to Radiotherapy in Newly Diagnosed Glioblastoma: UKT-03. J Clin Oncol. 2006 Sep 20;24(27):4412–7.",
-    url: "https://doi.org/10.1200/JCO.2006.06.6146"
+    url: "https://doi.org/10.1200/jco.2006.06.9104"
   },
   "209": {
     text: "Sanfilippo R, Hindi N, Cruz Jurado J, Blay JY, Lopez-Pousa A, Italiano A, et al. Effectiveness and Safety of Trabectedin and Radiotherapy for Patients With Myxoid Liposarcoma: A Nonrandomized Clinical Trial. JAMA Oncol. 2023 May 1;9(5):656–63.",
-    url: "https://doi.org/10.1001/jamaoncol.2022.7477"
+    url: "https://doi.org/10.1001/jamaoncol.2023.0056"
   },
   "210": {
     text: "Martin-Broto J, Hindi N, Lopez-Pousa A, Peinado-Serrano J, Alvarez R, Alvarez-Gonzalez A, et al. Assessment of Safety and Efficacy of Combined Trabectedin and Low-Dose Radiotherapy for Patients With Metastatic Soft-Tissue Sarcomas: A Nonrandomized Phase 1/2 Clinical Trial. JAMA Oncol. 2020 Apr 1;6(4):535–41.",
-    url: "https://doi.org/10.1001/jamaoncol.2019.5524"
+    url: "https://jamanetwork.com/journals/jamaoncology/fullarticle/2761664"
   },
   "164": {
     text: "Spittle MF. Methotrexate and radiation. Int J Radiat Oncol. 1978 Jan 1;4(1):103–7.",
-    url: "https://doi.org/10.1016/0360-3016(78)90034-8"
+    url: "https://doi.org/10.1016/0360-3016(78)90123-2"
   },
   "116": {
     text: "Sun JM, Ahn YC, Choi EK, Ahn MJ, Ahn JS, Lee SH, et al. Phase III trial of concurrent thoracic radiotherapy with either first- or third-cycle chemotherapy for limited-disease small-cell lung cancer. Ann Oncol Off J Eur Soc Med Oncol. 2013 Aug;24(8):2088–92.",
-    url: "https://doi.org/10.1093/annonc/mdt176"
+    url: "https://doi.org/10.1093/annonc/mdt140"
   },
   "185": {
     text: "Boothman DA, Trask DK, Pardee AB. Inhibition of potentially lethal DNA damage repair in human tumor cells by beta-lapachone, an activator of topoisomerase I. Cancer Res. 1989 Feb 1;49(3):605–12.",
-    url: "https://doi.org/10.1158/0008-5472.CAN-89-0605"
+    url: "https://doi.org/10.1073/pnas.86.13.4963"
   },
   "186": {
     text: "Einhorn L, Krause M, Hornback N, Furnas B. Enhanced pulmonary toxicity with bleomycin and radiotherapy in oat cell lung cancer. Cancer. 1976 May;37(5):2414–6.",
-    url: "https://doi.org/10.1002/1097-0142(197605)37:5<2414::AID-CNCR2820370534>3.0.CO;2-Q"
+    url: "https://doi.org/10.1002/1097-0142(197605)37:5%3C2414::aid-cncr2820370533%3E3.0.co;2-j"
   },
   "187": {
     text: "Vermund H, Kaalhus O, Winther F, Trausjø J, Thorud E, Harang R. Bleomycin and radiation therapy in squamous cell carcinoma of the upper aero-digestive tract: A phase III clinical trial. Int J Radiat Oncol Biol Phys. 1985 Nov 1;11(11):1877–86.",
-    url: "https://doi.org/10.1016/0360-3016(85)90294-X"
+    url: "https://doi.org/10.1016/0360-3016(85)90267-6"
   },
   "211": {
     text: "Meattini I, Desideri I, Di Cataldo V, Francolini G, De Luca Cardillo C, Scotti V, et al. Safety of eribulin mesylate and concomitant radiotherapy for metastatic breast cancer: a single-center experience and review of the literature. Future Oncol Lond Engl. 2016 May;12(9):1117–24.",
-    url: "https://doi.org/10.2217/fon-2015-0032"
+    url: "https://doi.org/10.2217/fon-2015-0059"
   },
   "212": {
     text: "Salama MM, Ghorab EM, Al-Abyad AG, Al-Bahy KM. Concomitant weekly vincristine and radiation followed by adjuvant vincristine and carboplatin in the treatment of high risk medulloblastoma: Ain Shams University Hospital and Sohag Cancer Center study. J Egypt Natl Cancer Inst. 2006 Jun;18(2):167–74.",
