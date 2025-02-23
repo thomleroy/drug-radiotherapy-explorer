@@ -346,65 +346,35 @@ const DrugExplorer = () => {
     return names[column] || column;
   };
 
-  // Column Manager Component
-  const ColumnManager = () => (
-    <motion.div 
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="absolute right-0 top-12 bg-white rounded-lg shadow-xl p-4 z-50 w-64"
-    >
-      <div className="flex justify-between items-center mb-3">
-        <h3 className="font-semibold text-sfro-dark">Visible Columns</h3>
-        <button 
-          onClick={() => setShowColumnManager(false)}
-          className="text-gray-400 hover:text-gray-600"
-        >
-          <X size={16} />
-        </button>
-      </div>
-      <div className="space-y-2">
-        {Object.entries(visibleColumns).map(([column, isVisible]) => (
-          <label key={column} className="flex items-center space-x-2 cursor-pointer">
-            <input 
-              type="checkbox"
-              checked={isVisible}
-              onChange={() => setVisibleColumns(prev => ({...prev, [column]: !prev[column]}))}
-              className="rounded text-sfro-primary focus:ring-sfro-primary"
-            />
-            <span className="text-sm">{formatColumnName(column)}</span>
-          </label>
-        ))}
-      </div>
-    </motion.div>
-  );
+
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Card className="w-full max-w-7xl mx-auto my-8 shadow-xl">
         <CardHeader className="relative overflow-hidden bg-gradient-to-r from-[#00BFF3] to-[#0080A5] text-white rounded-t-lg">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
-          
-          <div className="relative flex items-center justify-between p-8">
-            <div className="flex-grow">
-              <CardTitle className="text-7xl font-bold tracking-tight mb-2">
-                Radiosync
-              </CardTitle>
-              <p className="text-lg text-white/90 max-w-2xl">
-                A web-app to know when and how long to stop anticancer therapies before radiotherapy
-              </p>
-            </div>
-            
-            <div className="flex-shrink-0 ml-8">
-              <div className="bg-white p-4 rounded-lg shadow-lg">
-                <img 
-                  src="/sfro-logo.png" 
-                  alt="SFRO Logo" 
-                  className="h-20 w-auto"
-                />
-              </div>
-            </div>
-          </div>
-        </CardHeader>
+  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+  
+  <div className="relative flex items-center justify-between p-8">
+    <div className="flex-grow">
+      <CardTitle className="text-7xl font-bold tracking-tight mb-2">
+        Radiosync
+      </CardTitle>
+      <p className="text-lg text-white/90 max-w-2xl">
+        A web-app to know when and how long to stop anticancer therapies before radiotherapy
+      </p>
+    </div>
+    
+    <div className="flex-shrink-0 ml-8">
+      <div className="bg-white p-4 rounded-lg shadow-lg">
+        <img 
+          src="/sfro-logo.png" 
+          alt="SFRO Logo" 
+          className="h-20 w-auto"
+        />
+      </div>
+    </div>
+  </div>
+</CardHeader>
 
         <CardContent className="p-6 space-y-6">
           {/* Dashboard statistics */}
@@ -506,16 +476,63 @@ const DrugExplorer = () => {
                 exit={{ opacity: 0 }}
                 className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
               >
-                <div className="flex justify-end mb-4 p-4">
-                  <button
-                    onClick={() => setShowColumnManager(!showColumnManager)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm bg-white border rounded-md hover:bg-gray-50"
-                  >
-                    <Settings className="w-4 h-4" />
-                    Manage Columns
-                  </button>
-                  {showColumnManager && <ColumnManager />}
-                </div>
+               <div className="flex justify-end mb-4 p-4">
+  <motion.button
+    onClick={() => setShowColumnManager(!showColumnManager)}
+    className="flex items-center gap-2 px-4 py-2 text-sm bg-white border rounded-md hover:bg-gray-50 relative z-10"
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+  >
+    <Settings className="w-4 h-4" />
+    Manage Columns
+  </motion.button>
+</div>
+
+{/* Column Manager Modal */}
+<AnimatePresence>
+  {showColumnManager && (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-lg shadow-xl p-6 w-80 max-w-full mx-4"
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-lg font-semibold text-sfro-dark">Visible Columns</h3>
+          <button 
+            onClick={() => setShowColumnManager(false)}
+            className="text-gray-400 hover:text-gray-600 rounded-full p-1 hover:bg-gray-100"
+          >
+            <X size={20} />
+          </button>
+        </div>
+        <div className="space-y-3">
+          {Object.entries(visibleColumns).map(([column, isVisible]) => (
+            <label key={column} className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+              <input 
+                type="checkbox"
+                checked={isVisible}
+                onChange={() => setVisibleColumns(prev => ({...prev, [column]: !prev[column]}))}
+                className="rounded text-sfro-primary focus:ring-sfro-primary h-4 w-4"
+              />
+              <span className="text-sm font-medium text-gray-700">{formatColumnName(column)}</span>
+            </label>
+          ))}
+        </div>
+        <div className="mt-6 flex justify-end">
+          <button
+            onClick={() => setShowColumnManager(false)}
+            className="px-4 py-2 bg-sfro-primary text-white rounded-md hover:bg-sfro-secondary focus:outline-none focus:ring-2 focus:ring-sfro-light"
+          >
+            Done
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  )}
+</AnimatePresence>
 
                 <table className="w-full border-collapse bg-white table-fixed">
                   <thead className="sticky top-0 bg-sfro-light z-10">
@@ -553,37 +570,53 @@ const DrugExplorer = () => {
                   <tbody className="divide-y divide-gray-200">
                     {filterAndSortDrugs().map((drug, index) => (
                       <tr key={index} className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs">
-                        <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">
-                          <button 
-                            onClick={() => drug.references && setSelectedReferences(drug.references)}
-                            className={`text-left ${drug.references ? 'text-blue-600 hover:text-blue-800 hover:underline' : ''}`}
-                          >
-                            {drug.name}
-                          </button>
-                        </td>
-                        <td className="px-3 py-2 whitespace-normal text-gray-500">
-                          <Tooltip content={drug.class}>
-                            {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
-                          </Tooltip>
-                        </td>
-                        <td className="px-3 py-2">
-                          <Badge color={getCategoryColor(drug.category)}>
-                            {drug.category.substring(0, 3)}
-                          </Badge>
-                        </td>
-                        <td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
-                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
-                          {drug.normofractionatedRT}
-                        </td>
-                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.palliativeRT)}`}>
-                          {drug.palliativeRT}
-                        </td>
-                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.stereotacticRT)}`}>
-                          {drug.stereotacticRT}
-                        </td>
-                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.intracranialRT)}`}>
-                          {drug.intracranialRT}
-                        </td>
+                        {visibleColumns.name && (
+                          <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">
+                            <button 
+                              onClick={() => drug.references && setSelectedReferences(drug.references)}
+                              className={`text-left ${drug.references ? 'text-blue-600 hover:text-blue-800 hover:underline' : ''}`}
+                            >
+                              {drug.name}
+                            </button>
+                          </td>
+                        )}
+                        {visibleColumns.class && (
+                          <td className="px-3 py-2 whitespace-normal text-gray-500">
+                            <Tooltip content={drug.class}>
+                              {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
+                            </Tooltip>
+                          </td>
+                        )}
+                        {visibleColumns.category && (
+                          <td className="px-3 py-2">
+                            <Badge color={getCategoryColor(drug.category)}>
+                              {drug.category.substring(0, 3)}
+                            </Badge>
+                          </td>
+                        )}
+                        {visibleColumns.halfLife && (
+                          <td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
+                        )}
+                        {visibleColumns.normofractionatedRT && (
+                          <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
+                            {drug.normofractionatedRT}
+                          </td>
+                        )}
+                        {visibleColumns.palliativeRT && (
+                          <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.palliativeRT)}`}>
+                            {drug.palliativeRT}
+                          </td>
+                        )}
+                        {visibleColumns.stereotacticRT && (
+                          <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.stereotacticRT)}`}>
+                            {drug.stereotacticRT}
+                          </td>
+                        )}
+                        {visibleColumns.intracranialRT && (
+                          <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.intracranialRT)}`}>
+                            {drug.intracranialRT}
+                          </td>
+                        )}
                       </tr>
                     ))}
                   </tbody>
