@@ -353,31 +353,31 @@ export const referencesData = {
   },
   "256": {
     text: "Lao CD, Friedman J, Tsien CI, Normolle DP, Chapman C, Cao Y, et al. Concurrent whole brain radiotherapy and bortezomib for brain metastasis.",
-    url: "https://doi.org/10.1016/j.ijrobp.2012.09.016"
+    url: "https://doi.org/10.1186/1748-717x-8-204"
   },
   "257": {
     text: "Pollom EL, Bui TT, Chang ALS, Colevas AD, Hara WY. Concurrent Vismodegib and Radiotherapy for Recurrent, Advanced Basal Cell Carcinoma.",
-    url: "https://doi.org/10.1016/j.ijrobp.2014.10.003"
+    url: "https://doi.org/10.1001/jamadermatol.2015.0326"
   },
   "258": {
     text: "Barker CA, Dufault S, Arron ST, Ho AL, Algazi AP, Dunn LA, et al. Phase II, Single-Arm Trial of Induction and Concurrent Vismodegib With Curative-Intent Radiation Therapy for Locally Advanced, Unresectable Basal Cell Carcinoma.",
-    url: "https://doi.org/10.1016/j.ijrobp.2016.02.035"
+    url: "https://doi.org/10.1200/jco.23.01708"
   },
   "259": {
     text: "Nepote A, Poletto S, Bertaglia V, Carnio S, Piumatti C, Lanzetta C, et al. First reported case of concurrent sonidegib and radiotherapy for recurrent, advanced basal cell carcinoma.",
-    url: "https://doi.org/10.1016/j.lungcan.2021.09.006"
+    url: "https://doi.org/10.5603/RPOR.a2021.0010"
   },
   "260": {
     text: "Day D, Prawira A, Spreafico A, Waldron J, Karithanam R, Giuliani M, et al. Phase I trial of alpelisib in combination with concurrent cisplatin-based chemoradiotherapy in patients with locoregionally advanced squamous cell carcinoma of the head and neck.",
-    url: "https://doi.org/10.1016/j.annonc.2022.07.1146"
+    url: "https://doi.org/10.1016/j.oraloncology.2020.104753"
   },
   "261": {
     text: "Gryc T, Putz F, Goerig N, Ziegler S, Fietkau R, Distel LV, et al. Idelalisib may have the potential to increase radiotherapy side effects.",
-    url: "https://doi.org/10.1016/j.radonc.2014.10.014"
+    url: "https://doi.org/10.1186/s13014-017-0827-7"
   },
   "262": {
     text: "König L, Dreyling M, Dürig J, Engelhard M, Hohloch K, Viardot A, et al. Therapy of nodal Follicular Lymphoma (WHO grade 1/2) in clinical stage I/II using response adapted Involved Site Radiotherapy in combination with Obinutuzumab (Gazyvaro) - GAZAI Trial.",
-    url: "https://doi.org/10.1182/blood-2022-168043"
+    url: "https://doi.org/10.1186/s13063-019-3614-y"
   },
   "263": {
     text: "Herfarth K, Borchmann P, Schnaidt S, Hohloch K, Budach V, Engelhard M, et al. Rituximab With Involved Field Irradiation for Early-stage Nodal Follicular Lymphoma.",
