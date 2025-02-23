@@ -18,7 +18,8 @@ export const allDrugs = [
     normofractionatedRT: "48h",
     palliativeRT: "48h",
     stereotacticRT: "48h",
-    intracranialRT: "48h"
+    intracranialRT: "48h",
+    references: "[185]"
   },
   {
     name: "Daunorubicine",
@@ -39,7 +40,8 @@ export const allDrugs = [
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "[162]"
   },
   {
     name: "Epirubicine",
@@ -49,7 +51,8 @@ export const allDrugs = [
     normofractionatedRT: "7 days",
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
-    intracranialRT: "7 days"
+    intracranialRT: "7 days",
+    references: "[162]"
   },
   {
     name: "Idarubicine",
@@ -59,7 +62,8 @@ export const allDrugs = [
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "[162]"
   },
   {
     name: "Etoposide",
@@ -215,6 +219,93 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0"
+  },
+  {
+    name: "Triflurifine",
+    class: "Pyrimidine analogues",
+    category: "chemotherapy",
+    halfLife: "1.4h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[188,189]"
+  },
+  {
+    name: "Tipiracil",
+    class: "Pyrimidine analogues",
+    category: "chemotherapy",
+    halfLife: "1.4h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[188,189]"
+  },
+{
+    name: "Gemcitabine",
+    class: "Pyrimidine analogues",
+    category: "chemotherapy",
+    halfLife: "5 to 11h",
+    normofractionatedRT: "7 days (except concurrent chemoradiation 100mg/m2)",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "0",
+    references: "[190]"
+  },
+  {
+    name: "Cytarabine",
+    class: "Pyrimidine analogues",
+    category: "chemotherapy",
+    halfLife: "2h",
+    normofractionatedRT: "2 days",
+    palliativeRT: "2 days",
+    stereotacticRT: "2 days",
+    intracranialRT: "2 days",
+    references: "[191]"
+  },
+  {
+    name: "Azacitidine",
+    class: "Pyrimidine analogues",
+    category: "chemotherapy",
+    halfLife: "45min",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0"
+  },
+  {
+    name: "Methotrexate",
+    class: "Antifolates",
+    category: "chemotherapy",
+    halfLife: "8 to 15h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[164]"
+  },
+  {
+    name: "Pemetrexed",
+    class: "Antifolates",
+    category: "chemotherapy",
+    halfLife: "3.5h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[192]"
+  },
+  {
+    name: "Ralitrexed",
+    class: "Antifolates",
+    category: "chemotherapy",
+    halfLife: "8 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[193]"
   },
   // Alkylating agents - Nitrosea urea
 {
@@ -993,6 +1084,16 @@ export const allDrugs = [
   stereotacticRT: "48h",
   intracranialRT: "48h"
 },
+{
+  name: "Vemurafenib",
+  class: "BRAF inhibitors",
+  category: "targeted",
+  halfLife: "51h",
+  normofractionatedRT: "7 days",
+  palliativeRT: "7 days",
+  stereotacticRT: "7 days",
+  intracranialRT: "7 days"
+},
 
 // PARP inhibitors
 {
@@ -1236,4 +1337,162 @@ export const allDrugs = [
   stereotacticRT: "0",
   intracranialRT: "0"
 },
+{
+    name: "Abemaciclib",
+    class: "CDK4/6 inhibitors",
+    category: "targeted",
+    halfLife: "25h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[81]"
+  },
+  {
+    name: "Palbociclib",
+    class: "BRAF inhibitors, HDAC inhibitors",
+    category: "targeted",
+    halfLife: "29h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[250]"
+  },
+  {
+    name: "Ribociclib",
+    class: "Unspecified",
+    category: "targeted",
+    halfLife: "30 to 55h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days"
+  },
+  {
+    name: "Vorinostat",
+    class: "Unspecified",
+    category: "targeted",
+    halfLife: "2h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[251]"
+  },
+  {
+    name: "Panobinostat",
+    class: "CDK4/6 inhibitors, IDH-1 inhibitors, IDH-2 inhibitors",
+    category: "targeted",
+    halfLife: "37h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[252]"
+  },
+  {
+    name: "Ivosidenib",
+    class: "Unspecified",
+    category: "targeted",
+    halfLife: "58h to 129h",
+    normofractionatedRT: "0 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "0 days",
+    intracranialRT: "0 days",
+    references: "[253]"
+  },
+  {
+    name: "Enasidenib",
+    class: "Unspecified",
+    category: "targeted",
+    halfLife: "8 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days"
+  },
+  {
+    name: "Adagrasib",
+    class: "KRAS G12C inhibitors",
+    category: "targeted",
+    halfLife: "24h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days"
+  },
+  {
+    name: "Sotorasib",
+    class: "Unspecified",
+    category: "targeted",
+    halfLife: "5h",
+    normofractionatedRT: "2 days",
+    palliativeRT: "2 days",
+    stereotacticRT: "2 days",
+    intracranialRT: "2 days"
+  },
+  {
+    name: "Niraparib",
+    class: "PARP inhibitors",
+    category: "targeted",
+    halfLife: "48h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "0 days"
+  },
+  {
+    name: "Talazoparib",
+    class: "Unspecified",
+    category: "targeted",
+    halfLife: "3.75 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "0 days"
+  },
+  {
+    name: "Ixazomib",
+    class: "Proteasome inhibitors",
+    category: "targeted",
+    halfLife: "9.5 days",
+    normofractionatedRT: "0 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "0 days",
+    intracranialRT: "0 days"
+  },
+  {
+    name: "Vismodegib",
+    class: "SMO protein inhibitors",
+    category: "targeted",
+    halfLife: "4 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[257, 258]"
+  },
+  {
+    name: "Sonidegib",
+    class: "Proteasome inhibitors, PI3K inhibitors",
+    category: "targeted",
+    halfLife: "28 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[259]"
+  },
+  {
+    name: "Daratumumab",
+    class: "PI3K inhibitors (CD38)",
+    category: "targeted",
+    halfLife: "9 days",
+    normofractionatedRT: "0 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "0 days",
+    intracranialRT: "0 days",
+    references: "[264]"
+  }
 ];
