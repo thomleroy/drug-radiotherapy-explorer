@@ -4,6 +4,8 @@ import { Input } from '../components/ui/input';
 import { Search, Download, HelpCircle, Info, ExternalLink } from 'lucide-react';
 import { allDrugs } from '../data/drugs';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Settings, Filter, X } from 'lucide-react'; // Ajoutez aux imports existants
+import { referencesData, formatReference } from '../data/references';
 
 const DrugExplorer = () => {
   // États
@@ -15,6 +17,20 @@ const DrugExplorer = () => {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
   const [showTooltip, setShowTooltip] = useState(null);
   const [isTableScrolled, setIsTableScrolled] = useState(false);
+  const [visibleColumns, setVisibleColumns] = useState({
+    name: true,
+    class: true,
+    category: true,
+    halfLife: true,
+    normofractionatedRT: true,
+    palliativeRT: true,
+    stereotacticRT: true,
+    intracranialRT: true
+  });
+  const [showColumnManager, setShowColumnManager] = useState(false);
+  const [zoomedCell, setZoomedCell] = useState(null);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [selectedReferences, setSelectedReferences] = useState(null);
 
   // Gestionnaire de redimensionnement responsive
   useEffect(() => {
@@ -51,14 +67,15 @@ const DrugExplorer = () => {
     };
     return colors[category] || 'bg-gray-50 text-gray-800 border-gray-200';
   };
+
   // Fonction pour formater les données pour l'export CSV
-  const formatForCSV = (data) => {
+  const formatForCSV = useCallback((data) => {
     const header = "Drug Name,Class,Category,Half-life,Normofractionated RT,Palliative RT,Stereotactic RT,Intracranial RT,References\n";
     const rows = data.map(drug => 
       `${drug.name},${drug.class},${drug.category},${drug.halfLife},${drug.normofractionatedRT},${drug.palliativeRT},${drug.stereotacticRT},${drug.intracranialRT},${drug.references || ''}`
     ).join('\n');
     return header + rows;
-  };
+  }, []);
 
   // Fonction de tri améliorée avec gestion des types de données
   const requestSort = useCallback((key) => {
@@ -69,11 +86,52 @@ const DrugExplorer = () => {
     setSortConfig({ key, direction });
   }, [sortConfig]);
 
+  const ReferencesPopup = ({ references, onClose }) => {
+    if (!references) return null;
+
+    const refArray = references.split(',').map(ref => ref.replace(/[\[\]]/g, '').trim());
+    
+    return (
+      <div 
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        onClick={onClose}
+      >
+        <div 
+          className="bg-white p-6 rounded-lg max-w-4xl m-4 max-h-[80vh] overflow-y-auto"
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-gray-900">References</h3>
+            <button 
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <div className="space-y-4">
+            {refArray.map((refNumber, index) => {
+              const fullReference = referencesData[refNumber];
+              return (
+                <div key={index} className="p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                  <div className="font-semibold text-sfro-dark mb-2">Reference [{refNumber}]</div>
+                  <div className="text-gray-800 leading-relaxed">
+                    {fullReference || `Reference text not available for [${refNumber}]`}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // Fonction pour obtenir la couleur des cellules avec accessibilité améliorée
   const getCellColor = useCallback((value) => {
     if (value === '0' || value.includes('0 (except')) return 'bg-green-100 text-green-800';
-  if (value.includes('48h')) return 'bg-yellow-100 text-yellow-800';
-  if (value.includes('days')) return 'bg-red-100 text-red-800';
+    if (value.includes('48h')) return 'bg-yellow-100 text-yellow-800';
+    if (value.includes('days')) return 'bg-red-100 text-red-800';
     return '';
   }, []);
 
@@ -82,7 +140,7 @@ const DrugExplorer = () => {
     let filteredDrugs = allDrugs.filter(drug => {
       const searchLower = searchTerm.toLowerCase();
       const matchesSearch = drug.name.toLowerCase().includes(searchLower) || 
-                          drug.class.toLowerCase().includes(searchLower);
+                         drug.class.toLowerCase().includes(searchLower);
       const matchesCategory = selectedCategory === 'all' || drug.category === selectedCategory;
       const matchesHalfLife = halfLifeFilter === 'all' || 
         (halfLifeFilter === 'short' && parseFloat(drug.halfLife) <= 24) ||
@@ -94,14 +152,12 @@ const DrugExplorer = () => {
 
     if (sortConfig.key) {
       filteredDrugs.sort((a, b) => {
-        // Gestion spéciale pour les valeurs numériques
         if (sortConfig.key === 'halfLife') {
           const aValue = parseFloat(a[sortConfig.key]) || 0;
           const bValue = parseFloat(b[sortConfig.key]) || 0;
           return sortConfig.direction === 'asc' ? aValue - bValue : bValue - aValue;
         }
         
-        // Tri standard pour les chaînes
         if (a[sortConfig.key] < b[sortConfig.key]) {
           return sortConfig.direction === 'asc' ? -1 : 1;
         }
@@ -115,7 +171,6 @@ const DrugExplorer = () => {
     return filteredDrugs;
   }, [searchTerm, selectedCategory, halfLifeFilter, rtTypeFilter, sortConfig]);
 
-  
   // Fonction de téléchargement améliorée avec gestion des erreurs
   const downloadCSV = useCallback(() => {
     try {
@@ -131,9 +186,8 @@ const DrugExplorer = () => {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading CSV:', error);
-      // Ici vous pourriez ajouter une notification d'erreur UI
     }
-  }, [filterAndSortDrugs]);
+  }, [filterAndSortDrugs, formatForCSV]);
 
   // Stats calculées pour le dashboard
   const stats = [
@@ -163,6 +217,7 @@ const DrugExplorer = () => {
       color: 'bg-green-50 text-green-800'
     }
   ];
+
   // Composant pour les badges avec animation
   const Badge = ({ children, color }) => (
     <motion.span
@@ -179,7 +234,7 @@ const DrugExplorer = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
     >
       <div className="p-4">
         <div className="flex justify-between items-start mb-3">
@@ -225,15 +280,13 @@ const DrugExplorer = () => {
           </div>
 
           {drug.references && (
-            <div className="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-100">
-              <Tooltip content="Click to copy reference">
-                <button 
-                  onClick={() => navigator.clipboard.writeText(drug.references)}
-                  className="hover:text-sfro-primary focus:outline-none focus:text-sfro-primary transition-colors"
-                >
-                  References: {drug.references}
-                </button>
-              </Tooltip>
+            <div className="mt-2 text-xs text-gray-500">
+              <button 
+                onClick={() => setSelectedReferences(drug.references)}
+                className="text-blue-600 hover:text-blue-800 hover:underline"
+              >
+                View References
+              </button>
             </div>
           )}
         </div>
@@ -253,46 +306,108 @@ const DrugExplorer = () => {
         <h2 className="text-lg font-semibold text-sfro-dark">Filters</h2>
         <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full">
           <span className="sr-only">Close filters</span>
-          ×
+          <X size={20} />
         </button>
       </div>
-      {/* Filtres mobiles ici */}
+      <div className="space-y-4">
+        <Input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full"
+        />
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full border rounded-md p-2"
+        >
+          <option value="all">All categories</option>
+          <option value="chemotherapy">Chemotherapy</option>
+          <option value="endocrine">Endocrine Therapy</option>
+          <option value="targeted">Targeted Therapy</option>
+          <option value="immunotherapy">Immunotherapy</option>
+        </select>
+      </div>
     </motion.div>
   );
+
+  const formatColumnName = (column) => {
+    const names = {
+      name: 'Drug Name',
+      class: 'Class',
+      category: 'Category',
+      halfLife: 'Half-life',
+      normofractionatedRT: 'Normofractionated RT',
+      palliativeRT: 'Palliative RT',
+      stereotacticRT: 'Stereotactic RT',
+      intracranialRT: 'Intracranial RT'
+    };
+    return names[column] || column;
+  };
+
+  // Column Manager Component
+  const ColumnManager = () => (
+    <motion.div 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="absolute right-0 top-12 bg-white rounded-lg shadow-xl p-4 z-50 w-64"
+    >
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="font-semibold text-sfro-dark">Visible Columns</h3>
+        <button 
+          onClick={() => setShowColumnManager(false)}
+          className="text-gray-400 hover:text-gray-600"
+        >
+          <X size={16} />
+        </button>
+      </div>
+      <div className="space-y-2">
+        {Object.entries(visibleColumns).map(([column, isVisible]) => (
+          <label key={column} className="flex items-center space-x-2 cursor-pointer">
+            <input 
+              type="checkbox"
+              checked={isVisible}
+              onChange={() => setVisibleColumns(prev => ({...prev, [column]: !prev[column]}))}
+              className="rounded text-sfro-primary focus:ring-sfro-primary"
+            />
+            <span className="text-sm">{formatColumnName(column)}</span>
+          </label>
+        ))}
+      </div>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Card className="w-full max-w-7xl mx-auto my-8 shadow-xl">
-        {/* Header avec logo SFRO */}
         <CardHeader className="relative overflow-hidden bg-gradient-to-r from-[#00BFF3] to-[#0080A5] text-white rounded-t-lg">
-  {/* Background pattern subtil */}
-  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
-  
-  <div className="relative flex items-center justify-between p-8">
-    {/* Contenu gauche */}
-    <div className="flex-grow">
-      <CardTitle className="text-4xl font-bold tracking-tight mb-2">
-        Drug-Radiotherapy Association Explorer
-      </CardTitle>
-      <p className="text-lg text-white/90 max-w-2xl">
-        Explore drug interactions and timing with different radiotherapy types
-      </p>
-    </div>
-    
-    {/* Logo avec fond blanc pour meilleur contraste */}
-    <div className="flex-shrink-0 ml-8">
-      <div className="bg-white p-4 rounded-lg shadow-lg">
-        <img 
-          src="/sfro-logo.png" 
-          alt="SFRO Logo" 
-          className="h-20 w-auto"
-        />
-      </div>
-    </div>
-  </div>
-</CardHeader>
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
+          
+          <div className="relative flex items-center justify-between p-8">
+            <div className="flex-grow">
+              <CardTitle className="text-7xl font-bold tracking-tight mb-2">
+                Radiosync
+              </CardTitle>
+              <p className="text-lg text-white/90 max-w-2xl">
+                A web-app to know when and how long to stop anticancer therapies before radiotherapy
+              </p>
+            </div>
+            
+            <div className="flex-shrink-0 ml-8">
+              <div className="bg-white p-4 rounded-lg shadow-lg">
+                <img 
+                  src="/sfro-logo.png" 
+                  alt="SFRO Logo" 
+                  className="h-20 w-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </CardHeader>
 
         <CardContent className="p-6 space-y-6">
-          {/* Dashboard statistiques */}
+          {/* Dashboard statistics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {stats.map((stat, index) => (
               <motion.div
@@ -308,7 +423,7 @@ const DrugExplorer = () => {
             ))}
           </div>
 
-          {/* Barre de recherche et filtres */}
+          {/* Search bar and filters */}
           <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="relative">
@@ -322,7 +437,6 @@ const DrugExplorer = () => {
                 />
               </div>
 
-              {/* Filtres */}
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -359,7 +473,7 @@ const DrugExplorer = () => {
             </div>
           </div>
 
-          {/* Bouton Export */}
+          {/* Export button */}
           <div className="flex justify-end">
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -372,7 +486,7 @@ const DrugExplorer = () => {
             </motion.button>
           </div>
 
-          {/* Vue conditionnelle Mobile/Desktop */}
+          {/* Conditional Mobile/Desktop View */}
           <AnimatePresence>
             {isMobileView ? (
               <motion.div 
@@ -392,56 +506,84 @@ const DrugExplorer = () => {
                 exit={{ opacity: 0 }}
                 className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
               >
+                <div className="flex justify-end mb-4 p-4">
+                  <button
+                    onClick={() => setShowColumnManager(!showColumnManager)}
+                    className="flex items-center gap-2 px-4 py-2 text-sm bg-white border rounded-md hover:bg-gray-50"
+                  >
+                    <Settings className="w-4 h-4" />
+                    Manage Columns
+                  </button>
+                  {showColumnManager && <ColumnManager />}
+                </div>
+
                 <table className="w-full border-collapse bg-white table-fixed">
                   <thead className="sticky top-0 bg-sfro-light z-10">
                     <tr>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">
-                        <button 
-                          className="flex items-center hover:text-sfro-primary"
-                          onClick={() => requestSort('name')}
-                        >
-                          Drug Name <HelpCircle className="ml-1 h-3 w-3" />
-                        </button>
-                      </th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">Class</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Category</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Half-life</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Normo RT</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Pallia RT</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Stereo RT</th>
-                      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Intra RT</th>
+                      {visibleColumns.name && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">
+                          <button className="flex items-center hover:text-sfro-primary" onClick={() => requestSort('name')}>
+                            Drug Name <HelpCircle className="ml-1 h-3 w-3" />
+                          </button>
+                        </th>
+                      )}
+                      {visibleColumns.class && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/6">Class</th>
+                      )}
+                      {visibleColumns.category && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Category</th>
+                      )}
+                      {visibleColumns.halfLife && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Half-life</th>
+                      )}
+                      {visibleColumns.normofractionatedRT && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Normo RT</th>
+                      )}
+                      {visibleColumns.palliativeRT && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Pallia RT</th>
+                      )}
+                      {visibleColumns.stereotacticRT && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Stereo RT</th>
+                      )}
+                      {visibleColumns.intracranialRT && (
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark w-1/12">Intra RT</th>
+                      )}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200">
                     {filterAndSortDrugs().map((drug, index) => (
-                      <tr 
-                        key={index} 
-                        className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs"
-                      >
-                        <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">{drug.name}</td>
-<td className="px-3 py-2 whitespace-normal text-gray-500">
-  <Tooltip content={drug.class}>
-    {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
-  </Tooltip>
-</td>
-<td className="px-3 py-2">
-  <Badge color={getCategoryColor(drug.category)}>
-    {drug.category.substring(0, 3)}
-  </Badge>
-</td>
-<td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
-<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
-  {drug.normofractionatedRT}
-</td>
-<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.palliativeRT)}`}>
-  {drug.palliativeRT}
-</td>
-<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.stereotacticRT)}`}>
-  {drug.stereotacticRT}
-</td>
-<td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.intracranialRT)}`}>
-  {drug.intracranialRT}
-</td>
+                      <tr key={index} className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs">
+                        <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">
+                          <button 
+                            onClick={() => drug.references && setSelectedReferences(drug.references)}
+                            className={`text-left ${drug.references ? 'text-blue-600 hover:text-blue-800 hover:underline' : ''}`}
+                          >
+                            {drug.name}
+                          </button>
+                        </td>
+                        <td className="px-3 py-2 whitespace-normal text-gray-500">
+                          <Tooltip content={drug.class}>
+                            {drug.class.length > 30 ? `${drug.class.substring(0, 30)}...` : drug.class}
+                          </Tooltip>
+                        </td>
+                        <td className="px-3 py-2">
+                          <Badge color={getCategoryColor(drug.category)}>
+                            {drug.category.substring(0, 3)}
+                          </Badge>
+                        </td>
+                        <td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
+                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.normofractionatedRT)}`}>
+                          {drug.normofractionatedRT}
+                        </td>
+                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.palliativeRT)}`}>
+                          {drug.palliativeRT}
+                        </td>
+                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.stereotacticRT)}`}>
+                          {drug.stereotacticRT}
+                        </td>
+                        <td className={`px-3 py-2 whitespace-normal break-words ${getCellColor(drug.intracranialRT)}`}>
+                          {drug.intracranialRT}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -450,7 +592,7 @@ const DrugExplorer = () => {
             )}
           </AnimatePresence>
 
-          {/* Légende */}
+          {/* Legend */}
           <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-green-100 border rounded"></div>
@@ -474,13 +616,19 @@ const DrugExplorer = () => {
               © 2025 SFRO - Société Française de Radiothérapie Oncologique
             </div>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-sfro-primary transition-colors">À propos</a>
+              <a href="#" className="hover:text-sfro-primary transition-colors">About</a>
               <a href="#" className="hover:text-sfro-primary transition-colors">Contact</a>
-              <a href="#" className="hover:text-sfro-primary transition-colors">Mentions légales</a>
+              <a href="#" className="hover:text-sfro-primary transition-colors">Legal Notice</a>
             </div>
           </div>
         </div>
       </Card>
+
+      {/* References Popup */}
+      <ReferencesPopup 
+        references={selectedReferences}
+        onClose={() => setSelectedReferences(null)}
+      />
     </div>
   );
 };
