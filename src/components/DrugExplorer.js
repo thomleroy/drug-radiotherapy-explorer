@@ -104,45 +104,61 @@ const t = (key) => {
   }, [sortConfig]);
 
   const ReferencesPopup = ({ references, onClose }) => {
-    if (!references) return null;
+  if (!references) return null;
 
-    const refArray = references.split(',').map(ref => ref.replace(/[\[\]]/g, '').trim());
-    
-    return (
+  const refArray = references.split(',').map(ref => ref.replace(/[\[\]]/g, '').trim());
+  
+  return (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      onClick={onClose}
+    >
       <div 
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        onClick={onClose}
+        className="bg-white p-6 rounded-lg max-w-4xl m-4 max-h-[80vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}
       >
-        <div 
-          className="bg-white p-6 rounded-lg max-w-4xl m-4 max-h-[80vh] overflow-y-auto"
-          onClick={e => e.stopPropagation()}
-        >
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold text-gray-900">References</h3>
-            <button 
-              onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              <X size={24} />
-            </button>
-          </div>
-          <div className="space-y-4">
-            {refArray.map((refNumber, index) => {
-              const fullReference = referencesData[refNumber];
-              return (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-semibold text-gray-900">References</h3>
+          <button 
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600"
+          >
+            <X size={24} />
+          </button>
+        </div>
+        <div className="space-y-4">
+          {refArray.map((refNumber, index) => {
+            const fullReference = referencesData[refNumber];
+            return (
+              <div 
+                key={index} 
+                className="p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-between"
+              >
+                <div>
                   <div className="font-semibold text-sfro-dark mb-2">Reference [{refNumber}]</div>
                   <div className="text-gray-800 leading-relaxed">
-                    {fullReference || `Reference text not available for [${refNumber}]`}
+                    {fullReference?.text || `Reference text not available for [${refNumber}]`}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+                {fullReference?.url && (
+                  <a 
+                    href={fullReference.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="ml-4 text-blue-600 hover:text-blue-800 flex items-center"
+                  >
+                    <ExternalLink className="h-5 w-5" />
+                    <span className="ml-2 text-sm">Open Article</span>
+                  </a>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
   // Fonction pour obtenir la couleur des cellules avec accessibilité améliorée
   const getCellColor = useCallback((value) => {
@@ -442,7 +458,7 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
                 <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
                 <Input
                   type="text"
-                  placeholder="Search drugs..."
+                  placeholder={t('search')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10 h-12 w-full border-2 border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light transition-colors rounded-lg"
