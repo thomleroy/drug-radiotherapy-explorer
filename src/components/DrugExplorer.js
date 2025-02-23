@@ -13,7 +13,7 @@ const DrugExplorer = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [halfLifeFilter, setHalfLifeFilter] = useState('all');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-  const [rtTypeFilter, setRtTypeFilter] = useState('all');
+  const [classFilter, setClassFilter] = useState('all')
   const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
   const [showTooltip, setShowTooltip] = useState(null);
   const [isTableScrolled, setIsTableScrolled] = useState(false);
@@ -145,9 +145,8 @@ const DrugExplorer = () => {
       const matchesHalfLife = halfLifeFilter === 'all' || 
         (halfLifeFilter === 'short' && parseFloat(drug.halfLife) <= 24) ||
         (halfLifeFilter === 'long' && parseFloat(drug.halfLife) > 24);
-      const matchesRTType = rtTypeFilter === 'all' || drug[rtTypeFilter] !== '0';
-      
-      return matchesSearch && matchesCategory && matchesHalfLife && matchesRTType;
+      const matchesClass = classFilter === 'all' || drug.class === classFilter;
+return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
     });
 
     if (sortConfig.key) {
@@ -169,7 +168,7 @@ const DrugExplorer = () => {
     }
 
     return filteredDrugs;
-  }, [searchTerm, selectedCategory, halfLifeFilter, rtTypeFilter, sortConfig]);
+  }, [searchTerm, selectedCategory, halfLifeFilter, classFilter, sortConfig]);
 
   // Fonction de téléchargement améliorée avec gestion des erreurs
   const downloadCSV = useCallback(() => {
@@ -430,31 +429,40 @@ const DrugExplorer = () => {
               </select>
 
               <select
-                value={rtTypeFilter}
-                onChange={(e) => setRtTypeFilter(e.target.value)}
-                className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-              >
-                <option value="all">All RT Types</option>
-                <option value="normofractionatedRT">Normofractionated RT</option>
-                <option value="palliativeRT">Palliative RT</option>
-                <option value="stereotacticRT">Stereotactic RT</option>
-                <option value="intracranialRT">Intracranial RT</option>
-              </select>
+  value={classFilter}
+  onChange={(e) => setClassFilter(e.target.value)}
+  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+>
+  <option value="all">All Classes</option>
+  {[...new Set(allDrugs.map(drug => drug.class))].sort().map(drugClass => (
+    <option key={drugClass} value={drugClass}>{drugClass}</option>
+  ))}
+</select>
             </div>
           </div>
 
-          {/* Export button */}
-          <div className="flex justify-end">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={downloadCSV}
-              className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
-            >
-              <Download className="h-5 w-5" />
-              Export to CSV
-            </motion.button>
-          </div>
+          {/* Action buttons */}
+<div className="flex justify-end gap-4">
+  <motion.button
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+    onClick={() => setShowColumnManager(!showColumnManager)}
+    className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 transition-colors px-6 py-3 rounded-lg text-gray-700 shadow-sm font-medium"
+  >
+    <Settings className="h-5 w-5" />
+    Manage Columns
+  </motion.button>
+
+  <motion.button
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
+    onClick={downloadCSV}
+    className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
+  >
+    <Download className="h-5 w-5" />
+    Export to CSV
+  </motion.button>
+</div>
 
           {/* Conditional Mobile/Desktop View */}
           <AnimatePresence>
@@ -476,17 +484,7 @@ const DrugExplorer = () => {
                 exit={{ opacity: 0 }}
                 className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
               >
-               <div className="flex justify-end mb-4 p-4">
-  <motion.button
-    onClick={() => setShowColumnManager(!showColumnManager)}
-    className="flex items-center gap-2 px-4 py-2 text-sm bg-white border rounded-md hover:bg-gray-50 relative z-10"
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-  >
-    <Settings className="w-4 h-4" />
-    Manage Columns
-  </motion.button>
-</div>
+ 
 
 {/* Column Manager Modal */}
 <AnimatePresence>
