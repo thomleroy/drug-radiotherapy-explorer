@@ -503,7 +503,7 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
           </div>
 
           {/* Action buttons */}
-<div className="flex justify-end gap-4">
+<div className={`flex ${isMobileView ? 'justify-center' : 'justify-end'} gap-4`}>
   {!isMobileView && (
     <motion.button
       whileHover={{ scale: 1.02 }}
