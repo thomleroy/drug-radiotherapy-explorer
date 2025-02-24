@@ -1514,4 +1514,5 @@ export const allDrugs = [
     palliativeRT: "0 days",
     stereotacticRT: "0 days",
     intracranialRT: "0 days",
+          }
 ];
