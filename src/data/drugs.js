@@ -1494,5 +1494,24 @@ export const allDrugs = [
     stereotacticRT: "0 days",
     intracranialRT: "0 days",
     references: "[264]"
-  }
+  },
+    {
+    name: "Pertuzumab",
+    class: "Monoclonal antibodies (HER2)",
+    category: "targeted",
+    halfLife: "18 days",
+    normofractionatedRT: "0 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "0 days",
+    intracranialRT: "0 days",
+  },
+     {
+    name: "Trastuzumab",
+    class: "Monoclonal antibodies (HER2)",
+    category: "targeted",
+    halfLife: "28.5 days",
+    normofractionatedRT: "0 days",
+    palliativeRT: "0 days",
+    stereotacticRT: "0 days",
+    intracranialRT: "0 days",
 ];
