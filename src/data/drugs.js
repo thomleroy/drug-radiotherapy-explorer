@@ -1514,5 +1514,111 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-          }
+          },
+    {
+  name: "Zanubrutinib",
+  class: "Tyrosine kinase inhibitors (BTK)",
+  category: "targeted",
+  halfLife: "4h",
+  normofractionatedRT: "48h",
+  palliativeRT: "48h",
+  stereotacticRT: "48h",
+  intracranialRT: "48h"
+},
+{
+  name: "Pazopanib",
+  class: "Tyrosine kinase inhibitors (c-Kit)",
+  category: "targeted",
+  halfLife: "31h",
+  normofractionatedRT: "5 days",
+  palliativeRT: "5 days",
+  stereotacticRT: "5 days",
+  intracranialRT: "5 days",
+  references: "[245, 246]"
+},
+{
+  name: "Ripretinib",
+  class: "Tyrosine kinase inhibitors (c-Kit)",
+  category: "targeted",
+  halfLife: "15h",
+  normofractionatedRT: "3 days",
+  palliativeRT: "3 days",
+  stereotacticRT: "3 days",
+  intracranialRT: "3 days"
+},
+{
+  name: "Cobimetinib",
+  class: "Tyrosine kinase inhibitors (MEK)",
+  category: "targeted",
+  halfLife: "43h",
+  normofractionatedRT: "10 days",
+  palliativeRT: "10 days",
+  stereotacticRT: "10 days",
+  intracranialRT: "10 days"
+},
+{
+  name: "Trametinib",
+  class: "Tyrosine kinase inhibitors (MEK)",
+  category: "targeted",
+  halfLife: "127h",
+  normofractionatedRT: "48h",
+  palliativeRT: "48h",
+  stereotacticRT: "48h",
+  intracranialRT: "48h"
+},
+{
+  name: "Alpelisib",
+  class: "PI3K inhibitors",
+  category: "targeted",
+  halfLife: "9h",
+  normofractionatedRT: "48h",
+  palliativeRT: "48h",
+  stereotacticRT: "48h",
+  intracranialRT: "48h",
+  references: "[271]"
+},
+{
+  name: "Idelalisib",
+  class: "PI3K inhibitors",
+  category: "targeted",
+  halfLife: "8h",
+  normofractionatedRT: "48h",
+  palliativeRT: "48h",
+  stereotacticRT: "48h",
+  intracranialRT: "48h",
+  references: "[272]"
+},
+{
+  name: "Everolimus",
+  class: "Immunosuppressors",
+  category: "targeted",
+  halfLife: "30h",
+  normofractionatedRT: "7 days",
+  palliativeRT: "7 days",
+  stereotacticRT: "7 days",
+  intracranialRT: "7 days",
+  references: "[283, 284, 285]"
+},
+{
+  name: "Panitumumab",
+  class: "Monoclonal antibodies (EGFR)",
+  category: "targeted",
+  halfLife: "7 days",
+  normofractionatedRT: "0",
+  palliativeRT: "0",
+  stereotacticRT: "0",
+  intracranialRT: "0"
+},
+{
+  name: "Vandetanib",
+  class: "Tyrosine kinase inhibitors (EGFR, VEGFR)",
+  category: "targeted",
+  halfLife: "19 days",
+  normofractionatedRT: "5 days",
+  palliativeRT: "5 days",
+  stereotacticRT: "5 days",
+  intracranialRT: "5 days",
+  references: "[240]"
+    }
+}
 ];
