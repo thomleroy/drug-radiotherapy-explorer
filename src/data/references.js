@@ -242,4 +242,5 @@ export const referencesData = {
   "235": {
     text: "Eze C, Hegemann NS, Roengvoraphoj O, Dantes M, Manapov F. Concurrent Afatinib and Whole-Brain Radiotherapy in Exon 19-del-EGFR Mutant Lung Adenocarcinoma: A Case Report and Mini Review of the Literature. Front Oncol. 2017;7:88.",
     url: "https://doi.org/10.3389/fonc.2017.00088"
-  },
+  }
+    }
