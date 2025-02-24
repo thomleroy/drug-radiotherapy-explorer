@@ -74,7 +74,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[116]"
+    references: "[125]"
   },
   {
     name: "Bleomycine",
@@ -656,7 +656,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "0",
-    references: "[224]"
+    references: "[286]"
   },
   {
     name: "Brigatinib",
@@ -1061,7 +1061,7 @@ export const allDrugs = [
   palliativeRT: "0",
   stereotacticRT: "0",
   intracranialRT: "0",
-  references: "[171]"
+  references: "[249]"
 },
 {
   name: "Dabrafenib",
@@ -1357,7 +1357,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[250]"
+    references: "[81]"
   },
   {
     name: "Ribociclib",
@@ -1378,7 +1378,7 @@ export const allDrugs = [
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[251]"
+    references: "[250,251]"
   },
   {
     name: "Panobinostat",
@@ -1534,7 +1534,7 @@ export const allDrugs = [
   palliativeRT: "5 days",
   stereotacticRT: "5 days",
   intracranialRT: "5 days",
-  references: "[245, 246]"
+  references: "[233, 234]"
 },
 {
   name: "Ripretinib",
@@ -1575,7 +1575,7 @@ export const allDrugs = [
   palliativeRT: "48h",
   stereotacticRT: "48h",
   intracranialRT: "48h",
-  references: "[271]"
+  references: "[260]"
 },
 {
   name: "Idelalisib",
@@ -1586,7 +1586,7 @@ export const allDrugs = [
   palliativeRT: "48h",
   stereotacticRT: "48h",
   intracranialRT: "48h",
-  references: "[272]"
+  references: "[261]"
 },
 {
   name: "Everolimus",
@@ -1597,7 +1597,7 @@ export const allDrugs = [
   palliativeRT: "7 days",
   stereotacticRT: "7 days",
   intracranialRT: "7 days",
-  references: "[283, 284, 285]"
+  references: "[273, 274, 272]"
 },
 {
   name: "Panitumumab",
@@ -1618,7 +1618,7 @@ export const allDrugs = [
   palliativeRT: "5 days",
   stereotacticRT: "5 days",
   intracranialRT: "5 days",
-  references: "[240]"
+  references: "[228]"
     }
 
 ];
