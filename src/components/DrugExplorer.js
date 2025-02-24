@@ -504,15 +504,17 @@ return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
 
           {/* Action buttons */}
 <div className="flex justify-end gap-4">
-  <motion.button
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-    onClick={() => setShowColumnManager(!showColumnManager)}
-    className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 transition-colors px-6 py-3 rounded-lg text-gray-700 shadow-sm font-medium"
-  >
-    <Settings className="h-5 w-5" />
-    {t('buttons.manageColumns')}
-  </motion.button>
+  {!isMobileView && (
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={() => setShowColumnManager(!showColumnManager)}
+      className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 transition-colors px-6 py-3 rounded-lg text-gray-700 shadow-sm font-medium"
+    >
+      <Settings className="h-5 w-5" />
+      {t('buttons.manageColumns')}
+    </motion.button>
+  )}
 
   <motion.button
     whileHover={{ scale: 1.02 }}
