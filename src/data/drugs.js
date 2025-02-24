@@ -1343,7 +1343,7 @@ export const allDrugs = [
     category: "targeted",
     halfLife: "25h",
     normofractionatedRT: "5 days",
-    palliativeRT: "0 days",
+    palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
     references: "[81]"
@@ -1354,7 +1354,7 @@ export const allDrugs = [
     category: "targeted",
     halfLife: "29h",
     normofractionatedRT: "5 days",
-    palliativeRT: "0 days",
+    palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
     references: "[250]"
@@ -1365,13 +1365,13 @@ export const allDrugs = [
     category: "targeted",
     halfLife: "30 to 55h",
     normofractionatedRT: "5 days",
-    palliativeRT: "0 days",
+    palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "5 days"
   },
   {
     name: "Vorinostat",
-    class: "Unspecified",
+    class: "Histones deacetylases HDAC inhibitors",
     category: "targeted",
     halfLife: "2h",
     normofractionatedRT: "48h",
@@ -1393,7 +1393,7 @@ export const allDrugs = [
   },
   {
     name: "Ivosidenib",
-    class: "Unspecified",
+    class: "Isocitrate dehydrogenase inhibitors (IDH-1)",
     category: "targeted",
     halfLife: "58h to 129h",
     normofractionatedRT: "0 days",
@@ -1424,7 +1424,7 @@ export const allDrugs = [
   },
   {
     name: "Sotorasib",
-    class: "Unspecified",
+    class: "KRAS G12C inhibitors",
     category: "targeted",
     halfLife: "5h",
     normofractionatedRT: "2 days",
@@ -1444,7 +1444,7 @@ export const allDrugs = [
   },
   {
     name: "Talazoparib",
-    class: "Unspecified",
+    class: "PARP inhibitors",
     category: "targeted",
     halfLife: "3.75 days",
     normofractionatedRT: "5 days",
