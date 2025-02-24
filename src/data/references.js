@@ -1,19 +1,63 @@
 export const referencesData = {
   "58": {
-    text: "Azria D, Belkacemi Y, Romieu G, Gourgou S, Gutowski M, Zaman K, et al. Concurrent or sequential adjuvant letrozole and radiotherapy after conservative surgery for early-stage breast cancer (CO-HO-RT): a phase 2 randomised trial.",
-    url: "https://doi.org/10.1016/s1470-2045(10)70013-9"
+    text: "Bentzen SM, Skoczylas JZ, Overgaard M, Overgaard J. Radiotherapy-related lung fibrosis enhanced by tamoxifen. J Natl Cancer Inst. 1996 Jul 3;88(13):918–22.",
+    url: "https://doi.org/10.1093/jnci/88.13.918"
   },
   "80": {
-    text: "Halyard MY, Pisansky TM, Dueck AC, Suman V, Pierce L, Solin L, et al. Radiotherapy and Adjuvant Trastuzumab in Operable Breast Cancer: Tolerability and Adverse Event Data From the NCCTG Phase III Trial N9831. J Clin Oncol. 2009 Apr 6;27(16):2638.",
-    url: "https://doi.org/10.1200/jco.2008.17.9549"
+    text: "Swain SM, Shastry M, Hamilton E. Targeting HER2-positive breast cancer: advances and future directions. Nat Rev Drug Discov. 2023 Feb;22(2):101–26.",
+    url: "https://doi.org/10.1038/s41573-022-00595-0"
+  },
+  "81": {
+    text: "Meattini I, Becherini C, Caini S, Coles CE, Cortes J, Curigliano G, et al. International multidisciplinary consensus on the integration of radiotherapy with new systemic treatments for breast cancer: European Society for Radiotherapy and Oncology (ESTRO)-endorsed recommendations. Lancet Oncol. 2024 Feb 1;25(2):e73–83.",
+    url: "https://doi.org/10.1016/S1470-2045(23)00534-X"
+  },
+  "116": {
+    text: "Borel C, Sun XS, Coutte A, Bera G, Sire C, Zanetta S, et al. Standard versus fractionated high-dose cisplatin plus radiation for locally advanced head and neck cancer: Results of the CisFRad (GORTEC 2015-02) randomized phase II trial. Radiother Oncol. 2024 Aug 1;197.",
+    url: "https://doi.org/10.1016/j.radonc.2024.109962"
   },
   "162": {
     text: "Ivaldi GB, Leonardi M, Ferrari A, Morra A, Fossati BJ, Vavassori A, et al. Concomitant Radiotherapy and Anthracycline-based Chemotherapy in Adjuvant Breast Cancer Treatment. Int J Radiat Oncol Biol Phys. 2008 Sep 1;72(1):S180–1.",
     url: "https://www.redjournal.org/article/S0360-3016(08)01392-8/fulltext"
   },
-  "163": {
-    text: "Bleyer WA. The clinical pharmacology of methotrexate: new applications of an old drug. Cancer. 1978 Jan;41(1):36–51.",
-    url: "https://doi.org/10.1002/1097-0142(197801)41:1%3C36::AID-CNCR2820410108%3E3.0.CO;2-I"
+  "164": {
+    text: "Spittle MF. Methotrexate and radiation. Int J Radiat Oncol. 1978 Jan 1;4(1):103–7.",
+    url: "https://doi.org/10.1016/0360-3016(78)90123-2"
+  },
+  "170": {
+    text: "Peters NAJB, Richel DJ, Verhoeff JJC, Stalpers LJA. Bowel perforation after radiotherapy in a patient receiving sorafenib. J Clin Oncol Off J Am Soc Clin Oncol. 2008 May 10;26(14):2405–6.",
+    url: "https://doi.org/10.1200/jco.2007.15.8451"
+  },
+  "171": {
+    text: "Guimond E, Tsai CJ, Hosni A, O'Kane G, Yang J, Barry A. Safety and Tolerability of Metastasis-Directed Radiation Therapy in the Era of Evolving Systemic, Immune, and Targeted Therapies. Adv Radiat Oncol. 2022 Jul 14;7(6):101022.",
+    url: "https://doi.org/10.1016/j.adro.2022.101022"
+  },
+  "178": {
+    text: "Anker CJ, Grossmann KF, Atkins MB, Suneja G, Tarhini AA, Kirkwood JM. Avoiding Severe Toxicity From Combined BRAF Inhibitor and Radiation Treatment: Consensus Guidelines from the Eastern Cooperative Oncology Group (ECOG). Int J Radiat Oncol Biol Phys. 2016 Jun 1;95(2):632–46.",
+    url: "https://doi.org/10.1016/j.ijrobp.2016.01.038"
+  },
+  "184": {
+    text: "Loap P, Loirat D, Berger F, Rodrigues M, Bazire L, Pierga JY, et al. Concurrent Olaparib and Radiotherapy in Patients With Triple-Negative Breast Cancer: The Phase 1 Olaparib and Radiation Therapy for Triple-Negative Breast Cancer Trial. JAMA Oncol. 2022 Dec 1;8(12):1802–8.",
+    url: "https://doi.org/10.1001/jamaoncol.2022.5074"
+  },
+  "185": {
+    text: "Boothman DA, Trask DK, Pardee AB. Inhibition of potentially lethal DNA damage repair in human tumor cells by beta-lapachone, an activator of topoisomerase I. Cancer Res. 1989 Feb 1;49(3):605–12.",
+    url: "https://doi.org/10.1073/pnas.86.13.4963"
+  },
+  "186": {
+    text: "Einhorn L, Krause M, Hornback N, Furnas B. Enhanced pulmonary toxicity with bleomycin and radiotherapy in oat cell lung cancer. Cancer. 1976 May;37(5):2414–6.",
+    url: "https://doi.org/10.1002/1097-0142(197605)37:5%3C2414::aid-cncr2820370533%3E3.0.co;2-j"
+  },
+  "187": {
+    text: "Vermund H, Kaalhus O, Winther F, Trausjø J, Thorud E, Harang R. Bleomycin and radiation therapy in squamous cell carcinoma of the upper aero-digestive tract: A phase III clinical trial. Int J Radiat Oncol Biol Phys. 1985 Nov 1;11(11):1877–86.",
+    url: "https://doi.org/10.1016/0360-3016(85)90267-6"
+  },
+  "188": {
+    text: "Matsuoka K, Kobunai T, Nukatsuka M, Takechi T. Improved chemoradiation treatment using trifluridine in human colorectal cancer cells in vitro. Biochem Biophys Res Commun. 2017 Dec 9;494(1–2):249–55.",
+    url: "https://doi.org/10.1016/j.bbrc.2017.10.052"
+  },
+  "189": {
+    text: "Thiele B, Stein A, Schultheiß C, Paschold L, Jonas H, Goekkurt E, et al. Trifluridine/Tipiracil Based Chemoradiation in locally Advanced Rectal Cancer: The Phase I/II TARC Trial. Clin Colorectal Cancer. 2024 Jun 22",
+    url: "https://doi.org/10.1016/j.clcc.2024.06.003"
   },
   "190": {
     text: "Arrieta O, Gallardo-Rincón D, Villarreal-Garza C, Michel RM, Astorga-Ramos AM, Martinez-Barrera L, et al. High frequency of radiation pneumonitis in patients with locally advanced non-small cell lung cancer treated with concurrent radiotherapy and gemcitabine after induction with gemcitabine and carboplatin. J Thorac Oncol Off Publ Int Assoc Study Lung Cancer. 2009 Jul;4(7):845–52.",
@@ -27,7 +71,7 @@ export const referencesData = {
     text: "Choy H, Gerber DE, Bradley JD, Iyengar P, Monberg M, Treat J, et al. Concurrent pemetrexed and radiation therapy in the treatment of patients with inoperable stage III non-small cell lung cancer: a systematic review of completed and ongoing studies. Lung Cancer Amst Neth. 2015 Mar;87(3):232–40.",
     url: "https://doi.org/10.1016/j.lungcan.2014.12.003"
   },
-   "193": {
+  "193": {
     text: "Botwood N, James R, Vernon C, Price P. Raltitrexed ('Tomudex') and radiotherapy can be combined as postoperative treatment for rectal cancer. Ann Oncol Off J Eur Soc Med Oncol. 2000 Aug;11(8):1023–8.",
     url: "https://doi.org/10.1023/a:1008376306429"
   },
@@ -99,26 +143,6 @@ export const referencesData = {
     text: "Martin-Broto J, Hindi N, Lopez-Pousa A, Peinado-Serrano J, Alvarez R, Alvarez-Gonzalez A, et al. Assessment of Safety and Efficacy of Combined Trabectedin and Low-Dose Radiotherapy for Patients With Metastatic Soft-Tissue Sarcomas: A Nonrandomized Phase 1/2 Clinical Trial. JAMA Oncol. 2020 Apr 1;6(4):535–41.",
     url: "https://jamanetwork.com/journals/jamaoncology/fullarticle/2761664"
   },
-  "164": {
-    text: "Spittle MF. Methotrexate and radiation. Int J Radiat Oncol. 1978 Jan 1;4(1):103–7.",
-    url: "https://doi.org/10.1016/0360-3016(78)90123-2"
-  },
-  "116": {
-    text: "Sun JM, Ahn YC, Choi EK, Ahn MJ, Ahn JS, Lee SH, et al. Phase III trial of concurrent thoracic radiotherapy with either first- or third-cycle chemotherapy for limited-disease small-cell lung cancer. Ann Oncol Off J Eur Soc Med Oncol. 2013 Aug;24(8):2088–92.",
-    url: "https://doi.org/10.1093/annonc/mdt140"
-  },
-  "185": {
-    text: "Boothman DA, Trask DK, Pardee AB. Inhibition of potentially lethal DNA damage repair in human tumor cells by beta-lapachone, an activator of topoisomerase I. Cancer Res. 1989 Feb 1;49(3):605–12.",
-    url: "https://doi.org/10.1073/pnas.86.13.4963"
-  },
-  "186": {
-    text: "Einhorn L, Krause M, Hornback N, Furnas B. Enhanced pulmonary toxicity with bleomycin and radiotherapy in oat cell lung cancer. Cancer. 1976 May;37(5):2414–6.",
-    url: "https://doi.org/10.1002/1097-0142(197605)37:5%3C2414::aid-cncr2820370533%3E3.0.co;2-j"
-  },
-  "187": {
-    text: "Vermund H, Kaalhus O, Winther F, Trausjø J, Thorud E, Harang R. Bleomycin and radiation therapy in squamous cell carcinoma of the upper aero-digestive tract: A phase III clinical trial. Int J Radiat Oncol Biol Phys. 1985 Nov 1;11(11):1877–86.",
-    url: "https://doi.org/10.1016/0360-3016(85)90267-6"
-  },
   "211": {
     text: "Meattini I, Desideri I, Di Cataldo V, Francolini G, De Luca Cardillo C, Scotti V, et al. Safety of eribulin mesylate and concomitant radiotherapy for metastatic breast cancer: a single-center experience and review of the literature. Future Oncol Lond Engl. 2016 May;12(9):1117–24.",
     url: "https://doi.org/10.2217/fon-2015-0059"
@@ -135,59 +159,7 @@ export const referencesData = {
     text: "Arnold CR, Lindner AK, Schachtner G, Tulchiner G, Tulchiner N, Mangesius J, et al. Vinorelbine in bladder-preserving multimodality treatment for muscle-invasive bladder cancer-a valid option for cisplatin-unfit patients? Strahlenther Onkol Organ Dtsch Rontgengesellschaft Al. 2022 Jan;198(1):25–32.",
     url: "https://doi.org/10.1007/s00066-021-01837-7"
   },
-  "165": {
-    text: "Pan Z, Yang G, He H, Zhao G, Yuan T, Li Y, et al. Concurrent radiotherapy and intrathecal methotrexate for treating leptomeningeal metastasis from solid tumors with adverse prognostic factors: A prospective and single-arm study.",
-    url: "https://doi.org/10.1002/ijc.30214"
-  },
-  "166": {
-    text: "Kim A, Lee JE, Jang WS, Lee SJ, Park S, Kang HJ, et al. A combination of methotrexate and irradiation promotes cell death in NK/T-cell lymphoma cells via down-regulation of NF-κB signaling.",
-    url: "https://doi.org/10.1016/j.leukres.2011.07.027"
-  },
-  "167": {
-    text: "Hapani S, Chu D, Wu S. Risk of gastrointestinal perforation in patients with cancer treated with bevacizumab: a meta-analysis.",
-    url: "https://doi.org/10.1016/s1470-2045(09)70112-3"
-  },
-  "168": {
-    text: "Kim N, Choi SH, Chang JS, Kim YT, Kim SW, Kim GM, et al. Use of bevacizumab before or after radiotherapy increases the risk of fistula formation in patients with cervical cancer.",
-    url: "https://doi.org/10.1136/ijgc-2020-002031"
-  },
-  "169": {
-    text: "Chen F, Niu J, Wang M, Zhu H, Guo Z. The incidence of and risk factors for radiation pneumonitis in patients treated with simultaneous bevacizumab and thoracic radiotherapy.",
-    url: "https://doi.org/10.1186/s13014-024-02458-x"
-  },
-  "81": {
-    text: "Meattini I, Becherini C, Caini S, Coles CE, Cortes J, Curigliano G, et al. International multidisciplinary consensus on the integration of radiotherapy with new systemic treatments for breast cancer: European Society for Radiotherapy and Oncology (ESTRO)-endorsed recommendations. Lancet Oncol. 2024 Feb 1;25(2):e73–83.",
-    url: "https://doi.org/10.1016/S1470-2045(23)00534-X"
-  },
-  "82": {
-    text: "Esfahani K, Roudaia L, Buhlaiga N, Del Rincon SV, Papneja N, Miller WH. A review of cancer immunotherapy: from the past, to the present, to the future. Curr Oncol Tor Ont. 2020 Apr;27(Suppl 2):S87–97.",
-    url: "https://doi.org/10.3747/co.27.5223"
-  },
-  "109": {
-    text: "Jabbour SK, Houghton B, Robinson AG, Quantin X, Wehler T, Kowalski D, et al. Phase 3, randomized, placebo-controlled study of stereotactic body radiotherapy (SBRT) with or without pembrolizumab in patients with unresected stage I or II non–small cell lung cancer (NSCLC): KEYNOTE-867. J Clin Oncol. 2022 Jun;40(16_suppl):TPS8597–TPS8597.",
-    url: "https://doi.org/10.1016/j.ijrobp.2022.07.1516"
-  },
-  "150": {
-    text: "Chemoradiotherapy for Cervical Cancer Meta-Analysis Collaboration. Reducing uncertainties about the effects of chemoradiotherapy for cervical cancer: a systematic review and meta-analysis of individual patient data from 18 randomized trials. J Clin Oncol Off J Am Soc Clin Oncol. 2008 Dec 10;26(35):5802–12.",
-    url: "https://doi.org/10.1002/14651858.CD008285"
-  },
-  "170": {
-    text: "Peters NAJB, Richel DJ, Verhoeff JJC, Stalpers LJA. Bowel perforation after radiotherapy in a patient receiving sorafenib. J Clin Oncol Off J Am Soc Clin Oncol. 2008 May 10;26(14):2405–6.",
-    url: "https://doi.org/10.1200/jco.2007.15.8451"
-  },
-  "171": {
-    text: "Guimond E, Tsai CJ, Hosni A, O'Kane G, Yang J, Barry A. Safety and Tolerability of Metastasis-Directed Radiation Therapy in the Era of Evolving Systemic, Immune, and Targeted Therapies. Adv Radiat Oncol. 2022 Jul 14;7(6):101022.",
-    url: "https://doi.org/10.1016/j.adro.2022.101022"
-  },
-  "178": {
-    text: "Anker CJ, Grossmann KF, Atkins MB, Suneja G, Tarhini AA, Kirkwood JM. Avoiding Severe Toxicity From Combined BRAF Inhibitor and Radiation Treatment: Consensus Guidelines from the Eastern Cooperative Oncology Group (ECOG). Int J Radiat Oncol Biol Phys. 2016 Jun 1;95(2):632–46.",
-    url: "https://doi.org/10.1016/j.ijrobp.2016.01.038"
-  },
-  "184": {
-    text: "Loap P, Loirat D, Berger F, Rodrigues M, Bazire L, Pierga JY, et al. Concurrent Olaparib and Radiotherapy in Patients With Triple-Negative Breast Cancer: The Phase 1 Olaparib and Radiation Therapy for Triple-Negative Breast Cancer Trial. JAMA Oncol. 2022 Dec 1;8(12):1802–8.",
-    url: "https://doi.org/10.1001/jamaoncol.2022.5074"
-  },
-   "215": {
+  "215": {
     text: "Nguyen PL, Kollmeier M, Rathkopf DE, Hoffman KE, Zurita AJ, Spratt DE, et al. FORMULA-509: A multicenter randomized trial of post-operative salvage radiotherapy (SRT) and 6 months of GnRH agonist with or without abiraterone acetate/prednisone (AAP) and apalutamide (Apa) post-radical prostatectomy (RP).",
     url: "https://doi.org/10.1200/JCO.2023.41.6_suppl.303"
   },
@@ -224,8 +196,8 @@ export const referencesData = {
     url: "https://doi.org/10.1016/s1470-2045(10)70013-9"
   },
   "224": {
-    text: "Antoni D, Burckel H, Noel G. Combining Radiation Therapy with ALK Inhibitors in Anaplastic Lymphoma Kinase-Positive Non-Small Cell Lung Cancer (NSCLC): A Clinical and Preclinical Overview. Cancers. 2021 May 15;13(10):2394.",
-    url: "https://doi.org/10.3390/cancers13102394"
+    text: "Eze C, Hegemann NS, Roengvoraphoj O, Dantes M, Manapov F. Concurrent Afatinib and Whole-Brain Radiotherapy in Exon 19-del-EGFR Mutant Lung Adenocarcinoma: A Case Report and Mini Review of the Literature. Front Oncol. 2017;7:88.",
+    url: "https://doi.org/10.3389/fonc.2017.00088"
   },
   "225": {
     text: "Occhipinti M, Falcone R, Onesti CE, Botticelli A, Mazzuca F, Marchetti P, et al. Crizotinib plus radiotherapy in brain oligoprogressive NSCLC ROS1 rearranged and PD-L1 strong. J Thorac Dis. 2017 Nov;9(11):E985–9.",
@@ -271,184 +243,3 @@ export const referencesData = {
     text: "Eze C, Hegemann NS, Roengvoraphoj O, Dantes M, Manapov F. Concurrent Afatinib and Whole-Brain Radiotherapy in Exon 19-del-EGFR Mutant Lung Adenocarcinoma: A Case Report and Mini Review of the Literature. Front Oncol. 2017;7:88.",
     url: "https://doi.org/10.3389/fonc.2017.00088"
   },
-  "236": {
-    text: "Wang XS, Bai YF, Verma V, Yu RL, Tian W, Ao R, et al. Randomized Trial of First-Line Tyrosine Kinase Inhibitor With or Without Radiotherapy for Synchronous Oligometastatic EGFR-Mutated Non-Small Cell Lung Cancer.",
-    url: "https://doi.org/10.1093/jnci/djac015"
-  },
-  "237": {
-    text: "Banla LI, Tzeng A, Baillieul JP, Kandekhar MJ, Fitzgerald KJ, LoPiccolo J, et al. Pneumonitis in Patients Receiving Thoracic Radiotherapy and Osimertinib: A Multi-Institutional Study.",
-    url: "https://doi.org/10.1016/j.jtocrr.2023.100559"
-  },
-  "238": {
-    text: "Nepote A, Poletto S, Bertaglia V, Carnio S, Piumatti C, Lanzetta C, et al. Role of osimertinib plus brain radiotherapy versus osimertinib single therapy in EGFR-mutated non-small-cell lung cancer with brain metastases: A meta-analysis and systematic review.",
-    url: "https://doi.org/10.1016/j.critrevonc.2024.104540"
-  },
-  "239": {
-    text: "Khan M, Zhao Z, Arooj S, Zheng T, Liao G. Lapatinib Plus Local Radiation Therapy for Brain Metastases From HER-2 Positive Breast Cancer Patients and Role of Trastuzumab: A Systematic Review and Meta-Analysis.",
-    url: "https://doi.org/10.3389/fonc.2020.576926"
-  },
-  "240": {
-    text: "Ramesh S, Cifci A, Javeri S, Minne RL, Longhurst CA, Nickel KP, et al. MET Inhibitor Capmatinib Radiosensitizes MET Exon 14-Mutated and MET-Amplified Non-Small Cell Lung Cancer.",
-    url: "https://doi.org/10.1101/2023.10.26.564232"
-  },
-  "241": {
-    text: "Loo Gan C, Huang J, Pan E, Xie W, Schmidt AL, Labaki C, et al. Real-world Practice Patterns and Safety of Concurrent Radiotherapy and Cabozantinib in Metastatic Renal Cell Carcinoma.",
-    url: "https://doi.org/10.1016/j.euo.2022.10.004"
-  },
-  "242": {
-    text: "Schiff D, Desjardins A, Cloughesy T, Mikkelsen T, Glantz M, Chamberlain MC, et al. Phase 1 dose escalation trial of the safety and pharmacokinetics of cabozantinib concurrent with temozolomide and radiotherapy or temozolomide after radiotherapy in newly diagnosed patients with high-grade gliomas.",
-    url: "https://doi.org/10.1002/cncr.29798"
-  },
-  "243": {
-    text: "Olsen MR, Denu RA, Lyon JB, Gulliver JM, Capitini CM, DeSantes KB. Undifferentiated and Unresectable Sarcoma With NTRK3-Fusion in a Pediatric Patient Treated With Larotrectinib and Proton Beam Radiotherapy.",
-    url: "https://doi.org/10.1097/mph.0000000000002358"
-  },
-  "244": {
-    text: "Rao SS, Thompson C, Cheng J, Haimovitz-Friedman A, Powell SN, Fuks Z, et al. Axitinib sensitization of high Single Dose Radiotherapy.",
-    url: "https://doi.org/10.1016/j.radonc.2014.02.010"
-  },
-  "245": {
-    text: "Hu K, Ma MW, Gao XS, Chen JY, Li XY, Qin SB, et al. Mid-Term Analysis of the Combination Therapy of Axitinib, Toripalimab, and Stereotactic Ablative Body Radiotherapy (SABR) in the Treatment of Recurrent Metastatic Renal Cell Carcinoma.",
-    url: "https://doi.org/10.1016/j.ijrobp.2024.07.1192"
-  },
-  "246": {
-    text: "Weng YS, Chiang IT, Tsai JJ, Liu YC, Hsu FT. Lenvatinib Synergistically Promotes Radiation Therapy in Hepatocellular Carcinoma by Inhibiting Src/STAT3/NF-κB-Mediated Epithelial–Mesenchymal Transition and Metastasis.",
-    url: "https://doi.org/10.1016/j.ijrobp.2022.09.060"
-  },
-  "247": {
-    text: "Ji X, Xu Z, Sun J, Li W, Duan X, Wang Q. Lenvatinib with or without stereotactic body radiotherapy for hepatocellular carcinoma with portal vein tumor thrombosis: a retrospective study.",
-    url: "https://doi.org/10.1186/s13014-023-02270-z"
-  },
-  "248": {
-    text: "Morikawa A, Grkovski M, Patil S, Jhaveri KL, Tang K, Humm JL, et al. A phase I trial of sorafenib with whole brain radiotherapy (WBRT) in breast cancer patients with brain metastases and a correlative study of FLT-PET brain imaging.",
-    url: "https://doi.org/10.1007/s10549-021-06209-4"
-  },
-  "249": {
-    text: "O'Steen S, Green DJ, Gopal AK, Orozco JJ, Kenoyer AL, Lin Y, et al. Venetoclax Synergizes with Radiotherapy for Treatment.",
-    url: "https://doi.org/10.1158/0008-5472.CAN-17-0082"
-  },
-  "250": {
-    text: "Mueller S, Yang X, Sottero TL, Gragg A, Prasad G, Polley MY, et al. Cooperation of the HDAC inhibitor vorinostat and radiation in metastatic neuroblastoma: efficacy and underlying mechanisms.",
-    url: "https://doi.org/10.1016/j.canlet.2011.03.010"
-  },
-  "251": {
-    text: "Ree AH, Dueland S, Folkvord S, Hole KH, Seierstad T, Johansen M, et al. Vorinostat, a histone deacetylase inhibitor, combined with pelvic palliative radiotherapy for gastrointestinal carcinoma: the Pelvic Radiation and Vorinostat (PRAVO) phase 1 study.",
-    url: "https://doi.org/10.1016/S1470-2045(10)70058-9"
-  },
-  "252": {
-    text: "Shi W, Palmer JD, Werner-Wasik M, Andrews DW, Evans JJ, Glass J, et al. Phase I trial of panobinostat and fractionated stereotactic re-irradiation therapy for recurrent high grade gliomas.",
-    url: "https://doi.org/10.1007/s11060-016-2059-3"
-  },
-  "253": {
-    text: "EL-Ghoubaira J, Drappatz J, Mantica M. Retrospective study of ivosidenib for patients with recurrent IDH mutant gliomas. JCO 42, 2040-2040(2024).",
-    url: "https://doi.org/10.1200/JCO.2024.42.16_suppl.2040"
-  },
-  "254": {
-    text: "Kubicek GJ, Axelrod RS, Machtay M, Ahn PH, Anne PR, Fogh S, et al. Phase I trial using the proteasome inhibitor bortezomib and concurrent chemoradiotherapy for head-and-neck malignancies.",
-    url: "https://doi.org/10.1016/j.ijrobp.2011.09.023"
-  },
-  "255": {
-    text: "Kubicek GJ, Werner-Wasik M, Machtay M, Mallon G, Myers T, Ramirez M, et al. Phase I trial using proteasome inhibitor bortezomib and concurrent temozolomide and radiotherapy for central nervous system malignancies.",
-    url: "https://doi.org/10.1016/j.ijrobp.2008.08.050"
-  },
-  "256": {
-    text: "Lao CD, Friedman J, Tsien CI, Normolle DP, Chapman C, Cao Y, et al. Concurrent whole brain radiotherapy and bortezomib for brain metastasis.",
-    url: "https://doi.org/10.1186/1748-717x-8-204"
-  },
-  "257": {
-    text: "Pollom EL, Bui TT, Chang ALS, Colevas AD, Hara WY. Concurrent Vismodegib and Radiotherapy for Recurrent, Advanced Basal Cell Carcinoma.",
-    url: "https://doi.org/10.1001/jamadermatol.2015.0326"
-  },
-  "258": {
-    text: "Barker CA, Dufault S, Arron ST, Ho AL, Algazi AP, Dunn LA, et al. Phase II, Single-Arm Trial of Induction and Concurrent Vismodegib With Curative-Intent Radiation Therapy for Locally Advanced, Unresectable Basal Cell Carcinoma.",
-    url: "https://doi.org/10.1200/jco.23.01708"
-  },
-  "259": {
-    text: "Nepote A, Poletto S, Bertaglia V, Carnio S, Piumatti C, Lanzetta C, et al. First reported case of concurrent sonidegib and radiotherapy for recurrent, advanced basal cell carcinoma.",
-    url: "https://doi.org/10.5603/RPOR.a2021.0010"
-  },
-  "260": {
-    text: "Day D, Prawira A, Spreafico A, Waldron J, Karithanam R, Giuliani M, et al. Phase I trial of alpelisib in combination with concurrent cisplatin-based chemoradiotherapy in patients with locoregionally advanced squamous cell carcinoma of the head and neck.",
-    url: "https://doi.org/10.1016/j.oraloncology.2020.104753"
-  },
-  "261": {
-    text: "Gryc T, Putz F, Goerig N, Ziegler S, Fietkau R, Distel LV, et al. Idelalisib may have the potential to increase radiotherapy side effects.",
-    url: "https://doi.org/10.1186/s13014-017-0827-7"
-  },
-  "262": {
-    text: "König L, Dreyling M, Dürig J, Engelhard M, Hohloch K, Viardot A, et al. Therapy of nodal Follicular Lymphoma (WHO grade 1/2) in clinical stage I/II using response adapted Involved Site Radiotherapy in combination with Obinutuzumab (Gazyvaro) - GAZAI Trial.",
-    url: "https://doi.org/10.1186/s13063-019-3614-y"
-  },
-  "263": {
-    text: "Herfarth K, Borchmann P, Schnaidt S, Hohloch K, Budach V, Engelhard M, et al. Rituximab With Involved Field Irradiation for Early-stage Nodal Follicular Lymphoma.",
-    url: "https://doi.org/10.1097/HS9.0000000000000160"
-  },
-  "264": {
-    text: "Debbi K, Loganadane G, Roulin L, Belhadj K, Boukhobza C, Saoudi A, et al. Combined daratumumab-pomalidomide and ultra-fractionated whole breast irradiation is safe!",
-    url: "https://doi.org/10.5603/rpor.100780"
-  },
-  "265": {
-    text: "Lee YL, Hsu JF, Yang CJ. Tracheoesophageal Fistula in a Patient with Advanced Non-Small Cell Lung Cancer Who Received Chemoradiotherapy and Ramucirumab.",
-    url: "https://doi.org/10.1016/j.jtho.2018.08.2031"
-  },
-  "266": {
-    text: "Akahane K, Shirai K, Wakatsuki M, Ogawa K, Minato K, Hamamoto K, et al. Severe esophageal stenosis in a patient with metastatic colon cancer following palliative radiotherapy, ramucirumab, and chemotherapy.",
-    url: "https://doi.org/10.1002/ccr3.2751"
-  },
-  "267": {
-    text: "Drappatz J, Wong ET, Schiff D, Kesari S, Batchelor TT, Doherty L, et al. A pilot safety study of lenalidomide and radiotherapy for patients with newly diagnosed glioblastoma multiforme.",
-    url: "https://doi.org/10.1016/j.ijrobp.2008.03.046"
-  },
-  "268": {
-    text: "Bohli M, Jaffel H, El Fida Noubbigh G, Tbessi S, Msadek F, Kochbati L. Synergistic Effect and Tolerance of Concurrent Radiotherapy and Lenalidomide Use in Relapsing Mantle Cell Lymphoma: A Case Report.",
-    url: "https://doi.org/10.7812/tpp/19.156"
-  },
-  "269": {
-    text: "Hoang T, Dahlberg SE, Schiller JH, Mehta MP, Fitzgerald TJ, Belinsky SA, et al. Randomized phase III study of thoracic radiation in combination with paclitaxel and carboplatin with or without thalidomide in patients with stage III non-small-cell lung cancer.",
-    url: "https://doi.org/10.1200/jco.2011.36.9116"
-  },
-  "270": {
-    text: "Atkins MB, Sosman JA, Agarwala S, Logan T, Clark JI, Ernstoff MS, et al. Temozolomide, thalidomide, and whole brain radiation therapy for patients with brain metastasis from metastatic melanoma.",
-    url: "https://doi.org/10.1002/cncr.23805"
-  },
-  "271": {
-    text: "Hsu WC, Chan SC, Ting LL, Chung NN, Wang PM, Ying KS, et al. Results of three-dimensional conformal radiotherapy and thalidomide for advanced hepatocellular carcinoma.",
-    url: "https://doi.org/10.1093/jjco/hyi242"
-  },
-  "272": {
-    text: "Prevo R, Deutsch E, Sampson O, Diplexcito J, Cengel K, Harper J, et al. Class I PI3 kinase inhibition by the pyridinylfuranopyrimidine inhibitor PI-103 enhances tumor radiosensitivity.",
-    url: "https://doi.org/10.1158/0008-5472.can-08-0757"
-  },
-  "273": {
-    text: "Deutsch E, Le Péchoux C, Faivre L, Rivera S, Tao Y, Pignon JP, et al. Phase I trial of everolimus in combination with thoracic radiotherapy in non-small-cell lung cancer.",
-    url: "https://doi.org/10.1093/annonc/mdv105"
-  },
-  "274": {
-    text: "Eren MF, Ay Eren A, Sayan M, Yücel B, Elagöz Ş, Özgüven Y, et al. The Impact of Everolimus and Radiation Therapy on Pulmonary Fibrosis.",
-    url: "https://doi.org/10.3390/medicina56070348"
-  },
-  "275": {
-    text: "Wu SY, Fang PQ, Wang EB, Ahmed S, Duvic M, Jain P, et al. Safety of Concurrent Radiation Therapy With Brentuximab Vedotin in the Treatment of Lymphoma.",
-    url: "https://doi.org/10.1016/j.adro.2023.101279"
-  },
-  "276": {
-    text: "Kumar A, Casulo C, Yahalom J, Schöder H, Barr PM, Caron P, et al. Brentuximab vedotin and AVD followed by involved-site radiotherapy in early stage, unfavorable risk Hodgkin lymphoma.",
-    url: "https://doi.org/10.1182/blood-2016-03-703470"
-  },
-  "277": {
-    text: "Bouziane J, Loap P, Cao K, Allali S, Gounane Y, Loganadane G, et al. Concurrent Use of Trastuzumab Deruxtecan and Radiation Therapy in HER2-positive and HER2-low Metastatic Breast Cancer: A Single-center Experience and Review of the Literature.",
-    url: "https://doi.org/10.1097/coc.0000000000001135"
-  },
-  "278": {
-    text: "Soni YS, Lock D, Ballas LK, Hwang L, Cole S, D'Souza A, et al. Bi-Institutional Safety Analysis of Combining Radiotherapy and Enfortumab Vedotin in Advanced Urothelial Cancer.",
-    url: "https://doi.org/10.1016/j.ijrobp.2024.07.129"
-  },
-  "279": {
-    text: "Seyedin SN, Harada GK, Garemanian E, Rafizadeh D, Kaakour D, Dwabe S, et al. Safety Analysis of Co-Administration of Radiation Therapy with Enfortumab Vedotin Based Regimens in Metastatic Urothelial Carcinoma.",
-    url: "https://doi.org/10.1016/j.clgc.2024.102243"
-  },
-  "280": {
-    text: "Krug D, Tio J, Abaci A, Beurer B, Brügge S, Elsayad K, et al. The Safety and Efficacy of the Combination of Sacituzumab Govitecan and Palliative Radiotherapy—A Retrospective Multi-Center Cohort Study.",
-    url: "https://doi.org/10.3390/cancers16091649"
-  }
-};
