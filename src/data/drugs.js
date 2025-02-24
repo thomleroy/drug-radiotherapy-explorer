@@ -1620,5 +1620,5 @@ export const allDrugs = [
   intracranialRT: "5 days",
   references: "[240]"
     }
-}
+
 ];
