@@ -494,7 +494,7 @@ export const allDrugs = [
   intracranialRT: "0"
 },
 {
-  name: "Leucoprelin",
+  name: "Leuproprelin",
   class: "LH-RH agonists",
   category: "endocrine",
   halfLife: "3h",
