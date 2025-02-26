@@ -1,7 +1,7 @@
 export const referencesData = {
   "58": {
-    text: "Bentzen SM, Skoczylas JZ, Overgaard M, Overgaard J. Radiotherapy-related lung fibrosis enhanced by tamoxifen. J Natl Cancer Inst. 1996 Jul 3;88(13):918–22.",
-    url: "https://doi.org/10.1093/jnci/88.13.918"
+    text: "D Azria  1 , S Gourgou, W J Sozzi, A Zouhair, R O Mirimanoff, A Kramar, C Lemanski, J B Dubois, G Romieu, A Pelegrin, M Ozsahin. Concomitant use of tamoxifen with radiotherapy enhances subcutaneous breast fibrosis in hypersensitive patients. Br J Cancer 2004 Oct 4;91(7):1251-60.",
+    url: "https://doi.org/10.1038/sj.bjc.6602146"
   },
   "80": {
     text: "Swain SM, Shastry M, Hamilton E. Targeting HER2-positive breast cancer: advances and future directions. Nat Rev Drug Discov. 2023 Feb;22(2):101–26.",
