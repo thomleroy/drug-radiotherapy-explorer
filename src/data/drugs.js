@@ -596,10 +596,10 @@ export const allDrugs = [
   class: "Anti estrogens receptor",
   category: "endocrine",
   halfLife: "7 days",
-  normofractionatedRT: "5 days",
-  palliativeRT: "5 days",
-  stereotacticRT: "5 days",
-  intracranialRT: "5 days",
+  normofractionatedRT: "0 (except radiosensibility)",
+  palliativeRT: "0 (except radiosensibility)",
+  stereotacticRT: "0 (except radiosensibility)",
+  intracranialRT: "0 (except radiosensibility)",
   references: "[58]"
 },
 {
