@@ -1,6 +1,9 @@
 export const allDrugs = [
 {
     name: "Irinotecan",
+    dci: "irinotécan",
+    commercial: "Campto",
+    administration: "IV",
     class: "Topoisomerases 1 inhibitors",
     category: "chemotherapy",
     halfLife: "14h",
@@ -12,6 +15,9 @@ export const allDrugs = [
   },
   {
     name: "Topotecan",
+    dci: "topotécan",
+    commercial: "Hycamtin",
+    administration: "IV, Oral",
     class: "Topoisomerases 1 inhibitors",
     category: "chemotherapy",
     halfLife: "5h",
@@ -23,6 +29,9 @@ export const allDrugs = [
   },
   {
     name: "Daunorubicine",
+    dci: "daunorubicine",
+    commercial: "Cerubidine",
+    administration: "IV",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "24h",
@@ -34,6 +43,9 @@ export const allDrugs = [
   },
   {
     name: "Doxorubicine",
+    dci: "doxorubicine",
+    commercial: "Adriamycine",
+    administration: "IV",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "3 days",
@@ -45,6 +57,9 @@ export const allDrugs = [
   },
   {
     name: "Epirubicine",
+    dci: "épirubicine",
+    commercial: "Farmorubicine",
+    administration: "IV",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "20 to 40h",
@@ -56,6 +71,9 @@ export const allDrugs = [
   },
   {
     name: "Idarubicine",
+    dci: "idarubicine",
+    commercial: "Zavedos",
+    administration: "IV",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "11 to 25h",
@@ -67,6 +85,9 @@ export const allDrugs = [
   },
   {
     name: "Etoposide",
+    dci: "étoposide",
+    commercial: "Vepeside, Celltop",
+    administration: "IV, Oral",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "4 to 11h",
@@ -78,6 +99,9 @@ export const allDrugs = [
   },
   {
     name: "Bleomycine",
+    dci: "bléomycine",
+    commercial: "Bléomycine",
+    administration: "IV, IM, SC",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "4h",
@@ -91,6 +115,9 @@ export const allDrugs = [
   // Purine analogues
 {
   name: "Mercaptopurine",
+  dci: "mercaptopurine",
+  commercial: "Purinethol",
+  administration: "Oral",
   class: "Purine analogues",
   category: "chemotherapy",
   halfLife: "2h",
@@ -102,6 +129,9 @@ export const allDrugs = [
 },
 {
   name: "Fludarabine",
+  dci: "fludarabine",
+  commercial: "Fludara",
+  administration: "IV, Oral",
   class: "Purine analogues",
   category: "chemotherapy",
   halfLife: "15 to 23h",
@@ -113,6 +143,9 @@ export const allDrugs = [
 },
 {
   name: "Clofarabine",
+  dci: "clofarabine",
+  commercial: "Evoltra",
+  administration: "IV",
   class: "Purine analogues",
   category: "chemotherapy",
   halfLife: "5.2h",
@@ -125,6 +158,9 @@ export const allDrugs = [
 // Alkylating agents - Platinum based drugs
 {
   name: "Cisplatin",
+  dci: "cisplatine",
+  commercial: "Cisplatine",
+  administration: "IV",
   class: "Platinum based drugs",
   category: "chemotherapy",
   halfLife: "30 min",
@@ -135,6 +171,9 @@ export const allDrugs = [
 },
 {
   name: "Carboplatin",
+  dci: "carboplatine",
+  commercial: "Paraplatine",
+  administration: "IV",
   class: "Platinum based drugs",
   category: "chemotherapy",
   halfLife: "6h",
@@ -145,6 +184,9 @@ export const allDrugs = [
 },
 {
   name: "Oxaliplatine",
+  dci: "oxaliplatine",
+  commercial: "Eloxatine",
+  administration: "IV",
   class: "Platinum based drugs",
   category: "chemotherapy",
   halfLife: "25min",
@@ -157,6 +199,9 @@ export const allDrugs = [
 // Alkylating agents - Nitrogen mustards
 {
   name: "Chlorambucil",
+  dci: "chlorambucil",
+  commercial: "Leukeran",
+  administration: "Oral",
   class: "Nitrogen mustards",
   category: "chemotherapy",
   halfLife: "1.5h",
@@ -168,6 +213,9 @@ export const allDrugs = [
 },
 {
   name: "Melphalan",
+  dci: "melphalan",
+  commercial: "Alkeran",
+  administration: "IV, Oral",
   class: "Nitrogen mustards",
   category: "chemotherapy",
   halfLife: "1.5h",
@@ -179,6 +227,9 @@ export const allDrugs = [
 },
 {
   name: "Cyclophosphamide",
+  dci: "cyclophosphamide",
+  commercial: "Endoxan",
+  administration: "IV, Oral",
   class: "Nitrogen mustards",
   category: "chemotherapy",
   halfLife: "4 to 8h",
@@ -190,6 +241,9 @@ export const allDrugs = [
 },
 {
   name: "Ifosfamide",
+  dci: "ifosfamide",
+  commercial: "Holoxan",
+  administration: "IV",
   class: "Nitrogen mustards",
   category: "chemotherapy",
   halfLife: "4 to 8h",
@@ -202,6 +256,9 @@ export const allDrugs = [
   // Anti metabolites agents
   {
     name: "5-Fluorouracil",
+    dci: "fluorouracile",
+    commercial: "Fluorouracile",
+    administration: "IV",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "6min",
@@ -212,6 +269,9 @@ export const allDrugs = [
   },
   {
     name: "Capecitabine",
+    dci: "capécitabine",
+    commercial: "Xeloda",
+    administration: "Oral",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "3h",
@@ -222,6 +282,9 @@ export const allDrugs = [
   },
   {
     name: "Triflurifine",
+    dci: "trifluridine",
+    commercial: "Lonsurf (avec tipiracil)",
+    administration: "Oral",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "1.4h",
@@ -233,6 +296,9 @@ export const allDrugs = [
   },
   {
     name: "Tipiracil",
+    dci: "tipiracil",
+    commercial: "Lonsurf (avec trifluridine)",
+    administration: "Oral",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "1.4h",
@@ -244,6 +310,9 @@ export const allDrugs = [
   },
 {
     name: "Gemcitabine",
+    dci: "gemcitabine",
+    commercial: "Gemzar",
+    administration: "IV",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "5 to 11h",
@@ -255,6 +324,9 @@ export const allDrugs = [
   },
   {
     name: "Cytarabine",
+    dci: "cytarabine",
+    commercial: "Aracytine",
+    administration: "IV, SC, IT",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "2h",
@@ -266,6 +338,9 @@ export const allDrugs = [
   },
   {
     name: "Azacitidine",
+    dci: "azacitidine",
+    commercial: "Vidaza",
+    administration: "SC, IV",
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "45min",
@@ -276,6 +351,9 @@ export const allDrugs = [
   },
   {
     name: "Methotrexate",
+    dci: "méthotrexate",
+    commercial: "Methotrexate",
+    administration: "Oral, IV, IM, IT",
     class: "Antifolates",
     category: "chemotherapy",
     halfLife: "8 to 15h",
@@ -287,6 +365,9 @@ export const allDrugs = [
   },
   {
     name: "Pemetrexed",
+    dci: "pémétrexed",
+    commercial: "Alimta",
+    administration: "IV",
     class: "Antifolates",
     category: "chemotherapy",
     halfLife: "3.5h",
@@ -298,6 +379,9 @@ export const allDrugs = [
   },
   {
     name: "Ralitrexed",
+    dci: "raltitrexed",
+    commercial: "Tomudex",
+    administration: "IV",
     class: "Antifolates",
     category: "chemotherapy",
     halfLife: "8 days",
@@ -310,6 +394,9 @@ export const allDrugs = [
   // Alkylating agents - Nitrosea urea
 {
   name: "Bendamustine",
+  dci: "bendamustine",
+  commercial: "Levact, Bendeka",
+  administration: "IV",
   class: "Nitrosea urea",
   category: "chemotherapy",
   halfLife: "30min",
@@ -321,6 +408,9 @@ export const allDrugs = [
 },
 {
   name: "Fotemustine",
+  dci: "fotémustine",
+  commercial: "Muphoran",
+  administration: "IV",
   class: "Nitrosea urea",
   category: "chemotherapy",
   halfLife: "30min to 2h",
@@ -331,6 +421,9 @@ export const allDrugs = [
 },
 {
   name: "Lomustine",
+  dci: "lomustine",
+  commercial: "Bélustine",
+  administration: "Oral",
   class: "Nitrosea urea",
   category: "chemotherapy",
   halfLife: "3 days",
@@ -344,6 +437,9 @@ export const allDrugs = [
 // Alcaloid
 {
   name: "Trabectidine",
+  dci: "trabectédine",
+  commercial: "Yondelis",
+  administration: "IV",
   class: "Alcaloid",
   category: "chemotherapy",
   halfLife: "7.5 days",
@@ -357,6 +453,9 @@ export const allDrugs = [
 // Various
 {
   name: "Dacarbazine",
+  dci: "dacarbazine",
+  commercial: "Déticène",
+  administration: "IV",
   class: "Various",
   category: "chemotherapy",
   halfLife: "1.5h",
@@ -367,6 +466,9 @@ export const allDrugs = [
 },
 {
   name: "Procarbazine",
+  dci: "procarbazine",
+  commercial: "Natulan",
+  administration: "Oral",
   class: "Various",
   category: "chemotherapy",
   halfLife: "7 min",
@@ -377,6 +479,9 @@ export const allDrugs = [
 },
 {
   name: "Mitomycin C",
+  dci: "mitomycine",
+  commercial: "Amétycine",
+  administration: "IV, Intravésical",
   class: "Various",
   category: "chemotherapy",
   halfLife: "1h",
@@ -387,6 +492,9 @@ export const allDrugs = [
 },
 {
   name: "Temozolomide",
+  dci: "témozolomide",
+  commercial: "Temodal",
+  administration: "Oral, IV",
   class: "Various",
   category: "chemotherapy",
   halfLife: "1.8h",
@@ -399,6 +507,9 @@ export const allDrugs = [
 // Antimitutic agents - Taxanes
 {
   name: "Paclitaxel",
+  dci: "paclitaxel",
+  commercial: "Taxol",
+  administration: "IV",
   class: "Taxanes",
   category: "chemotherapy",
   halfLife: "24h",
@@ -409,6 +520,9 @@ export const allDrugs = [
 },
 {
   name: "Nab-Paclitaxel",
+  dci: "paclitaxel (nanoparticules d'albumine)",
+  commercial: "Abraxane",
+  administration: "IV",
   class: "Taxanes",
   category: "chemotherapy",
   halfLife: "24h",
@@ -419,6 +533,9 @@ export const allDrugs = [
 },
 {
   name: "Docetaxel",
+  dci: "docétaxel",
+  commercial: "Taxotère",
+  administration: "IV",
   class: "Taxanes",
   category: "chemotherapy",
   halfLife: "11h",
@@ -429,6 +546,9 @@ export const allDrugs = [
 },
 {
   name: "Cabazitaxel",
+  dci: "cabazitaxel",
+  commercial: "Jevtana",
+  administration: "IV",
   class: "Taxanes",
   category: "chemotherapy",
   halfLife: "96h",
@@ -440,6 +560,9 @@ export const allDrugs = [
 // Antimitutic agents - Halichondrins
 {
   name: "Eribuline",
+  dci: "éribuline",
+  commercial: "Halaven",
+  administration: "IV",
   class: "Halichondrins",
   category: "chemotherapy",
   halfLife: "40h",
@@ -452,6 +575,9 @@ export const allDrugs = [
 // Antimitutic agents - Vinca alkaloids
 {
   name: "Vinblastine",
+  dci: "vinblastine",
+  commercial: "Velbé",
+  administration: "IV",
   class: "Vinca alkaloids",
   category: "chemotherapy",
   halfLife: "24h",
@@ -462,6 +588,9 @@ export const allDrugs = [
 },
 {
   name: "Vincristine",
+  dci: "vincristine",
+  commercial: "Oncovin",
+  administration: "IV",
   class: "Vinca alkaloids",
   category: "chemotherapy",
   halfLife: "3.5 days",
@@ -473,6 +602,9 @@ export const allDrugs = [
 },
 {
   name: "Vinorelbine",
+  dci: "vinorelbine",
+  commercial: "Navelbine",
+  administration: "IV, Oral",
   class: "Vinca alkaloids",
   category: "chemotherapy",
   halfLife: "40h",
@@ -485,6 +617,9 @@ export const allDrugs = [
   // Endocrine Therapy - LH-RH agonists & antagonists
 {
   name: "Goserelin",
+  dci: "goséréline",
+  commercial: "Zoladex",
+  administration: "SC (implant)",
   class: "LH-RH agonists",
   category: "endocrine",
   halfLife: "7h",
@@ -495,6 +630,9 @@ export const allDrugs = [
 },
 {
   name: "Leuproprelin",
+  dci: "leuproréline",
+  commercial: "Eligard, Enantone",
+  administration: "SC, IM",
   class: "LH-RH agonists",
   category: "endocrine",
   halfLife: "3h",
@@ -505,6 +643,9 @@ export const allDrugs = [
 },
 {
   name: "Triptoreline",
+  dci: "triptoréline",
+  commercial: "Décapeptyl",
+  administration: "IM, SC",
   class: "LH-RH agonists",
   category: "endocrine",
   halfLife: "5h",
@@ -515,6 +656,9 @@ export const allDrugs = [
 },
 {
   name: "Degarelix",
+  dci: "dégarélix",
+  commercial: "Firmagon",
+  administration: "SC",
   class: "LH-RH antagonists",
   category: "endocrine",
   halfLife: "28 days",
@@ -525,6 +669,9 @@ export const allDrugs = [
 },
 {
   name: "Relugolix",
+  dci: "rélugolix",
+  commercial: "Orgovyx, Relumina",
+  administration: "Oral",
   class: "LH-RH antagonists",
   category: "endocrine",
   halfLife: "61.5h",
@@ -537,6 +684,9 @@ export const allDrugs = [
 // Anti-androgens receptor
 {
   name: "Bicalutamide",
+  dci: "bicalutamide",
+  commercial: "Casodex",
+  administration: "Oral",
   class: "Anti-androgens receptor",
   category: "endocrine",
   halfLife: "7 days",
@@ -547,6 +697,9 @@ export const allDrugs = [
 },
 {
   name: "Apalutamide",
+  dci: "apalutamide",
+  commercial: "Erleada",
+  administration: "Oral",
   class: "Anti-androgens receptor",
   category: "endocrine",
   halfLife: "72h",
@@ -558,6 +711,9 @@ export const allDrugs = [
 },
 {
   name: "Enzalutamide",
+  dci: "enzalutamide",
+  commercial: "Xtandi",
+  administration: "Oral",
   class: "Anti-androgens receptor",
   category: "endocrine",
   halfLife: "6 days",
@@ -569,6 +725,9 @@ export const allDrugs = [
 },
 {
   name: "Darolutamide",
+  dci: "darolutamide",
+  commercial: "Nubeqa",
+  administration: "Oral",
   class: "Anti-androgens receptor",
   category: "endocrine",
   halfLife: "20h",
@@ -582,6 +741,9 @@ export const allDrugs = [
 // Other endocrine therapies
 {
   name: "Abiraterone acetate",
+  dci: "acétate d'abiratérone",
+  commercial: "Zytiga",
+  administration: "Oral",
   class: "Cytochrome P450 C17 inhibitor",
   category: "endocrine",
   halfLife: "15h",
@@ -593,6 +755,9 @@ export const allDrugs = [
 },
 {
   name: "Tamoxifene",
+  dci: "tamoxifène",
+  commercial: "Nolvadex",
+  administration: "Oral",
   class: "Anti estrogens receptor",
   category: "endocrine",
   halfLife: "7 days",
@@ -604,6 +769,9 @@ export const allDrugs = [
 },
 {
   name: "Fulvestrant",
+  dci: "fulvestrant",
+  commercial: "Faslodex",
+  administration: "IM",
   class: "Anti estrogens receptor",
   category: "endocrine",
   halfLife: "50 days",
@@ -617,6 +785,9 @@ export const allDrugs = [
 // Anti-aromatases
 {
   name: "Letrozole",
+  dci: "létrozole",
+  commercial: "Femara",
+  administration: "Oral",
   class: "Anti-aromatases",
   category: "endocrine",
   halfLife: "2 to 4 days",
@@ -628,6 +799,9 @@ export const allDrugs = [
 },
 {
   name: "Anastrozole",
+  dci: "anastrozole",
+  commercial: "Arimidex",
+  administration: "Oral",
   class: "Anti-aromatases",
   category: "endocrine",
   halfLife: "48h",
@@ -638,6 +812,9 @@ export const allDrugs = [
 },
 {
   name: "Exemestane",
+  dci: "exémestane",
+  commercial: "Aromasine",
+  administration: "Oral",
   class: "Anti-aromatases",
   category: "endocrine",
   halfLife: "24h",
@@ -649,6 +826,9 @@ export const allDrugs = [
   // Targeted therapy drugs
   {
     name: "Alectinib",
+    dci: "alectinib",
+    commercial: "Alecensa",
+    administration: "Oral",
     class: "Tyrosine kinase inhibitors",
     category: "targeted",
     halfLife: "32h",
@@ -660,6 +840,9 @@ export const allDrugs = [
   },
   {
     name: "Brigatinib",
+    dci: "brigatinib",
+    commercial: "Alunbrig",
+    administration: "Oral",
     class: "Tyrosine kinase inhibitors",
     category: "targeted",
     halfLife: "24h",
@@ -670,6 +853,9 @@ export const allDrugs = [
   },
   {
     name: "Ceritinib",
+    dci: "céritinib",
+    commercial: "Zykadia",
+    administration: "Oral",
     class: "Tyrosine kinase inhibitors",
     category: "targeted",
     halfLife: "40h",
@@ -680,6 +866,9 @@ export const allDrugs = [
   },
   {
     name: "Crizotinib",
+    dci: "crizotinib",
+    commercial: "Xalkori",
+    administration: "Oral",
     class: "Tyrosine kinase inhibitors",
     category: "targeted",
     halfLife: "42h",
@@ -691,6 +880,9 @@ export const allDrugs = [
   },
   {
   name: "Lorlatinib",
+  dci: "lorlatinib",
+  commercial: "Lorviqua",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (ALK)",
   category: "targeted",
   halfLife: "24h",
@@ -703,6 +895,9 @@ export const allDrugs = [
 // BCR-ABL inhibitors
 {
   name: "Bosutinib",
+  dci: "bosutinib",
+  commercial: "Bosulif",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BCR-ABL)",
   category: "targeted",
   halfLife: "35h",
@@ -713,6 +908,9 @@ export const allDrugs = [
 },
 {
   name: "Dasatinib",
+  dci: "dasatinib",
+  commercial: "Sprycel",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BCR-ABL)",
   category: "targeted",
   halfLife: "5h",
@@ -724,6 +922,9 @@ export const allDrugs = [
 },
 {
   name: "Imatinib",
+  dci: "imatinib",
+  commercial: "Glivec",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BCR-ABL)",
   category: "targeted",
   halfLife: "18h",
@@ -735,6 +936,9 @@ export const allDrugs = [
 },
 {
   name: "Nilotinib",
+  dci: "nilotinib",
+  commercial: "Tasigna",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BCR-ABL)",
   category: "targeted",
   halfLife: "17h",
@@ -746,6 +950,9 @@ export const allDrugs = [
 },
 {
   name: "Ponatinib",
+  dci: "ponatinib",
+  commercial: "Iclusig",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BCR-ABL)",
   category: "targeted",
   halfLife: "22h",
@@ -758,6 +965,9 @@ export const allDrugs = [
 // BTK inhibitors
 {
   name: "Acalabrutinib",
+  dci: "acalabrutinib",
+  commercial: "Calquence",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BTK)",
   category: "targeted",
   halfLife: "7h",
@@ -768,6 +978,9 @@ export const allDrugs = [
 },
 {
   name: "Ibrutinib",
+  dci: "ibrutinib",
+  commercial: "Imbruvica",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BTK)",
   category: "targeted",
   halfLife: "4h to 13h",
@@ -779,6 +992,9 @@ export const allDrugs = [
 },
 {
   name: "Pirtobrutinib",
+  dci: "pirtobrutinib",
+  commercial: "Jaypirca",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (BTK)",
   category: "targeted",
   halfLife: "19h",
@@ -790,6 +1006,9 @@ export const allDrugs = [
 // EGFR inhibitors
 {
   name: "Afatinib",
+  dci: "afatinib",
+  commercial: "Giotrif",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (EGFR)",
   category: "targeted",
   halfLife: "37h",
@@ -801,6 +1020,9 @@ export const allDrugs = [
 },
 {
   name: "Gefitinib",
+  dci: "géfitinib",
+  commercial: "Iressa",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (EGFR)",
   category: "targeted",
   halfLife: "41h",
@@ -812,6 +1034,9 @@ export const allDrugs = [
 },
 {
   name: "Erlotinib",
+  dci: "erlotinib",
+  commercial: "Tarceva",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (EGFR)",
   category: "targeted",
   halfLife: "36h",
@@ -822,6 +1047,9 @@ export const allDrugs = [
 },
 {
   name: "Osimertinib",
+  dci: "osimertinib",
+  commercial: "Tagrisso",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (EGFR)",
   category: "targeted",
   halfLife: "48h",
@@ -835,6 +1063,9 @@ export const allDrugs = [
 // Other specific inhibitors
 {
   name: "Futibatinib",
+  dci: "futibatinib",
+  commercial: "Lytgobi",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (FGFR)",
   category: "targeted",
   halfLife: "3h",
@@ -845,6 +1076,9 @@ export const allDrugs = [
 },
 {
   name: "Pemigatinib",
+  dci: "pémigatinib",
+  commercial: "Pemazyre",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (FGFR2)",
   category: "targeted",
   halfLife: "15h",
@@ -855,6 +1089,9 @@ export const allDrugs = [
 },
 {
   name: "Gilteritinib",
+  dci: "giltéritinib",
+  commercial: "Xospata",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (FLT3)",
   category: "targeted",
   halfLife: "4.7 days",
@@ -865,6 +1102,9 @@ export const allDrugs = [
 },
 {
   name: "Lapatinib",
+  dci: "lapatinib",
+  commercial: "Tyverb",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (HER2)",
   category: "targeted",
   halfLife: "24h",
@@ -876,6 +1116,9 @@ export const allDrugs = [
 },
 {
   name: "Tucatinib",
+  dci: "tucatinib",
+  commercial: "Tukysa",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (HER2)",
   category: "targeted",
   halfLife: "8.5h",
@@ -889,6 +1132,9 @@ export const allDrugs = [
 // JAK & MEK inhibitors
 {
   name: "Fedratinib",
+  dci: "fédratinib",
+  commercial: "Inrebic",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (JAK)",
   category: "targeted",
   halfLife: "4.75 days",
@@ -899,6 +1145,9 @@ export const allDrugs = [
 },
 {
   name: "Ruxolitinib",
+  dci: "ruxolitinib",
+  commercial: "Jakavi",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (JAK)",
   category: "targeted",
   halfLife: "3h",
@@ -909,6 +1158,9 @@ export const allDrugs = [
 },
 {
   name: "Binimetinib",
+  dci: "binimétinib",
+  commercial: "Mektovi",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (MEK)",
   category: "targeted",
   halfLife: "8.66h",
@@ -921,6 +1173,9 @@ export const allDrugs = [
 // MET, RET and other inhibitors
 {
   name: "Capmatinib",
+  dci: "capmatinib",
+  commercial: "Tabrecta",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (MET)",
   category: "targeted",
   halfLife: "6.5h",
@@ -932,6 +1187,9 @@ export const allDrugs = [
 },
 {
   name: "Cabozantinib",
+  dci: "cabozantinib",
+  commercial: "Cabometyx, Cometriq",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (MET, RET, ROS1, VEGFR)",
   category: "targeted",
   halfLife: "4.5 days",
@@ -943,6 +1201,9 @@ export const allDrugs = [
 },
 {
   name: "Tepotinib",
+  dci: "tépotinib",
+  commercial: "Tepmetko",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (MET)",
   category: "targeted",
   halfLife: "32h",
@@ -953,6 +1214,9 @@ export const allDrugs = [
 },
 {
   name: "Selpercatinib",
+  dci: "selpercatinib",
+  commercial: "Retsevmo",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (RET fusion)",
   category: "targeted",
   halfLife: "24h",
@@ -963,6 +1227,9 @@ export const allDrugs = [
 },
 {
   name: "Larotrectinib",
+  dci: "larotrectinib",
+  commercial: "Vitrakvi",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (TRK)",
   category: "targeted",
   halfLife: "3h",
@@ -976,6 +1243,9 @@ export const allDrugs = [
 // VEGFR inhibitors
 {
   name: "Axitinib",
+  dci: "axitinib",
+  commercial: "Inlyta",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (VEGFR)",
   category: "targeted",
   halfLife: "2.5h to 6h",
@@ -987,6 +1257,9 @@ export const allDrugs = [
 },
 {
   name: "Lenvatinib",
+  dci: "lenvatinib",
+  commercial: "Lenvima, Kisplyx",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (c-Kit, FGFR, PDGFR, VEGFR)",
   category: "targeted",
   halfLife: "28h",
@@ -998,6 +1271,9 @@ export const allDrugs = [
 },
 {
   name: "Sorafenib",
+  dci: "sorafénib",
+  commercial: "Nexavar",
+  administration: "Oral",
   class: "Tyrosine kinase inhibitors (c-Kit, FLT3, PDGFR, VEGFR)",
   category: "targeted",
   halfLife: "24h to 48h",
@@ -1011,6 +1287,9 @@ export const allDrugs = [
 // Monoclonal antibodies
 {
   name: "Obinutuzumab",
+  dci: "obinutuzumab",
+  commercial: "Gazyvaro",
+  administration: "IV",
   class: "Monoclonal antibodies (CD20)",
   category: "targeted",
   halfLife: "23.9 days",
@@ -1022,6 +1301,9 @@ export const allDrugs = [
 },
 {
   name: "Rituximab",
+  dci: "rituximab",
+  commercial: "MabThera, Rituxan",
+  administration: "IV, SC",
   class: "Monoclonal antibodies (CD20)",
   category: "targeted",
   halfLife: "22 days",
@@ -1033,6 +1315,9 @@ export const allDrugs = [
 },
 {
   name: "Cetuximab",
+  dci: "cétuximab",
+  commercial: "Erbitux",
+  administration: "IV",
   class: "Monoclonal antibodies (EGFR)",
   category: "targeted",
   halfLife: "4 days",
@@ -1043,6 +1328,9 @@ export const allDrugs = [
 },
 {
   name: "Bevacizumab",
+  dci: "bévacizumab",
+  commercial: "Avastin",
+  administration: "IV",
   class: "Monoclonal antibodies (VEGFR)",
   category: "targeted",
   halfLife: "18 to 20 days",
@@ -1050,10 +1338,13 @@ export const allDrugs = [
   palliativeRT: "0 (except abdomino pelvic)",
   stereotacticRT: "21 days",
   intracranialRT: "0"
-  },
+},
 // Autres thérapies ciblées
 {
   name: "Venetoclax",
+  dci: "vénétoclax",
+  commercial: "Venclyxto",
+  administration: "Oral",
   class: "Bcl-2 inhibitors",
   category: "targeted",
   halfLife: "26h",
@@ -1065,6 +1356,9 @@ export const allDrugs = [
 },
 {
   name: "Dabrafenib",
+  dci: "dabrafénib",
+  commercial: "Tafinlar",
+  administration: "Oral",
   class: "BRAF inhibitors",
   category: "targeted",
   halfLife: "2.6h",
@@ -1076,6 +1370,9 @@ export const allDrugs = [
 },
 {
   name: "Encorafenib",
+  dci: "encorafénib",
+  commercial: "Braftovi",
+  administration: "Oral",
   class: "BRAF inhibitors",
   category: "targeted",
   halfLife: "6.3h",
@@ -1086,6 +1383,9 @@ export const allDrugs = [
 },
 {
   name: "Vemurafenib",
+  dci: "vémurafénib",
+  commercial: "Zelboraf",
+  administration: "Oral",
   class: "BRAF inhibitors",
   category: "targeted",
   halfLife: "51h",
@@ -1098,6 +1398,9 @@ export const allDrugs = [
 // PARP inhibitors
 {
   name: "Niraparib",
+  dci: "niraparib",
+  commercial: "Zejula",
+  administration: "Oral",
   class: "PARP inhibitors",
   category: "targeted",
   halfLife: "48h",
@@ -1108,6 +1411,9 @@ export const allDrugs = [
 },
 {
   name: "Olaparib",
+  dci: "olaparib",
+  commercial: "Lynparza",
+  administration: "Oral",
   class: "PARP inhibitors",
   category: "targeted",
   halfLife: "15h",
@@ -1119,6 +1425,9 @@ export const allDrugs = [
 },
 {
   name: "Rucaparib",
+  dci: "rucaparib",
+  commercial: "Rubraca",
+  administration: "Oral",
   class: "PARP inhibitors",
   category: "targeted",
   halfLife: "26h",
@@ -1131,6 +1440,9 @@ export const allDrugs = [
 // Proteasome inhibitors et autres
 {
   name: "Bortezomib",
+  dci: "bortézomib",
+  commercial: "Velcade",
+  administration: "IV, SC",
   class: "Proteasome inhibitors",
   category: "targeted",
   halfLife: "40 to 193h",
@@ -1142,6 +1454,9 @@ export const allDrugs = [
 },
 {
   name: "Carfilzomib",
+  dci: "carfilzomib",
+  commercial: "Kyprolis",
+  administration: "IV",
   class: "Proteasome inhibitors",
   category: "targeted",
   halfLife: "1h",
@@ -1154,6 +1469,9 @@ export const allDrugs = [
 // Immunomodulators
 {
   name: "Lenalidomide",
+  dci: "lénalidomide",
+  commercial: "Revlimid",
+  administration: "Oral",
   class: "Immunomodulators",
   category: "immunotherapy",
   halfLife: "3h to 5h",
@@ -1165,6 +1483,9 @@ export const allDrugs = [
 },
 {
   name: "Pomalidomide",
+  dci: "pomalidomide",
+  commercial: "Imnovid",
+  administration: "Oral",
   class: "Immunomodulators",
   category: "immunotherapy",
   halfLife: "9h",
@@ -1176,6 +1497,9 @@ export const allDrugs = [
 },
 {
   name: "Thalidomide",
+  dci: "thalidomide",
+  commercial: "Thalidomide",
+  administration: "Oral",
   class: "Immunomodulators",
   category: "immunotherapy",
   halfLife: "7h",
@@ -1189,6 +1513,9 @@ export const allDrugs = [
 // Antibody-drug conjugates
 {
   name: "Brentuximab vedotin",
+  dci: "brentuximab védotine",
+  commercial: "Adcetris",
+  administration: "IV",
   class: "Antibody-drug conjugates (CD30)",
   category: "targeted",
   halfLife: "4 to 6 days",
@@ -1200,6 +1527,9 @@ export const allDrugs = [
 },
 {
   name: "Trastuzumab Emtansine",
+  dci: "trastuzumab emtansine",
+  commercial: "Kadcyla",
+  administration: "IV",
   class: "Antibody-drug conjugates (HER2)",
   category: "targeted",
   halfLife: "4 days",
@@ -1212,6 +1542,9 @@ export const allDrugs = [
 // Derniers anticorps monoclonaux et protéines de fusion
 {
   name: "Ramucirumab",
+  dci: "ramucirumab",
+  commercial: "Cyramza",
+  administration: "IV",
   class: "Monoclonal antibodies (VEGFR)",
   category: "targeted",
   halfLife: "14 days",
@@ -1223,6 +1556,9 @@ export const allDrugs = [
 },
 {
   name: "Aflibercept",
+  dci: "aflibercept",
+  commercial: "Zaltrap",
+  administration: "IV",
   class: "Recombinant fusion protein (VEGF)",
   category: "targeted",
   halfLife: "6 days",
@@ -1234,6 +1570,9 @@ export const allDrugs = [
 // Antibody-drug conjugates
 {
   name: "Trastuzumab Deruxtecan",
+  dci: "trastuzumab déruxtécan",
+  commercial: "Enhertu",
+  administration: "IV",
   class: "Antibody-drug conjugates",
   category: "targeted",
   halfLife: "7 days",
@@ -1245,6 +1584,9 @@ export const allDrugs = [
 },
 {
   name: "Enfortumab Vedotin",
+  dci: "enfortumab védotine",
+  commercial: "Padcev",
+  administration: "IV",
   class: "Antibody-drug conjugates (Nectin 4)",
   category: "targeted",
   halfLife: "3.6 days",
@@ -1256,6 +1598,9 @@ export const allDrugs = [
 },
 {
   name: "Sacituzumab govitecan",
+  dci: "sacituzumab govitécan",
+  commercial: "Trodelvy",
+  administration: "IV",
   class: "Antibody-drug conjugates (TROP2)",
   category: "targeted",
   halfLife: "15h to 19h",
@@ -1269,6 +1614,9 @@ export const allDrugs = [
 // Immunotherapy drugs
 {
   name: "Nivolumab",
+  dci: "nivolumab",
+  commercial: "Opdivo",
+  administration: "IV",
   class: "PD1 inhibitors",
   category: "immunotherapy",
   halfLife: "25 days",
@@ -1279,6 +1627,9 @@ export const allDrugs = [
 },
 {
   name: "Pembrolizumab",
+  dci: "pembrolizumab",
+  commercial: "Keytruda",
+  administration: "IV",
   class: "PD1 inhibitors",
   category: "immunotherapy",
   halfLife: "22 days",
@@ -1289,6 +1640,9 @@ export const allDrugs = [
 },
 {
   name: "Atezolizumab",
+  dci: "atézolizumab",
+  commercial: "Tecentriq",
+  administration: "IV",
   class: "PDL1 inhibitors",
   category: "immunotherapy",
   halfLife: "27 days",
@@ -1299,6 +1653,9 @@ export const allDrugs = [
 },
 {
   name: "Avelumab",
+  dci: "avélumab",
+  commercial: "Bavencio",
+  administration: "IV",
   class: "PDL1 inhibitors",
   category: "immunotherapy",
   halfLife: "6 days",
@@ -1309,6 +1666,9 @@ export const allDrugs = [
 },
 {
   name: "Durvalumab",
+  dci: "durvalumab",
+  commercial: "Imfinzi",
+  administration: "IV",
   class: "PDL1 inhibitors",
   category: "immunotherapy",
   halfLife: "18 days",
@@ -1319,6 +1679,9 @@ export const allDrugs = [
 },
 {
   name: "Ipilimumab",
+  dci: "ipilimumab",
+  commercial: "Yervoy",
+  administration: "IV",
   class: "CTLA4 inhibitors",
   category: "immunotherapy",
   halfLife: "15 days",
@@ -1329,6 +1692,9 @@ export const allDrugs = [
 },
 {
   name: "Tremelimumab",
+  dci: "trémélimumab",
+  commercial: "Imjudo",
+  administration: "IV",
   class: "CTLA4 inhibitors",
   category: "immunotherapy",
   halfLife: "14.2 days",
@@ -1339,6 +1705,9 @@ export const allDrugs = [
 },
 {
     name: "Abemaciclib",
+    dci: "abémaciclib",
+    commercial: "Verzenios",
+    administration: "Oral",
     class: "CDK4/6 inhibitors",
     category: "targeted",
     halfLife: "25h",
@@ -1350,6 +1719,9 @@ export const allDrugs = [
   },
   {
     name: "Palbociclib",
+    dci: "palbociclib",
+    commercial: "Ibrance",
+    administration: "Oral",
     class: "CDK4/6 inhibitors",
     category: "targeted",
     halfLife: "29h",
@@ -1361,6 +1733,9 @@ export const allDrugs = [
   },
   {
     name: "Ribociclib",
+    dci: "ribociclib",
+    commercial: "Kisqali",
+    administration: "Oral",
     class: "CDK4/6 inhibitors",
     category: "targeted",
     halfLife: "30 to 55h",
@@ -1371,6 +1746,9 @@ export const allDrugs = [
   },
   {
     name: "Vorinostat",
+    dci: "vorinostat",
+    commercial: "Zolinza",
+    administration: "Oral",
     class: "Histones deacetylases HDAC inhibitors",
     category: "targeted",
     halfLife: "2h",
@@ -1382,6 +1760,23 @@ export const allDrugs = [
   },
   {
     name: "Panobinostat",
+    dci: "panobinostat",
+    commercial: "Farydak",
+    administration: "Oral",
+    class: "CDK4/6 inhibitors, IDH-1 inhibitors, IDH-2 inhibitors",
+    category: "targeted",
+    halfLife: "37h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[252]"
+  },
+{
+    name: "Panobinostat",
+    dci: "panobinostat",
+    commercial: "Farydak",
+    administration: "Oral",
     class: "CDK4/6 inhibitors, IDH-1 inhibitors, IDH-2 inhibitors",
     category: "targeted",
     halfLife: "37h",
@@ -1393,6 +1788,9 @@ export const allDrugs = [
   },
   {
     name: "Ivosidenib",
+    dci: "ivosidénib",
+    commercial: "Tibsovo",
+    administration: "Oral",
     class: "Isocitrate dehydrogenase inhibitors (IDH-1)",
     category: "targeted",
     halfLife: "58h to 129h",
@@ -1404,6 +1802,9 @@ export const allDrugs = [
   },
   {
     name: "Enasidenib",
+    dci: "énasidénib",
+    commercial: "Idhifa",
+    administration: "Oral",
     class: "Unspecified",
     category: "targeted",
     halfLife: "8 days",
@@ -1414,6 +1815,9 @@ export const allDrugs = [
   },
   {
     name: "Adagrasib",
+    dci: "adagrasib",
+    commercial: "Krazati",
+    administration: "Oral",
     class: "KRAS G12C inhibitors",
     category: "targeted",
     halfLife: "24h",
@@ -1424,6 +1828,9 @@ export const allDrugs = [
   },
   {
     name: "Sotorasib",
+    dci: "sotorasib",
+    commercial: "Lumykras",
+    administration: "Oral",
     class: "KRAS G12C inhibitors",
     category: "targeted",
     halfLife: "5h",
@@ -1434,6 +1841,9 @@ export const allDrugs = [
   },
   {
     name: "Niraparib",
+    dci: "niraparib",
+    commercial: "Zejula",
+    administration: "Oral",
     class: "PARP inhibitors",
     category: "targeted",
     halfLife: "48h",
@@ -1444,6 +1854,9 @@ export const allDrugs = [
   },
   {
     name: "Talazoparib",
+    dci: "talazoparib",
+    commercial: "Talzenna",
+    administration: "Oral",
     class: "PARP inhibitors",
     category: "targeted",
     halfLife: "3.75 days",
@@ -1454,6 +1867,9 @@ export const allDrugs = [
   },
   {
     name: "Ixazomib",
+    dci: "ixazomib",
+    commercial: "Ninlaro",
+    administration: "Oral",
     class: "Proteasome inhibitors",
     category: "targeted",
     halfLife: "9.5 days",
@@ -1464,6 +1880,9 @@ export const allDrugs = [
   },
   {
     name: "Vismodegib",
+    dci: "vismodégib",
+    commercial: "Erivedge",
+    administration: "Oral",
     class: "SMO protein inhibitors",
     category: "targeted",
     halfLife: "4 days",
@@ -1475,6 +1894,9 @@ export const allDrugs = [
   },
   {
     name: "Sonidegib",
+    dci: "sonidégib",
+    commercial: "Odomzo",
+    administration: "Oral",
     class: "Proteasome inhibitors, PI3K inhibitors",
     category: "targeted",
     halfLife: "28 days",
@@ -1486,6 +1908,9 @@ export const allDrugs = [
   },
   {
     name: "Daratumumab",
+    dci: "daratumumab",
+    commercial: "Darzalex",
+    administration: "IV, SC",
     class: "PI3K inhibitors (CD38)",
     category: "targeted",
     halfLife: "9 days",
@@ -1495,8 +1920,11 @@ export const allDrugs = [
     intracranialRT: "0 days",
     references: "[264]"
   },
-    {
+  {
     name: "Pertuzumab",
+    dci: "pertuzumab",
+    commercial: "Perjeta",
+    administration: "IV",
     class: "Monoclonal antibodies (HER2)",
     category: "targeted",
     halfLife: "18 days",
@@ -1505,8 +1933,11 @@ export const allDrugs = [
     stereotacticRT: "0",
     intracranialRT: "0",
   },
-     {
+  {
     name: "Trastuzumab",
+    dci: "trastuzumab",
+    commercial: "Herceptin",
+    administration: "IV, SC",
     class: "Monoclonal antibodies (HER2)",
     category: "targeted",
     halfLife: "28.5 days",
@@ -1514,111 +1945,140 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-          },
-    {
-  name: "Zanubrutinib",
-  class: "Tyrosine kinase inhibitors (BTK)",
-  category: "targeted",
-  halfLife: "4h",
-  normofractionatedRT: "48h",
-  palliativeRT: "48h",
-  stereotacticRT: "48h",
-  intracranialRT: "48h"
-},
-{
-  name: "Pazopanib",
-  class: "Tyrosine kinase inhibitors (c-Kit)",
-  category: "targeted",
-  halfLife: "31h",
-  normofractionatedRT: "5 days",
-  palliativeRT: "5 days",
-  stereotacticRT: "5 days",
-  intracranialRT: "5 days",
-  references: "[233, 234]"
-},
-{
-  name: "Ripretinib",
-  class: "Tyrosine kinase inhibitors (c-Kit)",
-  category: "targeted",
-  halfLife: "15h",
-  normofractionatedRT: "3 days",
-  palliativeRT: "3 days",
-  stereotacticRT: "3 days",
-  intracranialRT: "3 days"
-},
-{
-  name: "Cobimetinib",
-  class: "Tyrosine kinase inhibitors (MEK)",
-  category: "targeted",
-  halfLife: "43h",
-  normofractionatedRT: "10 days",
-  palliativeRT: "10 days",
-  stereotacticRT: "10 days",
-  intracranialRT: "10 days"
-},
-{
-  name: "Trametinib",
-  class: "Tyrosine kinase inhibitors (MEK)",
-  category: "targeted",
-  halfLife: "127h",
-  normofractionatedRT: "48h",
-  palliativeRT: "48h",
-  stereotacticRT: "48h",
-  intracranialRT: "48h"
-},
-{
-  name: "Alpelisib",
-  class: "PI3K inhibitors",
-  category: "targeted",
-  halfLife: "9h",
-  normofractionatedRT: "48h",
-  palliativeRT: "48h",
-  stereotacticRT: "48h",
-  intracranialRT: "48h",
-  references: "[260]"
-},
-{
-  name: "Idelalisib",
-  class: "PI3K inhibitors",
-  category: "targeted",
-  halfLife: "8h",
-  normofractionatedRT: "48h",
-  palliativeRT: "48h",
-  stereotacticRT: "48h",
-  intracranialRT: "48h",
-  references: "[261]"
-},
-{
-  name: "Everolimus",
-  class: "Immunosuppressors",
-  category: "targeted",
-  halfLife: "30h",
-  normofractionatedRT: "7 days",
-  palliativeRT: "7 days",
-  stereotacticRT: "7 days",
-  intracranialRT: "7 days",
-  references: "[273, 274, 272]"
-},
-{
-  name: "Panitumumab",
-  class: "Monoclonal antibodies (EGFR)",
-  category: "targeted",
-  halfLife: "7 days",
-  normofractionatedRT: "0",
-  palliativeRT: "0",
-  stereotacticRT: "0",
-  intracranialRT: "0"
-},
-{
-  name: "Vandetanib",
-  class: "Tyrosine kinase inhibitors (EGFR, VEGFR)",
-  category: "targeted",
-  halfLife: "19 days",
-  normofractionatedRT: "5 days",
-  palliativeRT: "5 days",
-  stereotacticRT: "5 days",
-  intracranialRT: "5 days",
-  references: "[228]"
-    }
-
+  },
+  {
+    name: "Zanubrutinib",
+    dci: "zanubrutinib",
+    commercial: "Brukinsa",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (BTK)",
+    category: "targeted",
+    halfLife: "4h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h"
+  },
+  {
+    name: "Pazopanib",
+    dci: "pazopanib",
+    commercial: "Votrient",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (c-Kit)",
+    category: "targeted",
+    halfLife: "31h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[233, 234]"
+  },
+  {
+    name: "Ripretinib",
+    dci: "riprétinib",
+    commercial: "Qinlock",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (c-Kit)",
+    category: "targeted",
+    halfLife: "15h",
+    normofractionatedRT: "3 days",
+    palliativeRT: "3 days",
+    stereotacticRT: "3 days",
+    intracranialRT: "3 days"
+  },
+  {
+    name: "Cobimetinib",
+    dci: "cobimétinib",
+    commercial: "Cotellic",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (MEK)",
+    category: "targeted",
+    halfLife: "43h",
+    normofractionatedRT: "10 days",
+    palliativeRT: "10 days",
+    stereotacticRT: "10 days",
+    intracranialRT: "10 days"
+  },
+  {
+    name: "Trametinib",
+    dci: "tramétinib",
+    commercial: "Mekinist",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (MEK)",
+    category: "targeted",
+    halfLife: "127h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h"
+  },
+  {
+    name: "Alpelisib",
+    dci: "alpélisib",
+    commercial: "Piqray",
+    administration: "Oral",
+    class: "PI3K inhibitors",
+    category: "targeted",
+    halfLife: "9h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[260]"
+  },
+  {
+    name: "Idelalisib",
+    dci: "idélalisib",
+    commercial: "Zydelig",
+    administration: "Oral",
+    class: "PI3K inhibitors",
+    category: "targeted",
+    halfLife: "8h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[261]"
+  },
+  {
+    name: "Everolimus",
+    dci: "évérolimus",
+    commercial: "Afinitor",
+    administration: "Oral",
+    class: "Immunosuppressors",
+    category: "targeted",
+    halfLife: "30h",
+    normofractionatedRT: "7 days",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "7 days",
+    references: "[273, 274, 272]"
+  },
+  {
+    name: "Panitumumab",
+    dci: "panitumumab",
+    commercial: "Vectibix",
+    administration: "IV",
+    class: "Monoclonal antibodies (EGFR)",
+    category: "targeted",
+    halfLife: "7 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0"
+  },
+  {
+    name: "Vandetanib",
+    dci: "vandétanib",
+    commercial: "Caprelsa",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (EGFR, VEGFR)",
+    category: "targeted",
+    halfLife: "19 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[228]"
+  }
 ];
