@@ -12,7 +12,6 @@ import LanguageToggle from './LanguageToggle';
 // Constants - moved outside the component to avoid recreation on renders
 const INITIAL_VISIBLE_COLUMNS = {
   name: true,
-  dci: true,
   commercial: true,
   administration: true,
   class: true,
@@ -101,7 +100,8 @@ const DEFAULT_TRANSLATIONS = {
     references: {
       title: "References",
       openArticle: "Open Article",
-      viewReferences: "View References"
+      viewReferences: "View References",
+      noReferences: "No references available"
     },
     columnManager: {
       title: "Manage Columns"
@@ -176,7 +176,8 @@ const DEFAULT_TRANSLATIONS = {
     references: {
       title: "Références",
       openArticle: "Ouvrir l'Article",
-      viewReferences: "Voir les Références"
+      viewReferences: "Voir les Références",
+      noReferences: "Aucune référence disponible"
     },
     columnManager: {
       title: "Gérer les Colonnes"
@@ -503,6 +504,16 @@ const filteredAndSortedDrugs = useMemo(() => {
     </motion.span>
   ), []);
 
+  // Handle drug name click to show references or no references message
+  const handleDrugClick = useCallback((drug) => {
+    if (drug.references) {
+      setSelectedReferences(drug.references);
+    } else {
+      // Show "No references available" message
+      setSelectedReferences("no-references");
+    }
+  }, []);
+
   // Drug Card component - extracted for better readability
   const DrugCard = useCallback(({ drug }) => (
   <motion.div
@@ -513,7 +524,7 @@ const filteredAndSortedDrugs = useMemo(() => {
   >
     <div className="p-4">
       <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-semibold text-sfro-dark">
+        <h3 className="text-lg font-semibold text-sfro-dark cursor-pointer hover:text-blue-600 hover:underline" onClick={() => handleDrugClick(drug)}>
           {drug.name}
         </h3>
         <Badge color={CATEGORY_COLORS[drug.category] || 'bg-gray-50 text-gray-800 border-gray-200'}>
@@ -522,11 +533,6 @@ const filteredAndSortedDrugs = useMemo(() => {
       </div>
 
       <div className="space-y-3">
-        <div className="flex items-center text-sm">
-          <span className="text-gray-500 w-24">{t('columns.dci')}:</span>
-          <span className="text-gray-900">{drug.dci}</span>
-        </div>
-
         <div className="flex items-center text-sm">
           <span className="text-gray-500 w-24">{t('columns.commercial')}:</span>
           <span className="text-gray-900">{drug.commercial}</span>
@@ -568,25 +574,46 @@ const filteredAndSortedDrugs = useMemo(() => {
             </div>
           </div>
         </div>
-
-        {drug.references && (
-          <div className="mt-2 text-xs text-gray-500">
-            <button 
-              onClick={() => setSelectedReferences(drug.references)}
-              className="text-blue-600 hover:text-blue-800 hover:underline"
-            >
-              {t('references.viewReferences') || 'View References'}
-            </button>
-          </div>
-        )}
       </div>
     </div>
   </motion.div>
-), [Badge, Tooltip, setSelectedReferences, t, translateDrugClass]);
+), [Badge, Tooltip, handleDrugClick, t, translateDrugClass]);
 
   // References Popup component - extracted for better readability
   const ReferencesPopup = useCallback(({ references, onClose }) => {
     if (!references) return null;
+
+    // Handle the case when no references are available
+    if (references === "no-references") {
+      return (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={onClose}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 20 }}
+            className="bg-white p-6 rounded-lg max-w-md m-4"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-900">{t('references.title')}</h3>
+              <button 
+                onClick={onClose}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="p-4 bg-gray-50 rounded-lg text-center">
+              <p className="text-gray-600">{t('references.noReferences')}</p>
+            </div>
+          </motion.div>
+        </div>
+      );
+    }
 
     const refArray = references.split(',').map(ref => ref.replace(/[\[\]]/g, '').trim());
     
@@ -962,23 +989,12 @@ const filteredAndSortedDrugs = useMemo(() => {
 <thead className={`sticky top-0 bg-sfro-light z-10 ${isTableScrolled ? 'shadow-md' : ''}`}>
   <tr>
     {visibleColumns.name && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[120px] w-[15%]">
+      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[160px] w-[20%]">
         <ColumnHeaderWithTooltip 
           title={t('columns.name')} 
           longTitle={t('columns.name')}
           onClick={() => requestSort('name')}
           sortKey="name"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.dci && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[100px] w-[10%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.dci')} 
-          longTitle={t('columns.dci')}
-          onClick={() => requestSort('dci')}
-          sortKey="dci"
           sortConfig={sortConfig}
         />
       </th>
@@ -1094,16 +1110,11 @@ const filteredAndSortedDrugs = useMemo(() => {
         {visibleColumns.name && (
           <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">
             <button 
-              onClick={() => drug.references && setSelectedReferences(drug.references)}
-              className={`text-left ${drug.references ? 'text-blue-600 hover:text-blue-800 hover:underline' : ''}`}
+              onClick={() => handleDrugClick(drug)}
+              className="text-left text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
             >
               {drug.name}
             </button>
-          </td>
-        )}
-        {visibleColumns.dci && (
-          <td className="px-3 py-2 whitespace-normal text-gray-500">
-            {drug.dci}
           </td>
         )}
         {visibleColumns.commercial && (
@@ -1231,5 +1242,3 @@ const filteredAndSortedDrugs = useMemo(() => {
   );
 };
 export default DrugExplorer;
-
-
