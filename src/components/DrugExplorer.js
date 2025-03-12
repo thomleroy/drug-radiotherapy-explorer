@@ -8,6 +8,8 @@ import { referencesData } from '../data/references';
 import DotsOverlay from '../components/ui/DotsOverlay';
 import { translations } from './translations';
 import LanguageToggle from './LanguageToggle';
+import { protocolsStaticData, extractUniqueData } from '../data/protocoleRTCT';
+
 
 // Constants - moved outside the component to avoid recreation on renders
 const INITIAL_VISIBLE_COLUMNS = {
@@ -62,31 +64,33 @@ const DEFAULT_TRANSLATIONS = {
       all: "All Drug Classes"
     },
     columns: {
-  name: "Drug Name",
-  dci: "INN",
-  commercial: "Brand Name",
-  administration: "Administration",
-  administration_short: "Admin",
-  class: "Class",
-  category: "Category",
-  category_short: "Cat",
-  halfLife: "Half-life",
-  halfLife_short: "Half-life",
-  normofractionatedRT: "Normofractionated RT",
-  normofractionatedRT_short: "Norm RT",
-  palliativeRT: "Palliative RT",
-  palliativeRT_short: "Pal RT",
-  stereotacticRT: "Stereotactic RT",
-  stereotacticRT_short: "Ster RT",
-  intracranialRT: "Intracranial RT",
-  intracranialRT_short: "IC RT"
-},
+      name: "Drug Name",
+      dci: "INN",
+      commercial: "Brand Name",
+      administration: "Administration",
+      administration_short: "Admin",
+      class: "Class",
+      category: "Category",
+      category_short: "Cat",
+      halfLife: "Half-life",
+      halfLife_short: "Half-life",
+      normofractionatedRT: "Normofractionated RT",
+      normofractionatedRT_short: "Norm RT",
+      palliativeRT: "Palliative RT",
+      palliativeRT_short: "Pal RT",
+      stereotacticRT: "Stereotactic RT",
+      stereotacticRT_short: "Ster RT",
+      intracranialRT: "Intracranial RT",
+      intracranialRT_short: "IC RT"
+    },
     buttons: {
       manageColumns: "Manage Columns",
       exportCSV: "Export CSV",
       done: "Done",
       close: "Close",
-      applyFilters: "Apply Filters"
+      applyFilters: "Apply Filters",
+      drugExplorer: "Drugs",
+      protocolsExplorer: "RT-CT Protocols"
     },
     legend: {
       noDelay: "No delay required",
@@ -113,7 +117,21 @@ const DEFAULT_TRANSLATIONS = {
     accessibility: {
       skipToContent: "Skip to main content"
     },
-    radiotherapyTiming: "Radiotherapy Timing"
+    radiotherapyTiming: "Radiotherapy Timing",
+    protocol: {
+      allOrgans: "All Organs",
+      allMolecules: "All Molecules",
+      organ: "Organ",
+      condition: "Condition",
+      molecule: "Molecule",
+      route: "Route",
+      modality: "Administration Modality",
+      timing: "Start relative to RT",
+      legendGroup: "Organ grouping",
+    },
+    protocolsSearch: "Search by molecule or organ...",
+    loading: "Loading protocols...",
+    noProtocolResults: "No protocols found matching your criteria"
   },
   fr: {
     title: "Explorateur Médicaments & Radiothérapie",
@@ -134,35 +152,34 @@ const DEFAULT_TRANSLATIONS = {
     drugClass: {
       all: "Toutes les Classes de Médicaments"
     },
-
-
     columns: {
-  name: "Nom du Médicament",
-  dci: "DCI",
-  commercial: "Nom Commercial",
-  administration: "Administration",
-  administration_short: "Admin",
-  class: "Classe",
-  category: "Catégorie",
-  category_short: "Cat",
-  halfLife: "Demi-vie",
-  halfLife_short: "Demi-vie",
-  normofractionatedRT: "RT Normofractionnée",
-  normofractionatedRT_short: "RT Normo",
-  palliativeRT: "RT Palliative",
-  palliativeRT_short: "RT Pal",
-  stereotacticRT: "RT Stéréotaxique",
-  stereotacticRT_short: "RT Stéréo",
-  intracranialRT: "RT Intracrânienne",
-  intracranialRT_short: "RT IC"
-},
-
+      name: "Nom du Médicament",
+      dci: "DCI",
+      commercial: "Nom Commercial",
+      administration: "Administration",
+      administration_short: "Admin",
+      class: "Classe",
+      category: "Catégorie",
+      category_short: "Cat",
+      halfLife: "Demi-vie",
+      halfLife_short: "Demi-vie",
+      normofractionatedRT: "RT Normofractionnée",
+      normofractionatedRT_short: "RT Normo",
+      palliativeRT: "RT Palliative",
+      palliativeRT_short: "RT Pal",
+      stereotacticRT: "RT Stéréotaxique",
+      stereotacticRT_short: "RT Stéréo",
+      intracranialRT: "RT Intracrânienne",
+      intracranialRT_short: "RT IC"
+    },
     buttons: {
       manageColumns: "Gérer les Colonnes",
       exportCSV: "Exporter CSV",
       done: "Terminé",
       close: "Fermer",
-      applyFilters: "Appliquer les Filtres"
+      applyFilters: "Appliquer les Filtres",
+      drugExplorer: "Médicaments",
+      protocolsExplorer: "Protocoles de RT-CT"
     },
     legend: {
       noDelay: "Aucun délai requis",
@@ -189,7 +206,21 @@ const DEFAULT_TRANSLATIONS = {
     accessibility: {
       skipToContent: "Passer au contenu principal"
     },
-    radiotherapyTiming: "Planification de la Radiothérapie"
+    radiotherapyTiming: "Planification de la Radiothérapie",
+    protocol: {
+      allOrgans: "Tous les organes",
+      allMolecules: "Toutes les molécules",
+      organ: "Organe",
+      condition: "Condition",
+      molecule: "Molécule",
+      route: "Voie",
+      modality: "Modalités d'administration",
+      timing: "Début par rapport à la RT",
+      legendGroup: "Groupement par organe",
+    },
+    protocolsSearch: "Rechercher par molécule ou organe...",
+    loading: "Chargement des protocoles...",
+    noProtocolResults: "Aucun protocole ne correspond à vos critères"
   }
 };
 
@@ -244,13 +275,19 @@ const DrugExplorer = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
   const [visibleColumns, setVisibleColumns] = useState(INITIAL_VISIBLE_COLUMNS);
-  
+  const [viewMode, setViewMode] = useState('drugs'); // 'drugs' or 'protocols'
+  const [protocolsData, setProtocolsData] = useState([]);
+  const [organsData, setOrgansData] = useState([]);
+  const [moleculesData, setMoleculesData] = useState([]);
+  const [isLoadingProtocols, setIsLoadingProtocols] = useState(false);
   
   // Filter States
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [halfLifeFilter, setHalfLifeFilter] = useState('all');
   const [classFilter, setClassFilter] = useState('all');
+  const [selectedOrgan, setSelectedOrgan] = useState('all');
+  const [selectedMolecule, setSelectedMolecule] = useState('all');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   
   // Language State - Try to get from localStorage initially
@@ -275,13 +312,13 @@ const DrugExplorer = () => {
   }, []);
 
   const ColumnHeaderWithTooltip = useCallback(({ title, longTitle }) => (
-  <div className="relative group">
-    <span>{title}</span>
-    <div className="invisible group-hover:visible absolute z-50 -left-2 top-full mt-1 p-2 bg-gray-800 text-white text-xs rounded shadow-lg whitespace-nowrap">
-      {longTitle}
+    <div className="relative group">
+      <span>{title}</span>
+      <div className="invisible group-hover:visible absolute z-50 -left-2 top-full mt-1 p-2 bg-gray-800 text-white text-xs rounded shadow-lg whitespace-nowrap">
+        {longTitle}
+      </div>
     </div>
-  </div>
-), []);
+  ), []);
 
   // Enhanced translation function with fallbacks
   const t = useCallback((key) => {
@@ -336,23 +373,12 @@ const DrugExplorer = () => {
     }
   }, [lang]);
   
-  // Add event listener for system color scheme changes
+  // Effet pour charger automatiquement les protocoles quand on est en mode Protocoles
   useEffect(() => {
-    const handleColorSchemeChange = (e) => {
-      // Could be used to switch between light/dark themes
-      const isDarkMode = e.matches;
-      // Implementation for theme switching would go here
-    };
-    
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      colorSchemeQuery.addEventListener('change', handleColorSchemeChange);
-      
-      return () => {
-        colorSchemeQuery.removeEventListener('change', handleColorSchemeChange);
-      };
+    if (viewMode === 'protocols' && protocolsData.length === 0 && !isLoadingProtocols) {
+      loadProtocols();
     }
-  }, []);
+  }, [viewMode, protocolsData.length, isLoadingProtocols]);
 
   // Handle responsive layout
   useEffect(() => {
@@ -363,28 +389,25 @@ const DrugExplorer = () => {
   }, []);
 
   // Filter and sort drugs - optimized with useMemo to avoid recomputing on every render
-const filteredAndSortedDrugs = useMemo(() => {
-  let filteredDrugs = allDrugs.filter(drug => {
-    const searchLower = searchTerm.toLowerCase();
+  const filteredAndSortedDrugs = useMemo(() => {
+    let filteredDrugs = allDrugs.filter(drug => {
+      const searchLower = searchTerm.toLowerCase();
+      
+      // Recherche dans tous les champs pertinents : nom, DCI, nom commercial et classe
+      const matchesSearch = (drug.name && drug.name.toLowerCase().includes(searchLower)) || 
+                          (drug.dci && drug.dci.toLowerCase().includes(searchLower)) ||
+                          (drug.commercial && drug.commercial.toLowerCase().includes(searchLower)) ||
+                          (drug.class && drug.class.toLowerCase().includes(searchLower));
+      
+      const matchesCategory = selectedCategory === 'all' || drug.category === selectedCategory;
+      const matchesHalfLife = halfLifeFilter === 'all' || 
+        (halfLifeFilter === 'short' && parseFloat(drug.halfLife) <= 24) ||
+        (halfLifeFilter === 'long' && parseFloat(drug.halfLife) > 24);
+      const matchesClass = classFilter === 'all' || drug.class === classFilter;
+      
+      return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
+    });
     
-    // Recherche dans tous les champs pertinents : nom, DCI, nom commercial et classe
-    const matchesSearch = (drug.name && drug.name.toLowerCase().includes(searchLower)) || 
-                         (drug.dci && drug.dci.toLowerCase().includes(searchLower)) ||
-                         (drug.commercial && drug.commercial.toLowerCase().includes(searchLower)) ||
-                         (drug.class && drug.class.toLowerCase().includes(searchLower));
-    
-    const matchesCategory = selectedCategory === 'all' || drug.category === selectedCategory;
-    const matchesHalfLife = halfLifeFilter === 'all' || 
-      (halfLifeFilter === 'short' && parseFloat(drug.halfLife) <= 24) ||
-      (halfLifeFilter === 'long' && parseFloat(drug.halfLife) > 24);
-    const matchesClass = classFilter === 'all' || drug.class === classFilter;
-    
-    return matchesSearch && matchesCategory && matchesHalfLife && matchesClass;
-  });
-  
-
-
-
     if (sortConfig.key) {
       filteredDrugs.sort((a, b) => {
         if (sortConfig.key === 'halfLife') {
@@ -405,6 +428,42 @@ const filteredAndSortedDrugs = useMemo(() => {
 
     return filteredDrugs;
   }, [searchTerm, selectedCategory, halfLifeFilter, classFilter, sortConfig]);
+
+  // Filtrer et trier les protocoles de radiothérapie
+  const filteredAndSortedProtocols = useMemo(() => {
+    if (protocolsData.length === 0) return [];
+    
+    let filteredProtocols = protocolsData.filter(protocol => {
+      const searchLower = searchTerm.toLowerCase();
+      
+      // Recherche dans tous les champs pertinents
+      const matchesSearch = 
+        (protocol.condition && protocol.condition.toLowerCase().includes(searchLower)) || 
+        (protocol.molecule && protocol.molecule.toLowerCase().includes(searchLower)) ||
+        (protocol.organ && protocol.organ.toLowerCase().includes(searchLower)) ||
+        (protocol.route && protocol.route.toLowerCase().includes(searchLower)) ||
+        (protocol.modalityAdministration && protocol.modalityAdministration.toLowerCase().includes(searchLower));
+      
+      const matchesOrgan = selectedOrgan === 'all' || protocol.organ === selectedOrgan;
+      const matchesMolecule = selectedMolecule === 'all' || protocol.molecule === selectedMolecule;
+      
+      return matchesSearch && matchesOrgan && matchesMolecule;
+    });
+    
+    if (sortConfig.key) {
+      filteredProtocols.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+
+    return filteredProtocols;
+  }, [protocolsData, searchTerm, selectedOrgan, selectedMolecule, sortConfig]);
 
   // Calculate statistics - moved to useMemo to avoid recalculation
   const stats = useMemo(() => [
@@ -440,15 +499,72 @@ const filteredAndSortedDrugs = useMemo(() => {
     [...new Set(allDrugs.map(drug => drug.class))].sort(),
     []
   );
+  
+// Modification de la fonction loadProtocols avec plus de logging et de gestion d'erreurs
+
+const loadProtocols = useCallback(() => {
+    // Ne pas recharger si déjà chargé
+    if (protocolsData.length > 0) return;
+    
+    // Simuler un chargement
+    setIsLoadingProtocols(true);
+    
+    try {
+      // Utiliser les données statiques
+      const protocols = protocolsStaticData;
+      const { organsList, moleculesList } = extractUniqueData(protocols);
+      
+      // Mettre à jour les états
+      setProtocolsData(protocols);
+      setOrgansData(organsList);
+      setMoleculesData(moleculesList);
+      
+    } catch (error) {
+      console.error("Erreur lors du chargement des protocoles:", error);
+    } finally {
+      // Simuler la fin du chargement
+      setIsLoadingProtocols(false);
+    }
+  }, [protocolsData.length, setProtocolsData, setOrgansData, setMoleculesData, setIsLoadingProtocols]);
 
   // Format CSV data for export
   const formatForCSV = useCallback((data) => {
-    const header = "Drug Name,Class,Category,Half-life,Normofractionated RT,Palliative RT,Stereotactic RT,Intracranial RT,References\n";
-    const rows = data.map(drug => 
-      `${drug.name},${drug.class},${drug.category},${drug.halfLife},${drug.normofractionatedRT},${drug.palliativeRT},${drug.stereotacticRT},${drug.intracranialRT},${drug.references || ''}`
-    ).join('\n');
-    return header + rows;
-  }, []);
+    if (viewMode === 'drugs') {
+      const header = "Drug Name,Class,Category,Half-life,Normofractionated RT,Palliative RT,Stereotactic RT,Intracranial RT,References\n";
+      const rows = data.map(drug => 
+        `${drug.name},${drug.class},${drug.category},${drug.halfLife},${drug.normofractionatedRT},${drug.palliativeRT},${drug.stereotacticRT},${drug.intracranialRT},${drug.references || ''}`
+      ).join('\n');
+      return header + rows;
+    } else {
+      const header = "Organe,Condition,Molécule,Voie,Modalités d'administration,Début par rapport à la radiothérapie\n";
+      const rows = data.map(protocol => 
+        `"${protocol.organ}","${protocol.condition}","${protocol.molecule}","${protocol.route}","${protocol.modalityAdministration}","${protocol.timing}"`
+      ).join('\n');
+      return header + rows;
+    }
+  }, [viewMode]);
+
+  // CSV download handler
+  const downloadCSV = useCallback(() => {
+    try {
+      const data = viewMode === 'drugs' ? filteredAndSortedDrugs : filteredAndSortedProtocols;
+      const csv = formatForCSV(data);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      const fileName = viewMode === 'drugs' 
+        ? `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.csv`
+        : `protocoles-radiochimiotherapie-${new Date().toISOString().split('T')[0]}.csv`;
+      link.setAttribute('download', fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading CSV:', error);
+    }
+  }, [viewMode, filteredAndSortedDrugs, filteredAndSortedProtocols, formatForCSV]);
 
   // Handle sorting
   const requestSort = useCallback((key) => {
@@ -458,24 +574,6 @@ const filteredAndSortedDrugs = useMemo(() => {
     }
     setSortConfig({ key, direction });
   }, [sortConfig]);
-
-  // CSV download handler
-  const downloadCSV = useCallback(() => {
-    try {
-      const csv = formatForCSV(filteredAndSortedDrugs);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Error downloading CSV:', error);
-    }
-  }, [filteredAndSortedDrugs, formatForCSV]);
 
   // Component for Tooltip with animation
   const Tooltip = useCallback(({ children, content }) => (
@@ -499,6 +597,9 @@ const filteredAndSortedDrugs = useMemo(() => {
       initial={{ scale: 0.95 }}
       whileHover={{ scale: 1.05 }}
       className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${color}`}
+initial={{ scale: 0.95 }}
+      whileHover={{ scale: 1.05 }}
+      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${color}`}
     >
       {children}
     </motion.span>
@@ -516,68 +617,68 @@ const filteredAndSortedDrugs = useMemo(() => {
 
   // Drug Card component - extracted for better readability
   const DrugCard = useCallback(({ drug }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-  >
-    <div className="p-4">
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="text-lg font-semibold text-sfro-dark cursor-pointer hover:text-blue-600 hover:underline" onClick={() => handleDrugClick(drug)}>
-          {drug.name}
-        </h3>
-        <Badge color={CATEGORY_COLORS[drug.category] || 'bg-gray-50 text-gray-800 border-gray-200'}>
-          {t(`categories.${drug.category}`) || drug.category.charAt(0).toUpperCase() + drug.category.slice(1)}
-        </Badge>
-      </div>
-
-      <div className="space-y-3">
-        <div className="flex items-center text-sm">
-          <span className="text-gray-500 w-24">{t('columns.commercial')}:</span>
-          <span className="text-gray-900">{drug.commercial}</span>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+    >
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-3">
+          <h3 className="text-lg font-semibold text-sfro-dark cursor-pointer hover:text-blue-600 hover:underline" onClick={() => handleDrugClick(drug)}>
+            {drug.name}
+          </h3>
+          <Badge color={CATEGORY_COLORS[drug.category] || 'bg-gray-50 text-gray-800 border-gray-200'}>
+            {t(`categories.${drug.category}`) || drug.category.charAt(0).toUpperCase() + drug.category.slice(1)}
+          </Badge>
         </div>
 
-        <div className="flex items-center text-sm">
-          <span className="text-gray-500 w-24">{t('columns.administration')}:</span>
-          <span className="text-gray-900">{drug.administration}</span>
-        </div>
+        <div className="space-y-3">
+          <div className="flex items-center text-sm">
+            <span className="text-gray-500 w-24">{t('columns.commercial')}:</span>
+            <span className="text-gray-900">{drug.commercial}</span>
+          </div>
 
-        <div className="flex items-center text-sm">
-          <span className="text-gray-500 w-24">{t('columns.class')}:</span>
-          <Tooltip content={drug.class}>
-            <span>
-              {translateDrugClass(drug.class)}
-            </span>
-          </Tooltip>
-        </div>
+          <div className="flex items-center text-sm">
+            <span className="text-gray-500 w-24">{t('columns.administration')}:</span>
+            <span className="text-gray-900">{drug.administration}</span>
+          </div>
 
-        <div className="flex items-center text-sm">
-          <span className="text-gray-500 w-24">{t('columns.halfLife')}:</span>
-          <span className="text-gray-900">{drug.halfLife}</span>
-        </div>
+          <div className="flex items-center text-sm">
+            <span className="text-gray-500 w-24">{t('columns.class')}:</span>
+            <Tooltip content={drug.class}>
+              <span>
+                {translateDrugClass(drug.class)}
+              </span>
+            </Tooltip>
+          </div>
 
-        <div className="border-t border-gray-100 pt-3 mt-3">
-          <h4 className="text-sm font-medium text-sfro-dark mb-2">{t('radiotherapyTiming') || 'Radiotherapy Timing'}</h4>
-          <div className="grid grid-cols-1 gap-2">
-            <div className={`rounded-md p-2 ${getCellColor(drug.normofractionatedRT)} text-sm`}>
-              <span className="font-medium">{t('columns.normofractionatedRT')}:</span> {drug.normofractionatedRT}
-            </div>
-            <div className={`rounded-md p-2 ${getCellColor(drug.palliativeRT)} text-sm`}>
-              <span className="font-medium">{t('columns.palliativeRT')}:</span> {drug.palliativeRT}
-            </div>
-            <div className={`rounded-md p-2 ${getCellColor(drug.stereotacticRT)} text-sm`}>
-              <span className="font-medium">{t('columns.stereotacticRT')}:</span> {drug.stereotacticRT}
-            </div>
-            <div className={`rounded-md p-2 ${getCellColor(drug.intracranialRT)} text-sm`}>
-              <span className="font-medium">{t('columns.intracranialRT')}:</span> {drug.intracranialRT}
+          <div className="flex items-center text-sm">
+            <span className="text-gray-500 w-24">{t('columns.halfLife')}:</span>
+            <span className="text-gray-900">{drug.halfLife}</span>
+          </div>
+
+          <div className="border-t border-gray-100 pt-3 mt-3">
+            <h4 className="text-sm font-medium text-sfro-dark mb-2">{t('radiotherapyTiming') || 'Radiotherapy Timing'}</h4>
+            <div className="grid grid-cols-1 gap-2">
+              <div className={`rounded-md p-2 ${getCellColor(drug.normofractionatedRT)} text-sm`}>
+                <span className="font-medium">{t('columns.normofractionatedRT')}:</span> {drug.normofractionatedRT}
+              </div>
+              <div className={`rounded-md p-2 ${getCellColor(drug.palliativeRT)} text-sm`}>
+                <span className="font-medium">{t('columns.palliativeRT')}:</span> {drug.palliativeRT}
+              </div>
+              <div className={`rounded-md p-2 ${getCellColor(drug.stereotacticRT)} text-sm`}>
+                <span className="font-medium">{t('columns.stereotacticRT')}:</span> {drug.stereotacticRT}
+              </div>
+              <div className={`rounded-md p-2 ${getCellColor(drug.intracranialRT)} text-sm`}>
+                <span className="font-medium">{t('columns.intracranialRT')}:</span> {drug.intracranialRT}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </motion.div>
-), [Badge, Tooltip, handleDrugClick, t, translateDrugClass]);
+    </motion.div>
+  ), [Badge, Tooltip, handleDrugClick, t, translateDrugClass]);
 
   // References Popup component - extracted for better readability
   const ReferencesPopup = useCallback(({ references, onClose }) => {
@@ -675,7 +776,7 @@ const filteredAndSortedDrugs = useMemo(() => {
       </div>
     );
   }, [t]);
-
+  
   // Mobile Filters component - extracted for better readability
   const MobileFilters = useCallback(({ show, onClose }) => (
     <motion.div
@@ -694,33 +795,80 @@ const filteredAndSortedDrugs = useMemo(() => {
       <div className="space-y-4">
         <Input
           type="text"
-          placeholder={t('search')}
+          placeholder={viewMode === 'drugs' ? t('search') : (t('protocolsSearch') || "Rechercher par molécule ou organe...")}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full"
         />
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-        >
-          <option value="all">{t('halfLife.all')}</option>
-          <option value="short">{t('halfLife.short')}</option>
-          <option value="long">{t('halfLife.long')}</option>
-        </select>
 
-        <select
-          value={classFilter}
-          onChange={(e) => setClassFilter(e.target.value)}
-          className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-        >
-          <option value="all">{t('drugClass.all')}</option>
-          {uniqueDrugClasses.map(drugClass => (
-            <option key={drugClass} value={drugClass}>
-              {translateDrugClass(drugClass)}
-            </option>
-          ))}
-        </select>
+        {viewMode === 'drugs' ? (
+          // Filtres pour médicaments
+          <>
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+            >
+              <option value="all">{t('categories.all')}</option>
+              <option value="chemotherapy">{t('categories.chemotherapy')}</option>
+              <option value="endocrine">{t('categories.endocrine')}</option>
+              <option value="targeted">{t('categories.targeted')}</option>
+              <option value="immunotherapy">{t('categories.immunotherapy')}</option>
+            </select>
+
+            <select
+              value={halfLifeFilter}
+              onChange={(e) => setHalfLifeFilter(e.target.value)}
+              className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+            >
+              <option value="all">{t('halfLife.all')}</option>
+              <option value="short">{t('halfLife.short')}</option>
+              <option value="long">{t('halfLife.long')}</option>
+            </select>
+
+            <select
+              value={classFilter}
+              onChange={(e) => setClassFilter(e.target.value)}
+              className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+            >
+              <option value="all">{t('drugClass.all')}</option>
+              {uniqueDrugClasses.map(drugClass => (
+                <option key={drugClass} value={drugClass}>
+                  {translateDrugClass(drugClass)}
+                </option>
+              ))}
+            </select>
+          </>
+        ) : (
+          // Filtres pour protocoles
+          <>
+            <select
+              value={selectedOrgan}
+              onChange={(e) => setSelectedOrgan(e.target.value)}
+              className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+            >
+              <option value="all">{t('protocol.allOrgans') || "Tous les organes"}</option>
+              {organsData.map(organ => (
+                <option key={organ} value={organ}>
+                  {organ}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={selectedMolecule}
+              onChange={(e) => setSelectedMolecule(e.target.value)}
+              className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+            >
+              <option value="all">{t('protocol.allMolecules') || "Toutes les molécules"}</option>
+              {moleculesData.map(molecule => (
+                <option key={molecule} value={molecule}>
+                  {molecule}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
         
         <button
           onClick={onClose}
@@ -730,8 +878,9 @@ const filteredAndSortedDrugs = useMemo(() => {
         </button>
       </div>
     </motion.div>
-  ), [t, searchTerm, selectedCategory, halfLifeFilter, classFilter, uniqueDrugClasses, translateDrugClass]);
-
+  ), [t, viewMode, searchTerm, selectedCategory, halfLifeFilter, classFilter, uniqueDrugClasses, 
+      translateDrugClass, organsData, moleculesData, selectedOrgan, selectedMolecule]);
+      
   // Format column names for better display
   const formatColumnName = useCallback((column) => {
     return t(`columns.${column}`);
@@ -809,396 +958,549 @@ const filteredAndSortedDrugs = useMemo(() => {
             ))}
           </div>
 
-         {/* Search bar and filters */}
-<div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    {/* Search input */}
-    <div className="relative">
-  <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-  <Input
-    type="text"
-    placeholder={t('search')}
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    className="pl-10 h-12 w-full border-2 border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light transition-colors rounded-lg"
-  />
-</div>
+          {/* Search bar and filters */}
+          <div className="bg-white rounded-lg shadow-sm p-6 space-y-4">
+            {viewMode === 'drugs' ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Search input */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder={t('search')}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 h-12 w-full border-2 border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light transition-colors rounded-lg"
+                  />
+                </div>
 
+                {/* Category filter */}
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+                >
+                  <option value="all">{t('categories.all')}</option>
+                  <option value="chemotherapy">{t('categories.chemotherapy')}</option>
+                  <option value="endocrine">{t('categories.endocrine')}</option>
+                  <option value="targeted">{t('categories.targeted')}</option>
+                  <option value="immunotherapy">{t('categories.immunotherapy')}</option>
+                </select>
 
-    {/* Category filter */}
-    <select
-      value={selectedCategory}
-      onChange={(e) => setSelectedCategory(e.target.value)}
-      className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-    >
-      <option value="all">{t('categories.all')}</option>
-      <option value="chemotherapy">{t('categories.chemotherapy')}</option>
-      <option value="endocrine">{t('categories.endocrine')}</option>
-      <option value="targeted">{t('categories.targeted')}</option>
-      <option value="immunotherapy">{t('categories.immunotherapy')}</option>
-    </select>
+                {/* Half-life filter */}
+                <select
+                  value={halfLifeFilter}
+                  onChange={(e) => setHalfLifeFilter(e.target.value)}
+                  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+                >
+                  <option value="all">{t('halfLife.all')}</option>
+                  <option value="short">{t('halfLife.short')}</option>
+                  <option value="long">{t('halfLife.long')}</option>
+                </select>
 
-    {/* Half-life filter */}
-    <select
-      value={halfLifeFilter}
-      onChange={(e) => setHalfLifeFilter(e.target.value)}
-      className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-    >
-      <option value="all">{t('halfLife.all')}</option>
-      <option value="short">{t('halfLife.short')}</option>
-      <option value="long">{t('halfLife.long')}</option>
-    </select>
+                {/* Class filter */}
+                <select
+                  value={classFilter}
+                  onChange={(e) => setClassFilter(e.target.value)}
+                  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+                >
+                  <option value="all">{t('drugClass.all')}</option>
+                  {uniqueDrugClasses.map(drugClass => (
+                    <option key={drugClass} value={drugClass}>
+                      {translateDrugClass(drugClass)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Search input */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                  <Input
+                    type="text"
+                    placeholder={t('protocolsSearch') || "Rechercher par molécule ou organe..."}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10 h-12 w-full border-2 border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light transition-colors rounded-lg"
+                  />
+                </div>
 
-    {/* Class filter */}
-    <select
-      value={classFilter}
-      onChange={(e) => setClassFilter(e.target.value)}
-      className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
-    >
-      <option value="all">{t('drugClass.all')}</option>
-      {uniqueDrugClasses.map(drugClass => (
-        <option key={drugClass} value={drugClass}>
-          {translateDrugClass(drugClass)}
-        </option>
-      ))}
-    </select>
-  </div>
-</div>
+                {/* Organ filter */}
+                <select
+                  value={selectedOrgan}
+                  onChange={(e) => setSelectedOrgan(e.target.value)}
+                  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+                >
+                  <option value="all">{t('protocol.allOrgans') || "Tous les organes"}</option>
+                  {organsData.map(organ => (
+                    <option key={organ} value={organ}>
+                      {organ}
+                    </option>
+                  ))}
+                </select>
 
-{/* Action buttons */}
-<div className={`flex ${isMobileView ? 'justify-center' : 'justify-end'} gap-4`}>
-            {/* Column manager button (desktop only) */}
-            {!isMobileView && (
+                {/* Molecule filter */}
+                <select
+                  value={selectedMolecule}
+                  onChange={(e) => setSelectedMolecule(e.target.value)}
+                  className="h-12 w-full border-2 border-gray-200 rounded-lg px-4 hover:border-sfro-primary focus:border-sfro-primary transition-colors cursor-pointer bg-white"
+                >
+                  <option value="all">{t('protocol.allMolecules') || "Toutes les molécules"}</option>
+                  {moleculesData.map(molecule => (
+                    <option key={molecule} value={molecule}>
+                      {molecule}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
+
+          {/* View Toggle and Action buttons */}
+          <div className={`flex ${isMobileView ? 'justify-center' : 'justify-between'} gap-4 flex-wrap`}>
+            {/* View Toggle */}
+            <div className="flex gap-2">
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setShowColumnManager(!showColumnManager)}
-                className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 transition-colors px-6 py-3 rounded-lg text-gray-700 shadow-sm font-medium"
+                onClick={() => setViewMode('drugs')}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+                  viewMode === 'drugs' 
+                    ? 'bg-sfro-primary text-white' 
+                    : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                }`}
               >
-                <Settings className="h-5 w-5" />
-                {t('buttons.manageColumns')}
+                {t('buttons.drugExplorer') || "Médicaments"}
               </motion.button>
-            )}
+              
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => {
+                  loadProtocols();
+                  setViewMode('protocols');
+                }}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+                  viewMode === 'protocols' 
+                    ? 'bg-sfro-primary text-white' 
+                    : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                {t('buttons.protocolsExplorer') || "Protocoles de radiochimiothérapie"}
+                {isLoadingProtocols && (
+                  <span className="ml-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent"></span>
+                )}
+              </motion.button>
+            </div>
 
-            {/* Export CSV button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={downloadCSV}
-              className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
-            >
-              <Download className="h-5 w-5" />
-              {t('buttons.exportCSV')}
-            </motion.button>
+            {/* Action Buttons */}
+            <div className="flex gap-2">
+              {/* Column manager button (desktop only) */}
+              {!isMobileView && viewMode === 'drugs' && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setShowColumnManager(!showColumnManager)}
+                  className="flex items-center gap-2 bg-white border border-gray-200 hover:bg-gray-50 transition-colors px-6 py-3 rounded-lg text-gray-700 shadow-sm font-medium"
+                >
+                  <Settings className="h-5 w-5" />
+                  {t('buttons.manageColumns')}
+                </motion.button>
+              )}
+
+              {/* Export CSV button */}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={downloadCSV}
+                className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
+              >
+                <Download className="h-5 w-5" />
+                {t('buttons.exportCSV')}
+              </motion.button>
+            </div>
           </div>
 
           {/* Mobile/Desktop view toggle */}
           <AnimatePresence mode="wait">
-            {isMobileView ? (
-              /* Mobile view - card list */
+            {viewMode === 'drugs' ? (
+              // Vue pour les médicaments
+              isMobileView ? (
+                /* Mobile view - card list */
+                <motion.div 
+                  key="mobile-view-drugs"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="space-y-4"
+                >
+                  {filteredAndSortedDrugs.map((drug, index) => (
+                    <DrugCard key={`${drug.name}-${index}`} drug={drug} />
+                  ))}
+                  
+                  {/* Show filters button (mobile only) */}
+                  <motion.button
+                    className="fixed bottom-6 right-6 bg-sfro-primary text-white rounded-full p-4 shadow-lg z-40"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setShowMobileFilters(true)}
+                  >
+                    <Filter className="h-6 w-6" />
+                  </motion.button>
+                  
+                  {/* Mobile filters panel */}
+                  <AnimatePresence>
+                    {showMobileFilters && (
+                      <MobileFilters 
+                        show={showMobileFilters} 
+                        onClose={() => setShowMobileFilters(false)} 
+                      />
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ) : (
+                /* Desktop view - table */
+                <motion.div 
+                  key="desktop-view-drugs"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
+                  onScroll={handleTableScroll}
+                >
+                  {/* Column Manager Modal */}
+                  <AnimatePresence>
+                    {showColumnManager && (
+                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          onClick={(e) => e.stopPropagation()}
+                          className="bg-white rounded-lg shadow-xl p-6 w-80 max-w-full mx-4"
+                        >
+                          <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-semibold text-sfro-dark">{t('columnManager.title')}</h3>
+                            <button 
+                              onClick={() => setShowColumnManager(false)}
+                              className="text-gray-400 hover:text-gray-600 rounded-full p-1 hover:bg-gray-100"
+                            >
+                              <X size={20} />
+                            </button>
+                          </div>
+                          <div className="space-y-3">
+                         {Object.entries(visibleColumns).map(([column, isVisible]) => (
+  <label key={column} className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
+    <input 
+  type="checkbox"
+  checked={isVisible}
+  onChange={() => setVisibleColumns(prev => ({...prev, [column]: !prev[column]}))}
+  className="rounded text-sfro-primary focus:ring-sfro-primary h-4 w-4"
+/>
+    <span className="text-sm font-medium text-gray-700">{formatColumnName(column)}</span>
+  </label>
+))}
+                          </div>
+                          <div className="mt-6 flex justify-end">
+                            <button
+                              onClick={() => setShowColumnManager(false)}
+                              className="px-4 py-2 bg-sfro-primary text-white rounded-md hover:bg-sfro-secondary focus:outline-none focus:ring-2 focus:ring-sfro-light"
+                            >
+                              {t('buttons.done')}
+                            </button>
+                          </div>
+                        </motion.div>
+                      </div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Data table */}
+                  <table className="w-full border-collapse bg-white min-w-[1200px]">
+                    <thead className={`sticky top-0 bg-sfro-light z-10 ${isTableScrolled ? 'shadow-md' : ''}`}>
+                      <tr>
+                        {visibleColumns.name && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[160px] w-[20%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.name')} 
+                              longTitle={t('columns.name')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.commercial && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[120px] w-[15%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.commercial')} 
+                              longTitle={t('columns.commercial')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.administration && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[80px] w-[8%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.administration_short') || "Admin"} 
+                              longTitle={t('columns.administration')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.class && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[120px] w-[15%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.class')} 
+                              longTitle={t('columns.class')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.category && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[80px] w-[8%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.category_short') || "Cat"} 
+                              longTitle={t('columns.category')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.halfLife && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[80px] w-[8%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.halfLife_short') || "Half-life"} 
+                              longTitle={t('columns.halfLife')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.normofractionatedRT && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.normofractionatedRT_short') || "Norm RT"} 
+                              longTitle={t('columns.normofractionatedRT')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.palliativeRT && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.palliativeRT_short') || "Pall RT"} 
+                              longTitle={t('columns.palliativeRT')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.stereotacticRT && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.stereotacticRT_short') || "Stereo RT"} 
+                              longTitle={t('columns.stereotacticRT')}
+                            />
+                          </th>
+                        )}
+                        {visibleColumns.intracranialRT && (
+                          <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
+                            <ColumnHeaderWithTooltip 
+                              title={t('columns.intracranialRT_short') || "IC RT"} 
+                              longTitle={t('columns.intracranialRT')}
+                            />
+                          </th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {filteredAndSortedDrugs.length > 0 ? (
+                        filteredAndSortedDrugs.map((drug, index) => (
+                          <tr 
+                            key={index} 
+                            className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs"
+                          >
+                            {visibleColumns.name && (
+                              <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">
+                                <button 
+                                  onClick={() => handleDrugClick(drug)}
+                                  className="text-left text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                                >
+                                  {drug.name}
+                                </button>
+                              </td>
+                            )}
+                            {visibleColumns.commercial && (
+                              <td className="px-3 py-2 whitespace-normal text-gray-500">
+                                {drug.commercial}
+                              </td>
+                            )}
+                            {visibleColumns.administration && (
+                              <td className="px-3 py-2 whitespace-normal text-gray-500">
+                                {drug.administration}
+                              </td>
+                            )}
+                            {visibleColumns.class && (
+                              <td className="px-3 py-2 whitespace-normal text-gray-500 truncate max-w-[200px]">
+                                <Tooltip content={drug.class}>
+                                  <span>
+                                    {translateDrugClass(drug.class)}
+                                  </span>
+                                </Tooltip>
+                              </td>
+                            )}
+                            {visibleColumns.category && (
+                              <td className="px-3 py-2">
+                                <Badge color={CATEGORY_COLORS[drug.category] || 'bg-gray-50 text-gray-800 border-gray-200'}>
+                                  {drug.category.substring(0, 3)}
+                                </Badge>
+                              </td>
+                            )}
+                            {visibleColumns.halfLife && (
+                              <td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
+                            )}
+                            {visibleColumns.normofractionatedRT && (
+                              <td className={`px-3 py-2 whitespace-pre-wrap text-xs break-words max-w-[150px] ${getCellColor(drug.normofractionatedRT)}`}>
+                                {drug.normofractionatedRT}
+                              </td>
+                            )}
+                            {visibleColumns.palliativeRT && (
+                              <td className={`px-3 py-2 whitespace-normal break-words max-w-[150px] ${getCellColor(drug.palliativeRT)}`}>
+                                {drug.palliativeRT}
+                              </td>
+                            )}
+                            {visibleColumns.stereotacticRT && (
+                              <td className={`px-3 py-2 whitespace-normal break-words max-w-[150px] ${getCellColor(drug.stereotacticRT)}`}>
+                                {drug.stereotacticRT}
+                              </td>
+                            )}
+                            {visibleColumns.intracranialRT && (
+                              <td className={`px-3 py-2 whitespace-normal break-words max-w-[150px] ${getCellColor(drug.intracranialRT)}`}>
+                                {drug.intracranialRT}
+                              </td>
+                            )}
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td 
+                            colSpan={Object.values(visibleColumns).filter(Boolean).length} 
+                            className="px-3 py-8 text-center text-gray-500"
+                          >
+                            {t('noResults')}
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </motion.div>
+              )
+            ) : (
+              // Vue pour les protocoles
               <motion.div 
-                key="mobile-view"
+                key="protocols-view"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="space-y-4"
+                className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
+                onScroll={handleTableScroll}
               >
-                {filteredAndSortedDrugs.map((drug, index) => (
-                  <DrugCard key={`${drug.name}-${index}`} drug={drug} />
-                ))}
-                
-                {/* Show filters button (mobile only) */}
-                <motion.button
-                  className="fixed bottom-6 right-6 bg-sfro-primary text-white rounded-full p-4 shadow-lg z-40"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setShowMobileFilters(true)}
-                >
-                  <Filter className="h-6 w-6" />
-                </motion.button>
-                
-                {/* Mobile filters panel */}
-                <AnimatePresence>
-                  {showMobileFilters && (
-                    <MobileFilters 
-                      show={showMobileFilters} 
-                      onClose={() => setShowMobileFilters(false)} 
-                    />
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ) : (
-              /* Desktop view - table */
-              <motion.div 
-  key="desktop-view"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  exit={{ opacity: 0 }}
-  className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
-  onScroll={handleTableScroll}
->
-                {/* Column Manager Modal */}
-                <AnimatePresence>
-                  {showColumnManager && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        onClick={(e) => e.stopPropagation()}
-                        className="bg-white rounded-lg shadow-xl p-6 w-80 max-w-full mx-4"
-                      >
-                        <div className="flex justify-between items-center mb-4">
-                          <h3 className="text-lg font-semibold text-sfro-dark">{t('columnManager.title')}</h3>
-                          <button 
-                            onClick={() => setShowColumnManager(false)}
-                            className="text-gray-400 hover:text-gray-600 rounded-full p-1 hover:bg-gray-100"
+                {isLoadingProtocols ? (
+                  <div className="flex justify-center items-center p-12">
+                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sfro-primary border-r-transparent"></div>
+                    <span className="ml-4 text-gray-600">{t('loading') || "Chargement des protocoles..."}</span>
+                  </div>
+                ) : (
+                  <table className="w-full border-collapse bg-white min-w-[1200px]">
+                    <thead className={`sticky top-0 bg-sfro-light z-10 ${isTableScrolled ? 'shadow-md' : ''}`}>
+                      <tr>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
+                          {t('protocol.organ') || "Organe"}
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
+                          {t('protocol.condition') || "Condition"}
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
+                          {t('protocol.molecule') || "Molécule"}
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
+                          {t('protocol.route') || "Voie"}
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
+                          {t('protocol.modality') || "Modalités d'administration"}
+                        </th>
+                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
+                          {t('protocol.timing') || "Début par rapport à la radiothérapie"}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                      {filteredAndSortedProtocols.length > 0 ? (
+                        filteredAndSortedProtocols.map((protocol, index) => {
+                          // Vérifier si c'est un nouveau groupe d'organe
+                          const isNewOrgan = index === 0 || protocol.organ !== filteredAndSortedProtocols[index - 1].organ;
+                          const isNewCondition = isNewOrgan || protocol.condition !== filteredAndSortedProtocols[index - 1].condition;
+                          
+                          return (
+                            <tr 
+                              key={index} 
+                              className={`
+                                hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs
+                                ${isNewOrgan ? 'border-t-2 border-t-sfro-primary' : ''}
+                              `}
+                            >
+                              <td className={`px-3 py-2 whitespace-normal font-medium ${isNewOrgan ? 'text-sfro-primary' : 'text-transparent'}`}>
+                                {protocol.organ}
+                              </td>
+                              <td className={`px-3 py-2 whitespace-normal ${isNewCondition ? 'font-medium text-sfro-dark' : 'text-transparent'}`}>
+                                {protocol.condition}
+                              </td>
+                              <td className="px-3 py-2 whitespace-normal text-gray-800">
+                                {protocol.molecule}
+                              </td>
+                              <td className="px-3 py-2 whitespace-normal text-gray-600">
+                                {protocol.route}
+                              </td>
+                              <td className="px-3 py-2 whitespace-normal text-gray-600">
+                                {protocol.modalityAdministration}
+                              </td>
+                              <td className="px-3 py-2 whitespace-normal text-gray-600">
+                                {protocol.timing}
+                              </td>
+                            </tr>
+                          );
+                        })
+                      ) : (
+                        <tr>
+                          <td 
+                            colSpan={6} 
+                            className="px-3 py-8 text-center text-gray-500"
                           >
-                            <X size={20} />
-                          </button>
-                        </div>
-                        <div className="space-y-3">
-                          {Object.entries(visibleColumns).map(([column, isVisible]) => (
-                            <label key={column} className="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded">
-                              <input 
-                                type="checkbox"
-                                checked={isVisible}
-                                onChange={() => setVisibleColumns(prev => ({...prev, [column]: !prev[column]}))}
-                                className="rounded text-sfro-primary focus:ring-sfro-primary h-4 w-4"
-                              />
-                              <span className="text-sm font-medium text-gray-700">{formatColumnName(column)}</span>
-                            </label>
-                          ))}
-                        </div>
-                        <div className="mt-6 flex justify-end">
-                          <button
-                            onClick={() => setShowColumnManager(false)}
-                            className="px-4 py-2 bg-sfro-primary text-white rounded-md hover:bg-sfro-secondary focus:outline-none focus:ring-2 focus:ring-sfro-light"
-                          >
-                            {t('buttons.done')}
-                          </button>
-                        </div>
-                      </motion.div>
-                    </div>
-                  )}
-                </AnimatePresence>
-
-                {/* Data table */}
-                <table className="w-full border-collapse bg-white min-w-[1200px]">
-                  
-<thead className={`sticky top-0 bg-sfro-light z-10 ${isTableScrolled ? 'shadow-md' : ''}`}>
-  <tr>
-    {visibleColumns.name && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[160px] w-[20%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.name')} 
-          longTitle={t('columns.name')}
-          onClick={() => requestSort('name')}
-          sortKey="name"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.commercial && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[120px] w-[15%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.commercial')} 
-          longTitle={t('columns.commercial')}
-          onClick={() => requestSort('commercial')}
-          sortKey="commercial"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.administration && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[80px] w-[8%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.administration_short') || "Admin"} 
-          longTitle={t('columns.administration')}
-          onClick={() => requestSort('administration')}
-          sortKey="administration"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.class && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[120px] w-[15%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.class')} 
-          longTitle={t('columns.class')}
-          onClick={() => requestSort('class')}
-          sortKey="class"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.category && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[80px] w-[8%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.category_short') || "Cat"} 
-          longTitle={t('columns.category')}
-          onClick={() => requestSort('category')}
-          sortKey="category"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.halfLife && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[80px] w-[8%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.halfLife_short') || "Half-life"} 
-          longTitle={t('columns.halfLife')}
-          onClick={() => requestSort('halfLife')}
-          sortKey="halfLife"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.normofractionatedRT && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.normofractionatedRT_short') || "Norm RT"} 
-          longTitle={t('columns.normofractionatedRT')}
-          onClick={() => requestSort('normofractionatedRT')}
-          sortKey="normofractionatedRT"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.palliativeRT && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.palliativeRT_short') || "Pall RT"} 
-          longTitle={t('columns.palliativeRT')}
-          onClick={() => requestSort('palliativeRT')}
-          sortKey="palliativeRT"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.stereotacticRT && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.stereotacticRT_short') || "Stereo RT"} 
-          longTitle={t('columns.stereotacticRT')}
-          onClick={() => requestSort('stereotacticRT')}
-          sortKey="stereotacticRT"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-    {visibleColumns.intracranialRT && (
-      <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark min-w-[90px] w-[9%]">
-        <ColumnHeaderWithTooltip 
-          title={t('columns.intracranialRT_short') || "IC RT"} 
-          longTitle={t('columns.intracranialRT')}
-          onClick={() => requestSort('intracranialRT')}
-          sortKey="intracranialRT"
-          sortConfig={sortConfig}
-        />
-      </th>
-    )}
-  </tr>
-</thead>
-                  <tbody className="divide-y divide-gray-200">
-  {filteredAndSortedDrugs.length > 0 ? (
-    filteredAndSortedDrugs.map((drug, index) => (
-      <tr 
-        key={index} 
-        className="hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs"
-      >
-        {visibleColumns.name && (
-          <td className="px-3 py-2 whitespace-normal font-medium text-sfro-dark">
-            <button 
-              onClick={() => handleDrugClick(drug)}
-              className="text-left text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
-            >
-              {drug.name}
-            </button>
-          </td>
-        )}
-        {visibleColumns.commercial && (
-          <td className="px-3 py-2 whitespace-normal text-gray-500">
-            {drug.commercial}
-          </td>
-        )}
-        {visibleColumns.administration && (
-          <td className="px-3 py-2 whitespace-normal text-gray-500">
-            {drug.administration}
-          </td>
-        )}
-        {visibleColumns.class && (
-          <td className="px-3 py-2 whitespace-normal text-gray-500 truncate max-w-[200px]">
-            <Tooltip content={drug.class}>
-              <span>
-                {translateDrugClass(drug.class)}
-              </span>
-            </Tooltip>
-          </td>
-        )}
-        {visibleColumns.category && (
-          <td className="px-3 py-2">
-            <Badge color={CATEGORY_COLORS[drug.category] || 'bg-gray-50 text-gray-800 border-gray-200'}>
-              {drug.category.substring(0, 3)}
-            </Badge>
-          </td>
-        )}
-        {visibleColumns.halfLife && (
-          <td className="px-3 py-2 whitespace-normal text-gray-500">{drug.halfLife}</td>
-        )}
-        {visibleColumns.normofractionatedRT && (
-          <td className={`px-3 py-2 whitespace-pre-wrap text-xs break-words max-w-[150px] ${getCellColor(drug.normofractionatedRT)}`}>
-  {drug.normofractionatedRT}
-</td>
-        )}
-        {visibleColumns.palliativeRT && (
-          <td className={`px-3 py-2 whitespace-normal break-words max-w-[150px] ${getCellColor(drug.palliativeRT)}`}>
-            {drug.palliativeRT}
-          </td>
-        )}
-        {visibleColumns.stereotacticRT && (
-          <td className={`px-3 py-2 whitespace-normal break-words max-w-[150px] ${getCellColor(drug.stereotacticRT)}`}>
-            {drug.stereotacticRT}
-          </td>
-        )}
-        {visibleColumns.intracranialRT && (
-          <td className={`px-3 py-2 whitespace-normal break-words max-w-[150px] ${getCellColor(drug.intracranialRT)}`}>
-            {drug.intracranialRT}
-          </td>
-        )}
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td 
-        colSpan={Object.values(visibleColumns).filter(Boolean).length} 
-        className="px-3 py-8 text-center text-gray-500"
-      >
-        {t('noResults')}
-      </td>
-    </tr>
-  )}
-</tbody>
-                </table>
+                            {t('noProtocolResults') || "Aucun protocole ne correspond à vos critères"}
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
 
           {/* Legend */}
-          <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-green-100 border rounded"></div>
-              <span>{t('legend.noDelay')}</span>
+          {viewMode === 'drugs' && (
+            <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-green-100 border rounded"></div>
+                <span>{t('legend.noDelay')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
+                <span>{t('legend.shortDelay')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-red-100 border rounded"></div>
+                <span>{t('legend.longDelay')}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
-              <span>{t('legend.shortDelay')}</span>
+          )}
+
+          {viewMode === 'protocols' && protocolsData.length > 0 && (
+            <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 bg-sfro-light border-t-2 border-t-sfro-primary rounded"></div>
+                <span>{t('protocol.legendGroup') || "Groupement par organe"}</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-red-100 border rounded"></div>
-              <span>{t('legend.longDelay')}</span>
-            </div>
-          </div>
+          )}
         </CardContent>
 
         {/* Footer */}
@@ -1241,4 +1543,5 @@ const filteredAndSortedDrugs = useMemo(() => {
     </div>
   );
 };
+
 export default DrugExplorer;
