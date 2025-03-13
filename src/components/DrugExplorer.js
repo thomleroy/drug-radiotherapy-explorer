@@ -925,13 +925,22 @@ initial={{ scale: 0.95 }}
                     {t('subtitle')}
                   </p>
                 </div>
-                
-                {/* Logo */}
-                <div className="flex-shrink-0">
+             {/* Logos */}
+                <div className="flex-shrink-0 flex gap-4">
+                  {/* Original Logo */}
                   <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-xl shadow-lg hover:shadow-xl transition-all">
                     <img 
                       src="/sfro-logo.png" 
                       alt="SFRO Logo" 
+                      className="h-10 sm:h-12 md:h-16 lg:h-20 w-auto"
+                    />
+                  </div>
+                  
+                  {/* New SFjRO Logo */}
+                  <div className="bg-white/95 backdrop-blur-sm p-3 md:p-4 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                    <img 
+                      src="/sfjro-logo.jpg" 
+                      alt="SFjRO Logo" 
                       className="h-10 sm:h-12 md:h-16 lg:h-20 w-auto"
                     />
                   </div>
@@ -1384,123 +1393,155 @@ initial={{ scale: 0.95 }}
                 </motion.div>
               )
             ) : (
-              // Vue pour les protocoles
-              <motion.div 
-                key="protocols-view"
+  <motion.div 
+    key="protocols-view"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
+    onScroll={handleTableScroll}
+  >
+    {isLoadingProtocols ? (
+      <div className="flex justify-center items-center p-12">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sfro-primary border-r-transparent"></div>
+        <span className="ml-4 text-gray-600">{t('loading') || "Chargement des protocoles..."}</span>
+      </div>
+    ) : (
+      <table className="w-full border-collapse bg-white min-w-[1200px]">
+      <thead className={`sticky top-0 z-10 ${isTableScrolled ? 'shadow-md' : ''}`}>
+        <tr className="bg-sfro-light">
+          {[
+            { key: 'organ', label: t('protocol.organ') || "Organe" },
+            { key: 'condition', label: t('protocol.condition') || "Condition" },
+            { key: 'molecule', label: t('protocol.molecule') || "Molécule" },
+            { key: 'route', label: t('protocol.route') || "Voie" },
+            { key: 'modalityAdministration', label: t('protocol.modality') || "Modalités d'administration" },
+            { key: 'timing', label: t('protocol.timing') || "Début par rapport à la RT" }
+          ].map((column) => (
+            <th 
+              key={column.key}
+              className="px-4 py-3 text-left text-xs font-bold text-sfro-dark uppercase tracking-wider 
+                         border-b-2 border-sfro-primary hover:bg-gray-50 cursor-pointer transition-colors"
+              onClick={() => requestSort(column.key)}
+            >
+              <div className="flex items-center justify-between">
+                {column.label}
+                {sortConfig.key === column.key && (
+                  <span className="ml-2">
+                    {sortConfig.direction === 'asc' ? '▲' : '▼'}
+                  </span>
+                )}
+              </div>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-gray-200">
+        {filteredAndSortedProtocols.length > 0 ? (
+          filteredAndSortedProtocols.map((protocol, index) => {
+            // Vérifier si c'est un nouveau groupe d'organe
+            const isNewOrgan = index === 0 || protocol.organ !== filteredAndSortedProtocols[index - 1].organ;
+            const isNewCondition = isNewOrgan || protocol.condition !== filteredAndSortedProtocols[index - 1].condition;
+            
+            return (
+              <motion.tr 
+                key={index}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="overflow-x-auto overflow-y-auto max-h-[600px] border border-gray-200 rounded-lg shadow-lg"
-                onScroll={handleTableScroll}
+                transition={{ delay: index * 0.05 }}
+                className={`
+                  hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs
+                  ${isNewOrgan ? 'border-t-2 border-t-sfro-primary' : ''}
+                `}
               >
-                {isLoadingProtocols ? (
-                  <div className="flex justify-center items-center p-12">
-                    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sfro-primary border-r-transparent"></div>
-                    <span className="ml-4 text-gray-600">{t('loading') || "Chargement des protocoles..."}</span>
-                  </div>
-                ) : (
-                  <table className="w-full border-collapse bg-white min-w-[1200px]">
-                    <thead className={`sticky top-0 bg-sfro-light z-10 ${isTableScrolled ? 'shadow-md' : ''}`}>
-                      <tr>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
-                          {t('protocol.organ') || "Organe"}
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
-                          {t('protocol.condition') || "Condition"}
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
-                          {t('protocol.molecule') || "Molécule"}
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
-                          {t('protocol.route') || "Voie"}
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
-                          {t('protocol.modality') || "Modalités d'administration"}
-                        </th>
-                        <th className="px-3 py-2 text-left text-xs font-semibold text-sfro-dark">
-                          {t('protocol.timing') || "Début par rapport à la radiothérapie"}
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {filteredAndSortedProtocols.length > 0 ? (
-                        filteredAndSortedProtocols.map((protocol, index) => {
-                          // Vérifier si c'est un nouveau groupe d'organe
-                          const isNewOrgan = index === 0 || protocol.organ !== filteredAndSortedProtocols[index - 1].organ;
-                          const isNewCondition = isNewOrgan || protocol.condition !== filteredAndSortedProtocols[index - 1].condition;
-                          
-                          return (
-                            <tr 
-                              key={index} 
-                              className={`
-                                hover:bg-gray-50 transition-colors duration-150 ease-in-out text-xs
-                                ${isNewOrgan ? 'border-t-2 border-t-sfro-primary' : ''}
-                              `}
-                            >
-                              <td className={`px-3 py-2 whitespace-normal font-medium ${isNewOrgan ? 'text-sfro-primary' : 'text-transparent'}`}>
-                                {protocol.organ}
-                              </td>
-                              <td className={`px-3 py-2 whitespace-normal ${isNewCondition ? 'font-medium text-sfro-dark' : 'text-transparent'}`}>
-                                {protocol.condition}
-                              </td>
-                              <td className="px-3 py-2 whitespace-normal text-gray-800">
-                                {protocol.molecule}
-                              </td>
-                              <td className="px-3 py-2 whitespace-normal text-gray-600">
-                                {protocol.route}
-                              </td>
-                              <td className="px-3 py-2 whitespace-normal text-gray-600">
-                                {protocol.modalityAdministration}
-                              </td>
-                              <td className="px-3 py-2 whitespace-normal text-gray-600">
-                                {protocol.timing}
-                              </td>
-                            </tr>
-                          );
-                        })
-                      ) : (
-                        <tr>
-                          <td 
-                            colSpan={6} 
-                            className="px-3 py-8 text-center text-gray-500"
-                          >
-                            {t('noProtocolResults') || "Aucun protocole ne correspond à vos critères"}
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+                {/* Colonne Organe */}
+                <td className={`px-4 py-3 whitespace-normal font-medium 
+                  ${isNewOrgan ? 'text-sfro-primary font-bold' : 'text-gray-500'}`}>
+                  {isNewOrgan ? protocol.organ : ''}
+                </td>
 
-          {/* Legend */}
-          {viewMode === 'drugs' && (
-            <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-100 border rounded"></div>
-                <span>{t('legend.noDelay')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-100 border rounded"></div>
-                <span>{t('legend.shortDelay')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-red-100 border rounded"></div>
-                <span>{t('legend.longDelay')}</span>
-              </div>
-            </div>
-          )}
+                {/* Colonne Condition */}
+                <td className={`px-4 py-3 whitespace-normal 
+                  ${isNewCondition ? 'text-sfro-dark font-semibold' : 'text-gray-400'}`}>
+                  {isNewCondition ? protocol.condition : ''}
+                </td>
 
-          {viewMode === 'protocols' && protocolsData.length > 0 && (
-            <div className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-sfro-light border-t-2 border-t-sfro-primary rounded"></div>
-                <span>{t('protocol.legendGroup') || "Groupement par organe"}</span>
+                {/* Autres colonnes */}
+                <td className="px-4 py-3 whitespace-normal text-gray-800 font-medium">
+                  <Tooltip content={protocol.molecule}>
+                    <span className="truncate max-w-[200px] inline-block">
+                      {protocol.molecule}
+                    </span>
+                  </Tooltip>
+                </td>
+
+                <td className="px-4 py-3 whitespace-normal text-gray-600">
+                  <Badge color="bg-blue-50 text-blue-800 border-blue-200">
+                    {protocol.route}
+                  </Badge>
+                </td>
+
+                <td className="px-4 py-3 whitespace-normal text-gray-700">
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="bg-gray-100 rounded-md p-2 text-xs"
+                  >
+                    {protocol.modalityAdministration}
+                  </motion.div>
+                </td>
+
+                <td className="px-4 py-3 whitespace-normal text-gray-600">
+                  <motion.span
+                    initial={{ x: -10, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    className="bg-green-50 text-green-800 rounded-full px-3 py-1 text-xs"
+                  >
+                    {protocol.timing}
+                  </motion.span>
+                </td>
+              </motion.tr>
+            );
+          })
+        ) : (
+          <tr>
+            <td 
+              colSpan={6} 
+              className="px-4 py-12 text-center text-gray-500 text-lg"
+            >
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <Info className="h-12 w-12 text-sfro-primary opacity-50" />
+                <p>{t('noProtocolResults') || "Aucun protocole ne correspond à vos critères"}</p>
               </div>
-            </div>
-          )}
+            </td>
+          </tr>
+        )}
+      </tbody>
+        </table>
+    )}
+  </motion.div>
+)}
+ </AnimatePresence>
+
+{/* Légende des protocoles */}
+{protocolsData.length > 0 && (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="flex flex-wrap gap-4 text-sm text-gray-600 mt-4 bg-gray-50 p-4 rounded-lg shadow-sm"
+  >
+    <div className="flex items-center gap-3">
+      <div className="w-4 h-4 bg-sfro-primary rounded-full"></div>
+      <span>{t('protocol.legendGroup') || "Groupement par organe"}</span>
+    </div>
+    <div className="flex items-center gap-3">
+      <div className="w-4 h-4 bg-sfro-dark rounded-full"></div>
+      <span>{t('protocol.legendCondition') || "Conditions spécifiques"}</span>
+    </div>
+  </motion.div>
+)}
+
+      
         </CardContent>
 
         {/* Footer */}
