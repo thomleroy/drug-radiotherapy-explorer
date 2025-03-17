@@ -807,4 +807,8 @@ export const referencesData = {
     text: "Chevreau C, Le Cesne A, Ray-Coquard I, Italiano A, Cioffi A, Isambert N, et al. Sorafenib in patients with progressive epithelioid hemangioendothelioma: a phase 2 study by the French Sarcoma Group (GSF/GETO). Cancer. 2013 Jul 15;119(14):2639-44.",
     url: "https://doi.org/10.1002/cncr.28109"
   },
+  "373": {
+    "text": "Staehler M, Haseke N, Nuhn P, et al. Simultaneous anti-angiogenic therapy and single-fraction radiosurgery in clinically relevant metastases from renal cell carcinoma. BJU Int. 2011;108(5):673-678.",
+    "url": "https://doi.org/10.1111/j.1464-410X.2010.09895.x"
+  },
     }
