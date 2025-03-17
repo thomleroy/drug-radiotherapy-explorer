@@ -2024,6 +2024,20 @@
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
     references: "[228]"
-  }
+  },
+  {
+    name: "Sunitinib",
+    dci: "Sunitinib",
+    commercial: "Sutent",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (FLT3, PDGFR, RET, VEGFR)",
+    category: "targeted",
+    halfLife: "4.5 days",
+    normofractionatedRT: "21days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "21days",
+    intracranialRT: "0",
+    references: "[373]"
+  },
 ];
   
