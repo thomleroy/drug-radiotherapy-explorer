@@ -1807,13 +1807,7 @@ const DrugExplorer = () => {
                   <Mail className="h-4 w-4" />
                   contact
                 </a>
-                <div className="flex gap-4">
-                  <a href="#" className={`transition-colors
-                    ${state.isDarkMode ? 'hover:text-blue-400' : 'hover:text-sfro-primary'}
-                  `}>
-                    {t('footer.legal')}
-                  </a>
-                </div>
+                
               </div>
             </div>
           </div>
