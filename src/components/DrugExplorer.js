@@ -42,6 +42,72 @@ const getCellColor = (value) => {
   return '';
 };
 
+// About content in both languages
+const ABOUT_CONTENT = {
+  fr: {
+    title: "À propos de ce projet",
+    content: `**Démarche et objectif de ce projet**
+
+Ce site est le fruit d'un travail collaboratif mené sous l'égide de la **Société Française de Radiothérapie Oncologique (SFRO)**. Son objectif est d'évaluer et de synthétiser les interactions entre les **traitements systémiques en oncologie** (chimiothérapies, thérapies ciblées, immunothérapies, hormonothérapies) et la **radiothérapie, qu'elle soit curative ou palliative**, **normofractionnée ou hypofractionnée, quel que soit la technique** : radiothérapie conformationnelle en 3D **(RT3D),** radiothérapie avec modulation d'intensité **(RCMI/IMRT)** et radiothérapie stéréotaxique **(SBRT/SRS)**
+
+La combinaison de la radiothérapie avec certains agents thérapeutiques peut potentialiser son effet, mais aussi en accroître la toxicité. Ce projet vise à fournir aux cliniciens une **synthèse claire et précise** des recommandations existantes, basée sur les données de la littérature et les avis d'experts. L'article complet en en ligne sur le site de la revue Cancer Radiothérapie sous l'égide de la **Société Française de Radiothérapie Oncologique (SFRO). (http://www.sfro.fr)**
+
+**Construction et accessibilité**
+
+L'ensemble des informations présentées ici a été rassemblé et analysé par un **groupe de travail**. Chaque molécule a été évaluée selon :
+
+- **Sa demi-vie et son mécanisme d'action**
+- **Son interaction avec la radiothérapie** (effet radiosensibilisant, toxicités accrues)
+- **Les recommandations de poursuite ou d'arrêt**
+- **Les types de radiothérapie concernés**
+- **Les publications scientifiques et recommandations officielles**
+
+Ce site est proposé en **anglais et en français en accès libre** afin de garantir une **diffusion large et accessible**. Ces recommandations sont rédigées selon les données acquises de la science, qui restent parfois limitées ou inexistantes pour certains médicaments. Elles n'engagent pas la responsabilité de leurs auteurs.
+
+Vous pouvez suggérer **l'ajout d'une nouvelle molécule, un commentaire ou une nouvelle référence bibliographique utile** via la boîte de contact. Nous essayerons de **mettre à jour ce site régulièrement**.
+
+**Les auteurs :**
+
+- **Dr Chloé Buchalet** (Département d'oncologie radiothérapie, Institut du Cancer de Montpellier, Montpellier, France)
+- **Dr Constance Golfier** (Département d'oncologie radiothérapie et curiethérapie, Institut de Cancérologie de Lorraine, Vandœuvre-Lès-Nancy, France)
+- **Dr Jean-Christophe Faivre** (Département d'oncologie radiothérapie et curiethérapie, Institut de Cancérologie de Lorraine, Vandœuvre-Lès-Nancy, France)
+- **Pr Christophe Hennequin** (Service de cancérologie-radiothérapie, Hôpital Saint-Louis, Paris, France)
+- **Dr Thomas Leroy** (Département d'oncologie radiothérapie, Centre de Cancérologie des Dentellières, Valenciennes, France)
+- **Dr Johann Marcel** (Département d'oncologie radiothérapie et curiethérapie, Institut de Cancérologie de Lorraine, Vandœuvre-Lès-Nancy, France)`
+  },
+  en: {
+    title: "About this Project",
+    content: `**Approach and Objective of this Project**
+
+This site is the result of a collaborative effort led under the aegis of the **French Society of radiation Oncology (Société Française de Radiothérapie Oncologique (SFRO))**. Its objective is to evaluate and synthesize the interactions between systemic oncology treatments (chemotherapy, targeted therapies, immunotherapies, hormone therapies) and radiotherapy, whether curative or palliative, normofractionated or hypofractionated, regardless of the technique used: **3D conformal radiotherapy (3D-CRT), intensity-modulated radiotherapy (IMRT), and stereotactic radiotherapy (SBRT/SRS)**.
+
+The combination of radiotherapy with certain therapeutic agents can enhance its effect but also increase toxicity. This project aims to provide clinicians with a **clear and precise synthesis** of existing recommendations, based on literature data and expert opinions. The full article is available online on the *Cancer Radiothérapie* journal website, under the auspices of the **Société Française de Radiothérapie Oncologique (SFRO)**. **(http://www.sfro.fr)**
+
+**Development and Accessibility**
+
+The information presented on this site has been collected and analyzed by a dedicated working group. Each molecule has been evaluated based on:
+
+- **Its half-life and mechanism of action**
+- **Its interaction with radiotherapy** (radiosensitizing effect, increased toxicity)
+- **Recommendations for continuation or discontinuation**
+- **Types of radiotherapy concerned**
+- **Scientific publications and official recommendations**
+
+This site is available in **English and French, free of charge**, to ensure broad and easy access. The recommendations are based on currently available scientific data, which may be limited or even nonexistent for certain medications. These recommendations **do not engage the responsibility of their authors**.
+
+You can suggest the **addition of a new drug, a comment, or a relevant bibliographic reference** via the contact form. We will strive to update this site regularly.
+
+**Authors:**
+
+- **Dr. Chloé Buchalet** (*Department of Radiation Oncology, Institut du Cancer de Montpellier, Montpellier, France*)
+- **Dr. Constance Golfier** (*Department of Radiation Oncology and Brachytherapy, Institut de Cancérologie de Lorraine, Vandœuvre-Lès-Nancy, France*)
+- **Dr. Jean-Christophe Faivre** (*Department of Radiation Oncology and Brachytherapy, Institut de Cancérologie de Lorraine, Vandœuvre-Lès-Nancy, France*)
+- **Prof. Christophe Hennequin** (*Department of Oncology-Radiotherapy, Hôpital Saint-Louis, Paris, France*)
+- **Dr. Thomas Leroy** (*Department of Radiation Oncology, Centre de Cancérologie des Dentellières, Valenciennes, France*)
+- **Dr. Johann Marcel** (*Department of Radiation Oncology and Brachytherapy, Institut de Cancérologie de Lorraine, Vandœuvre-Lès-Nancy, France*)`
+  }
+};
+
 // Default translations if missing from the translations file
 const DEFAULT_TRANSLATIONS = {
   en: {
@@ -274,6 +340,7 @@ const DrugExplorer = () => {
   const [zoomedCell, setZoomedCell] = useState(null);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
+  const [showAbout, setShowAbout] = useState(false);
   const [visibleColumns, setVisibleColumns] = useState(INITIAL_VISIBLE_COLUMNS);
   const [viewMode, setViewMode] = useState('drugs'); // 'drugs' or 'protocols'
   const [protocolsData, setProtocolsData] = useState([]);
@@ -680,6 +747,96 @@ initial={{ scale: 0.95 }}
     </motion.div>
   ), [Badge, Tooltip, handleDrugClick, t, translateDrugClass]);
 
+  // About Popup component
+const AboutPopup = useCallback(({ show, onClose }) => {
+  if (!show) return null;
+
+  const aboutData = ABOUT_CONTENT[lang];
+  
+  // Function to render markdown-like text
+  const renderContent = (content) => {
+    return content.split('\n').map((line, index) => {
+      // Handle headers (lines starting with **)
+      if (line.startsWith('**') && line.endsWith('**') && line.length > 4) {
+        const headerText = line.slice(2, -2);
+        return (
+          <h3 key={index} className="text-lg font-bold text-sfro-dark mt-6 mb-3">
+            {headerText}
+          </h3>
+        );
+      }
+      
+      // Handle bullet points
+      if (line.startsWith('• ')) {
+        const bulletContent = line.slice(2);
+        // Handle bold text within bullets
+        const parts = bulletContent.split(/(\*\*.*?\*\*)/g);
+        return (
+          <li key={index} className="ml-4 mb-2 text-gray-700">
+            {parts.map((part, partIndex) => 
+              part.startsWith('**') && part.endsWith('**') 
+                ? <strong key={partIndex} className="text-sfro-dark">{part.slice(2, -2)}</strong>
+                : part
+            )}
+          </li>
+        );
+      }
+      
+      // Handle regular paragraphs
+      if (line.trim()) {
+        // Handle bold text in paragraphs
+        const parts = line.split(/(\*\*.*?\*\*)/g);
+        return (
+          <p key={index} className="mb-4 text-gray-700 leading-relaxed">
+            {parts.map((part, partIndex) => 
+              part.startsWith('**') && part.endsWith('**') 
+                ? <strong key={partIndex} className="text-sfro-dark">{part.slice(2, -2)}</strong>
+                : part
+            )}
+          </p>
+        );
+      }
+      
+      // Empty lines
+      return <div key={index} className="mb-2"></div>;
+    });
+  };
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ type: 'spring', damping: 20 }}
+        className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-lg">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold text-sfro-dark">{aboutData.title}</h2>
+            <button 
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 rounded-full p-2 hover:bg-gray-100 transition-colors"
+            >
+              <X size={24} />
+            </button>
+          </div>
+        </div>
+        
+        <div className="px-6 py-6">
+          <div className="prose max-w-none">
+            {renderContent(aboutData.content)}
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}, [lang]);
+
   // References Popup component - extracted for better readability
   const ReferencesPopup = useCallback(({ references, onClose }) => {
     if (!references) return null;
@@ -895,22 +1052,19 @@ initial={{ scale: 0.95 }}
     <div className="min-h-screen bg-gray-50">
       <Card className="w-full max-w-7xl mx-auto my-8 shadow-xl">
         <CardHeader className="relative overflow-hidden bg-gradient-to-br from-[#00BFF3] via-[#0080A5] to-[#006080] text-white rounded-t-xl">
-          {/* Language toggle */}
-          <div className="absolute top-4 right-4 z-20">
-            <LanguageToggle lang={lang} setLang={setLang} />
-          </div>
-
-          {/* Decorative background */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent animate-pulse" />
-            <div 
-              className="absolute inset-0 opacity-20"
-              style={{
-                backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
-                backgroundSize: '20px 20px'
-              }}
-            />
-          </div>
+          {/* Language toggle and About button */}
+<div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    onClick={() => setShowAbout(true)}
+    className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-sfro-primary px-3 py-2 rounded-lg shadow-md transition-all duration-200 flex items-center gap-2"
+  >
+    <Info className="h-4 w-4" />
+    <span className="text-sm font-medium">{t('footer.about')}</span>
+  </motion.button>
+  <LanguageToggle lang={lang} setLang={setLang} />
+</div>
           
           {/* Header content */}
           <div className="relative py-6 px-4 sm:px-6 md:px-8">
@@ -1556,13 +1710,23 @@ initial={{ scale: 0.95 }}
                 contact
               </a>
               <div className="flex gap-4">
-                <a href="#" className="hover:text-sfro-primary transition-colors">{t('footer.about')}</a>
                 <a href="#" className="hover:text-sfro-primary transition-colors">{t('footer.legal')}</a>
               </div>
             </div>
           </div>
         </div>
       </Card>
+
+      {/* About Popup */}
+<AnimatePresence>
+  {showAbout && (
+    <AboutPopup 
+      show={showAbout}
+      onClose={() => setShowAbout(false)}
+    />
+  )}
+</AnimatePresence>
+
 
       {/* References Popup */}
       <AnimatePresence>
