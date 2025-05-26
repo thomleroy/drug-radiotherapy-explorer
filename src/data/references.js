@@ -497,7 +497,7 @@ export const referencesData = {
   },
   "320": {
     text: "Tan B, Huang Y, Zhang B, Lin N. The effect of ibrutinib on radiosensitivity in pancreatic cancer cells by targeting EGFR/AKT/mTOR signaling pathway. Biomed Pharmacother Biomedecine Pharmacother. 2020 Aug;128:110133.",
-    url: "https://doi.org/10.1016/j.biopha.2020.110133"
+    url: "https://pubmed.ncbi.nlm.nih.gov/32447207/"
   },
   "321": {
     text: "Sherman EJ, Harris J, Bible KC, Xia P, Ghossein RA, Chung CH. Radiotherapy and paclitaxel plus pazopanib or placebo in anaplastic thyroid cancer (NRG/RTOG 0912): a randomised, double-blind, placebo-controlled, multicentre, phase 2 trial. Lancet Oncol 2023 Feb 1 24(2):175–86",
