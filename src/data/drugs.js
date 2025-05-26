@@ -1,5 +1,4 @@
-
-    export const allDrugs = [
+export const allDrugs = [
 {
     name: "Irinotecan",
     dci: "irinotécan",
@@ -12,7 +11,7 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[185, 317]"
+    references: "[228,229]"
   },
   {
     name: "Topotecan",
@@ -22,11 +21,11 @@
     class: "Topoisomerases 1 inhibitors",
     category: "chemotherapy",
     halfLife: "5h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[185]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[230,231]"
   },
   {
     name: "Daunorubicine",
@@ -40,7 +39,7 @@
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[162]"
+    references: "[195,232]"
   },
   {
     name: "Doxorubicine",
@@ -49,12 +48,12 @@
     administration: "IV",
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
-    halfLife: "3 days",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[162]"
+    halfLife: "36 to 72h",
+    normofractionatedRT: "7 days",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "7 days",
+    references: "[195,232]"
   },
   {
     name: "Epirubicine",
@@ -68,7 +67,7 @@
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
     intracranialRT: "7 days",
-    references: "[162]"
+    references: "[195,232]"
   },
   {
     name: "Idarubicine",
@@ -82,7 +81,7 @@
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[162]"
+    references: "[195,232]"
   },
   {
     name: "Etoposide",
@@ -96,7 +95,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[125, 291]"
+    references: "[141]"
   },
   {
     name: "Bleomycine",
@@ -106,11 +105,11 @@
     class: "Topoisomerases 2 inhibitors",
     category: "chemotherapy",
     halfLife: "4h",
-    normofractionatedRT: "0 (except thoracic irradiation : 48h)",
+    normofractionatedRT: "0 (except thoracic irradiation: 24h)",
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[186,187]"
+    references: "[233,234]"
   },
   {
     name: "Mercaptopurine",
@@ -120,11 +119,11 @@
     class: "Purine analogues",
     category: "chemotherapy",
     halfLife: "2h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[194]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[245]"
   },
   {
     name: "Fludarabine",
@@ -138,7 +137,7 @@
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[195,196]"
+    references: "[246,247]"
   },
   {
     name: "Clofarabine",
@@ -148,11 +147,11 @@
     class: "Purine analogues",
     category: "chemotherapy",
     halfLife: "5.2h",
-    normofractionatedRT: "3 days",
-    palliativeRT: "3 days",
-    stereotacticRT: "3 days",
-    intracranialRT: "3 days",
-    references: "[197,198]"
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[248,249]"
   },
   {
     name: "Cisplatin",
@@ -166,7 +165,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[116, 287, 297]"
+    references: "[121]"
   },
   {
     name: "Carboplatin",
@@ -180,7 +179,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[342]"
+    references: "[156,254]"
   },
   {
     name: "Oxaliplatine",
@@ -193,7 +192,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[155]"
   },
   {
     name: "Chlorambucil",
@@ -203,11 +203,11 @@
     class: "Nitrogen mustards",
     category: "chemotherapy",
     halfLife: "1.5h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[199]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[255]"
   },
   {
     name: "Melphalan",
@@ -217,11 +217,11 @@
     class: "Nitrogen mustards",
     category: "chemotherapy",
     halfLife: "1.5h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[200]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[256]"
   },
   {
     name: "Cyclophosphamide",
@@ -235,7 +235,7 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[201,202]"
+    references: "[257]"
   },
   {
     name: "Ifosfamide",
@@ -249,7 +249,7 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[203,204]"
+    references: "[258,259]"
   },
   {
     name: "5-Fluorouracil",
@@ -263,7 +263,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[348]"
+    references: "[27]"
   },
   {
     name: "Capecitabine",
@@ -276,7 +276,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[27]"
   },
   {
     name: "Triflurifine",
@@ -290,7 +291,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[188,189]"
+    references: "[235,236]"
   },
   {
     name: "Tipiracil",
@@ -304,7 +305,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[188,189]"
+    references: "[235,236]"
   },
   {
     name: "Gemcitabine",
@@ -318,7 +319,7 @@
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
     intracranialRT: "0",
-    references: "[190, 288, 320]"
+    references: "[237–242]"
   },
   {
     name: "Cytarabine",
@@ -328,11 +329,11 @@
     class: "Pyrimidine analogues",
     category: "chemotherapy",
     halfLife: "2h",
-    normofractionatedRT: "2 days",
-    palliativeRT: "2 days",
-    stereotacticRT: "2 days",
-    intracranialRT: "2 days",
-    references: "[191]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[243]"
   },
   {
     name: "Azacitidine",
@@ -345,7 +346,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "None"
   },
   {
     name: "Methotrexate",
@@ -359,7 +361,7 @@
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[164]"
+    references: "[197]"
   },
   {
     name: "Pemetrexed",
@@ -373,7 +375,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[192]"
+    references: "[226]"
   },
   {
     name: "Ralitrexed",
@@ -387,7 +389,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[193]"
+    references: "[244]"
   },
   {
     name: "Bendamustine",
@@ -397,11 +399,11 @@
     class: "Nitrosea urea",
     category: "chemotherapy",
     halfLife: "30min",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[205,206]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[260,261]"
   },
   {
     name: "Fotemustine",
@@ -414,7 +416,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[262–265]"
   },
   {
     name: "Lomustine",
@@ -428,7 +431,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[207,208]"
+    references: "[266,267]"
   },
   {
     name: "Trabectidine",
@@ -442,7 +445,7 @@
     palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[209,210]"
+    references: "[268,269]"
   },
   {
     name: "Dacarbazine",
@@ -452,10 +455,11 @@
     class: "Various",
     category: "chemotherapy",
     halfLife: "1.5h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[273]"
   },
   {
     name: "Procarbazine",
@@ -468,7 +472,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[274–276]"
   },
   {
     name: "Mitomycin C",
@@ -481,7 +486,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[172,174]"
   },
   {
     name: "Temozolomide",
@@ -495,7 +501,49 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[270, 304, 295]"
+    references: "[115]"
+  },
+  {
+    name: "Hydroxyurea",
+    dci: "hydroxyurée",
+    commercial: "Hydrea",
+    administration: "Oral",
+    class: "Various",
+    category: "chemotherapy",
+    halfLife: "5h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[250–252]"
+  },
+  {
+    name: "Mycophenolate mofetil",
+    dci: "mycophénolate mofétil",
+    commercial: "Cellcept",
+    administration: "Oral",
+    class: "Various",
+    category: "chemotherapy",
+    halfLife: "11 to 18h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[253]"
+  },
+  {
+    name: "Busulfan",
+    dci: "busulfan",
+    commercial: "Busilvex",
+    administration: "IV",
+    class: "Various",
+    category: "chemotherapy",
+    halfLife: "2.8 to 3.9h",
+    normofractionatedRT: "No concomitant association: an expert opinion is required before irradiation",
+    palliativeRT: "No concomitant association: an expert opinion is required before irradiation",
+    stereotacticRT: "No concomitant association: an expert opinion is required before irradiation",
+    intracranialRT: "No concomitant association: an expert opinion is required before irradiation",
+    references: "[270–272]"
   },
   {
     name: "Paclitaxel",
@@ -509,7 +557,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[234]"
+    references: "[277–279]"
   },
   {
     name: "Nab-Paclitaxel",
@@ -522,7 +570,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "[280–282]"
   },
   {
     name: "Docetaxel",
@@ -531,12 +580,12 @@
     administration: "IV",
     class: "Taxanes",
     category: "chemotherapy",
-    halfLife: "11h",
-    normofractionatedRT: "2 days",
-    palliativeRT: "2 days",
-    stereotacticRT: "2 days",
-    intracranialRT: "2 days",
-    references: "[180, 297, 326]"
+    halfLife: "11 to 17h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[47]"
   },
   {
     name: "Cabazitaxel",
@@ -549,7 +598,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "[283]"
   },
   {
     name: "Eribuline",
@@ -563,7 +613,7 @@
     palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "0",
-    references: "[211]"
+    references: "[284]"
   },
   {
     name: "Vinblastine",
@@ -576,7 +626,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "[285,286]"
   },
   {
     name: "Vincristine",
@@ -590,7 +641,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[212]"
+    references: "[287]"
   },
   {
     name: "Vinorelbine",
@@ -604,7 +655,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[213,214, 349]"
+    references: "[288,289]"
   },
   {
     name: "Goserelin",
@@ -617,7 +668,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[290–292]"
   },
   {
     name: "Leuproprelin",
@@ -630,7 +682,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[293]"
   },
   {
     name: "Triptoreline",
@@ -643,7 +696,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[294]"
   },
   {
     name: "Degarelix",
@@ -656,7 +710,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[295]"
   },
   {
     name: "Relugolix",
@@ -669,7 +724,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[296]"
   },
   {
     name: "Bicalutamide",
@@ -682,7 +738,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[297]"
   },
   {
     name: "Apalutamide",
@@ -696,7 +753,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[215,216]"
+    references: "[298,299]"
   },
   {
     name: "Enzalutamide",
@@ -710,7 +767,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[217, 219]"
+    references: "[300]"
   },
   {
     name: "Darolutamide",
@@ -724,7 +781,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[218]"
+    references: "[301]"
   },
   {
     name: "Abiraterone acetate",
@@ -738,7 +795,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[219,220,327]"
+    references: "[302,303]"
   },
   {
     name: "Tamoxifene",
@@ -748,11 +805,11 @@
     class: "Anti estrogens receptor",
     category: "endocrine",
     halfLife: "7 days",
-    normofractionatedRT: "0 (except radiosensibility)",
-    palliativeRT: "0 (except radiosensibility)",
-    stereotacticRT: "0 (except radiosensibility)",
-    intracranialRT: "0 (except radiosensibility)",
-    references: "[58, 328]"
+    normofractionatedRT: "0 (except intrinsic radiosensitivity)",
+    palliativeRT: "0 (except intrinsic radiosensitivity)",
+    stereotacticRT: "0 (except intrinsic radiosensitivity)",
+    intracranialRT: "0 (except intrinsic radiosensitivity)",
+    references: "[60–64]"
   },
   {
     name: "Fulvestrant",
@@ -766,7 +823,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[221,222]"
+    references: "[304,305]"
   },
   {
     name: "Letrozole",
@@ -780,7 +837,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[223, 305]"
+    references: "[67,68]"
   },
   {
     name: "Anastrozole",
@@ -793,7 +850,8 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[306]"
   },
   {
     name: "Exemestane",
@@ -806,7 +864,22 @@
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[65]"
+  },
+  {
+    name: "Megestrol acetate",
+    dci: "acétate de mégestrol",
+    commercial: "Megace",
+    administration: "Oral",
+    class: "Analogues of progesterone",
+    category: "endocrine",
+    halfLife: "20h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[307,308]"
   },
   {
     name: "Alectinib",
@@ -819,8 +892,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "0",
     stereotacticRT: "5 days",
-    intracranialRT: "0",
-    references: "[281, 285, 286]"
+    intracranialRT: "5 days",
+    references: "[207]"
   },
   {
     name: "Brigatinib",
@@ -833,8 +906,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "0",
     stereotacticRT: "5 days",
-    intracranialRT: "0",
-    references: "[322]"
+    intracranialRT: "5 days",
+    references: "[207]"
   },
   {
     name: "Ceritinib",
@@ -847,8 +920,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "0",
     stereotacticRT: "5 days",
-    intracranialRT: "0",
-    references: "[322]"
+    intracranialRT: "5 days",
+    references: "[207,309]"
   },
   {
     name: "Crizotinib",
@@ -858,11 +931,11 @@
     class: "Tyrosine kinase inhibitors",
     category: "targeted",
     halfLife: "42h",
-    normofractionatedRT: "0",
+    normofractionatedRT: "5 days",
     palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[225,226,227]"
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[310–312]"
   },
   {
     name: "Lorlatinib",
@@ -875,8 +948,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "0",
     stereotacticRT: "5 days",
-    intracranialRT: "0",
-    references: "[322]"
+    intracranialRT: "5 days",
+    references: "[208]"
   },
   {
     name: "Bosutinib",
@@ -886,10 +959,11 @@
     class: "Tyrosine kinase inhibitors (BCR-ABL)",
     category: "targeted",
     halfLife: "35h",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0"
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "None"
   },
   {
     name: "Dasatinib",
@@ -899,11 +973,11 @@
     class: "Tyrosine kinase inhibitors (BCR-ABL)",
     category: "targeted",
     halfLife: "5h",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[228,229]"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[313,314]"
   },
   {
     name: "Imatinib",
@@ -913,11 +987,11 @@
     class: "Tyrosine kinase inhibitors (BCR-ABL)",
     category: "targeted",
     halfLife: "18h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[230]"
+    normofractionatedRT: "4 days",
+    palliativeRT: "4 days",
+    stereotacticRT: "4 days",
+    intracranialRT: "4 days",
+    references: "[315]"
   },
   {
     name: "Nilotinib",
@@ -927,11 +1001,11 @@
     class: "Tyrosine kinase inhibitors (BCR-ABL)",
     category: "targeted",
     halfLife: "17h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[231]"
+    normofractionatedRT: "4 days",
+    palliativeRT: "4 days",
+    stereotacticRT: "4 days",
+    intracranialRT: "4 days",
+    references: "[316]"
   },
   {
     name: "Ponatinib",
@@ -944,7 +1018,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "None"
   },
   {
     name: "Acalabrutinib",
@@ -957,7 +1032,8 @@
     normofractionatedRT: "48h",
     palliativeRT: "48h",
     stereotacticRT: "48h",
-    intracranialRT: "48h"
+    intracranialRT: "48h",
+    references: "None"
   },
   {
     name: "Ibrutinib",
@@ -971,7 +1047,7 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[232]"
+    references: "[319,320]"
   },
   {
     name: "Pirtobrutinib",
@@ -984,7 +1060,22 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "None"
+  },
+  {
+    name: "Zanubrutinib",
+    dci: "zanubrutinib",
+    commercial: "Brukinsa",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (BTK)",
+    category: "targeted",
+    halfLife: "4h",
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "None"
   },
   {
     name: "Afatinib",
@@ -995,10 +1086,10 @@
     category: "targeted",
     halfLife: "37h",
     normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
+    palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "0",
-    references: "[224, 235]"
+    references: "[323]"
   },
   {
     name: "Gefitinib",
@@ -1012,7 +1103,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[236, 322, 363]"
+    references: "[327]"
   },
   {
     name: "Erlotinib",
@@ -1026,7 +1117,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[322]"
+    references: "[326]"
   },
   {
     name: "Osimertinib",
@@ -1040,7 +1131,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[237, 238, 282, 283, 284, 322, 344]"
+    references: "[82,83,328,329]"
   },
   {
     name: "Futibatinib",
@@ -1050,10 +1141,11 @@
     class: "Tyrosine kinase inhibitors (FGFR)",
     category: "targeted",
     halfLife: "3h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "None"
   },
   {
     name: "Pemigatinib",
@@ -1066,7 +1158,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "None"
   },
   {
     name: "Gilteritinib",
@@ -1079,7 +1172,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "None"
   },
   {
     name: "Lapatinib",
@@ -1093,7 +1187,7 @@
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[239,81]"
+    references: "[91,330]"
   },
   {
     name: "Tucatinib",
@@ -1103,11 +1197,11 @@
     class: "Tyrosine kinase inhibitors (HER2)",
     category: "targeted",
     halfLife: "8.5h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[81]"
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[331,332]"
   },
   {
     name: "Fedratinib",
@@ -1120,7 +1214,8 @@
     normofractionatedRT: "5 days",
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
-    intracranialRT: "5 days"
+    intracranialRT: "5 days",
+    references: "None"
   },
   {
     name: "Ruxolitinib",
@@ -1130,10 +1225,11 @@
     class: "Tyrosine kinase inhibitors (JAK)",
     category: "targeted",
     halfLife: "3h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h"
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[333]"
   },
   {
     name: "Binimetinib",
@@ -1143,791 +1239,11 @@
     class: "Tyrosine kinase inhibitors (MEK)",
     category: "targeted",
     halfLife: "8.66h",
-    normofractionatedRT: "3 days",
-    palliativeRT: "3 days",
-    stereotacticRT: "3 days",
-    intracranialRT: "3 days",
-    references: "[178]"
-  },
-  {
-    name: "Capmatinib",
-    dci: "capmatinib",
-    commercial: "Tabrecta",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (MET)",
-    category: "targeted",
-    halfLife: "6.5h",
     normofractionatedRT: "48h",
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[240]"
-  },
-  {
-    name: "Cabozantinib",
-    dci: "cabozantinib",
-    commercial: "Cabometyx, Cometriq",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (MET, RET, ROS1, VEGFR)",
-    category: "targeted",
-    halfLife: "4.5 days",
-    normofractionatedRT: "21 days",
-    palliativeRT: "0 (except abdominopelvic)",
-    stereotacticRT: "21 days",
-    intracranialRT: "0",
-    references: "[241,242]"
-  },
-  {
-    name: "Tepotinib",
-    dci: "tépotinib",
-    commercial: "Tepmetko",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (MET)",
-    category: "targeted",
-    halfLife: "32h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days"
-  },
-  {
-    name: "Selpercatinib",
-    dci: "selpercatinib",
-    commercial: "Retsevmo",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (RET fusion)",
-    category: "targeted",
-    halfLife: "24h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days"
-  },
-  {
-    name: "Larotrectinib",
-    dci: "larotrectinib",
-    commercial: "Vitrakvi",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (TRK)",
-    category: "targeted",
-    halfLife: "3h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[243]"
-  },
-  {
-    name: "Axitinib",
-    dci: "axitinib",
-    commercial: "Inlyta",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (VEGFR)",
-    category: "targeted",
-    halfLife: "2.5h to 6h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[244,245]"
-  },
-  {
-    name: "Lenvatinib",
-    dci: "lenvatinib",
-    commercial: "Lenvima, Kisplyx",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (c-Kit, FGFR, PDGFR, VEGFR)",
-    category: "targeted",
-    halfLife: "28h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[246,247]"
-  },
-  {
-    name: "Sorafenib",
-    dci: "sorafénib",
-    commercial: "Nexavar",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (c-Kit, FLT3, PDGFR, VEGFR)",
-    category: "targeted",
-    halfLife: "24h to 48h",
-    normofractionatedRT: "7 days",
-    palliativeRT: "0 (except abdomino pelvic)",
-    stereotacticRT: "7 days",
-    intracranialRT: "0",
-    references: "[170,248,249, 330]"
-  },
-  {
-    name: "Obinutuzumab",
-    dci: "obinutuzumab",
-    commercial: "Gazyvaro",
-    administration: "IV",
-    class: "Monoclonal antibodies (CD20)",
-    category: "targeted",
-    halfLife: "23.9 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[262]"
-  },
-  {
-    name: "Rituximab",
-    dci: "rituximab",
-    commercial: "MabThera, Rituxan",
-    administration: "IV, SC",
-    class: "Monoclonal antibodies (CD20)",
-    category: "targeted",
-    halfLife: "22 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[263]"
-  },
-  {
-    name: "Cetuximab",
-    dci: "cétuximab",
-    commercial: "Erbitux",
-    administration: "IV",
-    class: "Monoclonal antibodies (EGFR)",
-    category: "targeted",
-    halfLife: "4 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[229]"
-  },
-  {
-    name: "Bevacizumab",
-    dci: "bévacizumab",
-    commercial: "Avastin",
-    administration: "IV",
-    class: "Monoclonal antibodies (VEGFR)",
-    category: "targeted",
-    halfLife: "18 to 20 days",
-    normofractionatedRT: "21 days",
-    palliativeRT: "0 (except abdomino pelvic)",
-    stereotacticRT: "21 days",
-    intracranialRT: "0",
-    references: "[290]"
-  },
-  {
-    name: "Venetoclax",
-    dci: "vénétoclax",
-    commercial: "Venclyxto",
-    administration: "Oral",
-    class: "Bcl-2 inhibitors",
-    category: "targeted",
-    halfLife: "26h",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[249]"
-  },
-  {
-    name: "Dabrafenib",
-    dci: "dabrafénib",
-    commercial: "Tafinlar",
-    administration: "Oral",
-    class: "BRAF inhibitors",
-    category: "targeted",
-    halfLife: "2.6h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[178]"
-  },
-  {
-    name: "Encorafenib",
-    dci: "encorafénib",
-    commercial: "Braftovi",
-    administration: "Oral",
-    class: "BRAF inhibitors",
-    category: "targeted",
-    halfLife: "6.3h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h"
-  },
-  {
-    name: "Vemurafenib",
-    dci: "vémurafénib",
-    commercial: "Zelboraf",
-    administration: "Oral",
-    class: "BRAF inhibitors",
-    category: "targeted",
-    halfLife: "51h",
-    normofractionatedRT: "7 days",
-    palliativeRT: "7 days",
-    stereotacticRT: "7 days",
-    intracranialRT: "7 days",
-    references: "[178]"
-  },
-  {
-    name: "Niraparib",
-    dci: "niraparib",
-    commercial: "Zejula",
-    administration: "Oral",
-    class: "PARP inhibitors",
-    category: "targeted",
-    halfLife: "48h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0",
-    stereotacticRT: "5 days",
-    intracranialRT: "0"
-  },
-  {
-    name: "Olaparib",
-    dci: "olaparib",
-    commercial: "Lynparza",
-    administration: "Oral",
-    class: "PARP inhibitors",
-    category: "targeted",
-    halfLife: "15h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0",
-    stereotacticRT: "5 days",
-    intracranialRT: "0",
-    references: "[184]"
-  },
-  {
-    name: "Rucaparib",
-    dci: "rucaparib",
-    commercial: "Rubraca",
-    administration: "Oral",
-    class: "PARP inhibitors",
-    category: "targeted",
-    halfLife: "26h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0",
-    stereotacticRT: "5 days",
-    intracranialRT: "0"
-  },
-  {
-    name: "Bortezomib",
-    dci: "bortézomib",
-    commercial: "Velcade",
-    administration: "IV, SC",
-    class: "Proteasome inhibitors",
-    category: "targeted",
-    halfLife: "40 to 193h",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[254,255,256, 370]"
-  },
-  {
-    name: "Carfilzomib",
-    dci: "carfilzomib",
-    commercial: "Kyprolis",
-    administration: "IV",
-    class: "Proteasome inhibitors",
-    category: "targeted",
-    halfLife: "1h",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0"
-  },
-  {
-    name: "Lenalidomide",
-    dci: "lénalidomide",
-    commercial: "Revlimid",
-    administration: "Oral",
-    class: "Immunomodulators",
-    category: "immunotherapy",
-    halfLife: "3h to 5h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[267,268]"
-  },
-  {
-    name: "Pomalidomide",
-    dci: "pomalidomide",
-    commercial: "Imnovid",
-    administration: "Oral",
-    class: "Immunomodulators",
-    category: "immunotherapy",
-    halfLife: "9h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[264]"
-  },
-  {
-    name: "Thalidomide",
-    dci: "thalidomide",
-    commercial: "Thalidomide",
-    administration: "Oral",
-    class: "Immunomodulators",
-    category: "immunotherapy",
-    halfLife: "7h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[269,270,271]"
-  },
-  {
-    name: "Brentuximab vedotin",
-    dci: "brentuximab védotine",
-    commercial: "Adcetris",
-    administration: "IV",
-    class: "Antibody-drug conjugates (CD30)",
-    category: "targeted",
-    halfLife: "4 to 6 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[275,276, 325]"
-  },
-  {
-    name: "Trastuzumab Emtansine",
-    dci: "trastuzumab emtansine",
-    commercial: "Kadcyla",
-    administration: "IV",
-    class: "Antibody-drug conjugates (HER2)",
-    category: "targeted",
-    halfLife: "4 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[81, 321]"
-  },
-  {
-    name: "Ramucirumab",
-    dci: "ramucirumab",
-    commercial: "Cyramza",
-    administration: "IV",
-    class: "Monoclonal antibodies (VEGFR)",
-    category: "targeted",
-    halfLife: "14 days",
-    normofractionatedRT: "21days",
-    palliativeRT: "0 (except abdomino pelvic)",
-    stereotacticRT: "21days",
-    intracranialRT: "0",
-    references: "[265,266]"
-  },
-  {
-    name: "Aflibercept",
-    dci: "aflibercept",
-    commercial: "Zaltrap",
-    administration: "IV",
-    class: "Recombinant fusion protein (VEGF)",
-    category: "targeted",
-    halfLife: "6 days",
-    normofractionatedRT: "21days",
-    palliativeRT: "0 (except abdomino pelvic)",
-    stereotacticRT: "21days",
-    intracranialRT: "0"
-  },
-  {
-    name: "Trastuzumab Deruxtecan",
-    dci: "trastuzumab déruxtécan",
-    commercial: "Enhertu",
-    administration: "IV",
-    class: "Antibody-drug conjugates",
-    category: "targeted",
-    halfLife: "7 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[277, 321]"
-  },
-  {
-    name: "Enfortumab Vedotin",
-    dci: "enfortumab védotine",
-    commercial: "Padcev",
-    administration: "IV",
-    class: "Antibody-drug conjugates (Nectin 4)",
-    category: "targeted",
-    halfLife: "3.6 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[278,279]"
-  },
-  {
-    name: "Sacituzumab govitecan",
-    dci: "sacituzumab govitécan",
-    commercial: "Trodelvy",
-    administration: "IV",
-    class: "Antibody-drug conjugates (TROP2)",
-    category: "targeted",
-    halfLife: "15h to 19h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[280]"
-  },
-  {
-    name: "Nivolumab",
-    dci: "nivolumab",
-    commercial: "Opdivo",
-    administration: "IV",
-    class: "PD1 inhibitors",
-    category: "immunotherapy",
-    halfLife: "25 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[350, 352]"
-  },
-  {
-    name: "Pembrolizumab",
-    dci: "pembrolizumab",
-    commercial: "Keytruda",
-    administration: "IV",
-    class: "PD1 inhibitors",
-    category: "immunotherapy",
-    halfLife: "22 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[85, 354]"
-  },
-  {
-    name: "Atezolizumab",
-    dci: "atézolizumab",
-    commercial: "Tecentriq",
-    administration: "IV",
-    class: "PDL1 inhibitors",
-    category: "immunotherapy",
-    halfLife: "27 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[85]"
-  },
-  {
-    name: "Avelumab",
-    dci: "avélumab",
-    commercial: "Bavencio",
-    administration: "IV",
-    class: "PDL1 inhibitors",
-    category: "immunotherapy",
-    halfLife: "6 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0"
-  },
-  {
-    name: "Durvalumab",
-    dci: "durvalumab",
-    commercial: "Imfinzi",
-    administration: "IV",
-    class: "PDL1 inhibitors",
-    category: "immunotherapy",
-    halfLife: "18 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-  intracranialRT: "0"
-},
-  {
-    name: "Ipilimumab",
-    dci: "ipilimumab",
-    commercial: "Yervoy",
-    administration: "IV",
-    class: "CTLA4 inhibitors",
-    category: "immunotherapy",
-    halfLife: "15 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[85, 347]"
-  },
-  {
-    name: "Tremelimumab",
-    dci: "trémélimumab",
-    commercial: "Imjudo",
-    administration: "IV",
-    class: "CTLA4 inhibitors",
-    category: "immunotherapy",
-    halfLife: "14.2 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0"
-  },
-  {
-    name: "Abemaciclib",
-    dci: "abémaciclib",
-    commercial: "Verzenios",
-    administration: "Oral",
-    class: "CDK4/6 inhibitors",
-    category: "targeted",
-    halfLife: "25h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[81]"
-  },
-  {
-    name: "Palbociclib",
-    dci: "palbociclib",
-    commercial: "Ibrance",
-    administration: "Oral",
-    class: "CDK4/6 inhibitors",
-    category: "targeted",
-    halfLife: "29h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[81]"
-  },
-  {
-    name: "Ribociclib",
-    dci: "ribociclib",
-    commercial: "Kisqali",
-    administration: "Oral",
-    class: "CDK4/6 inhibitors",
-    category: "targeted",
-    halfLife: "30 to 55h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days"
-  },
-  {
-    name: "Vorinostat",
-    dci: "vorinostat",
-    commercial: "Zolinza",
-    administration: "Oral",
-    class: "Histones deacetylases HDAC inhibitors",
-    category: "targeted",
-    halfLife: "2h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h",
-    references: "[250,251, 303]"
-  },
-  {
-    name: "Panobinostat",
-    dci: "panobinostat",
-    commercial: "Farydak",
-    administration: "Oral",
-    class: "Histones deacetylases HDAC inhibitors",
-    category: "targeted",
-    halfLife: "37h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[252]"
-  },
-  {
-    name: "Ivosidenib",
-    dci: "ivosidénib",
-    commercial: "Tibsovo",
-    administration: "Oral",
-    class: "Isocitrate dehydrogenase inhibitors (IDH-1)",
-    category: "targeted",
-    halfLife: "58h to 129h",
-    normofractionatedRT: "0 days",
-    palliativeRT: "0 days",
-    stereotacticRT: "0 days",
-    intracranialRT: "0 days",
-    references: "[253]"
-  },
-  {
-    name: "Enasidenib",
-    dci: "énasidénib",
-    commercial: "Idhifa",
-    administration: "Oral",
-    class: "Isocitrate dehydrogenase inhibitors (IDH-2)",
-    category: "targeted",
-    halfLife: "8 days",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days"
-  },
-  {
-    name: "Adagrasib",
-    dci: "adagrasib",
-    commercial: "Krazati",
-    administration: "Oral",
-    class: "KRAS G12C inhibitors",
-    category: "targeted",
-    halfLife: "24h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days"
-  },
-  {
-    name: "Sotorasib",
-    dci: "sotorasib",
-    commercial: "Lumykras",
-    administration: "Oral",
-    class: "KRAS G12C inhibitors",
-    category: "targeted",
-    halfLife: "5h",
-    normofractionatedRT: "2 days",
-    palliativeRT: "2 days",
-    stereotacticRT: "2 days",
-    intracranialRT: "2 days"
-  },
-  {
-    name: "Talazoparib",
-    dci: "talazoparib",
-    commercial: "Talzenna",
-    administration: "Oral",
-    class: "PARP inhibitors",
-    category: "targeted",
-    halfLife: "3.75 days",
-    normofractionatedRT: "5 days",
-    palliativeRT: "0 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "0 days"
-  },
-  {
-    name: "Ixazomib",
-    dci: "ixazomib",
-    commercial: "Ninlaro",
-    administration: "Oral",
-    class: "Proteasome inhibitors",
-    category: "targeted",
-    halfLife: "9.5 days",
-    normofractionatedRT: "0 days",
-    palliativeRT: "0 days",
-    stereotacticRT: "0 days",
-    intracranialRT: "0 days"
-  },
-  {
-    name: "Vismodegib",
-    dci: "vismodégib",
-    commercial: "Erivedge",
-    administration: "Oral",
-    class: "SMO protein inhibitors",
-    category: "targeted",
-    halfLife: "4 days",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[257, 258, 316]"
-  },
-  {
-    name: "Sonidegib",
-    dci: "sonidégib",
-    commercial: "Odomzo",
-    administration: "Oral",
-    class: "SMO protein inhibitors",
-    category: "targeted",
-    halfLife: "28 days",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[259]"
-  },
-  {
-    name: "Daratumumab",
-    dci: "daratumumab",
-    commercial: "Darzalex",
-    administration: "IV, SC",
-    class: "Monoclonal antibodies (CD38)",
-    category: "targeted",
-    halfLife: "9 days",
-    normofractionatedRT: "0 days",
-    palliativeRT: "0 days",
-    stereotacticRT: "0 days",
-    intracranialRT: "0 days",
-    references: "[264]"
-  },
-  {
-    name: "Pertuzumab",
-    dci: "pertuzumab",
-    commercial: "Perjeta",
-    administration: "IV",
-    class: "Monoclonal antibodies (HER2)",
-    category: "targeted",
-    halfLife: "18 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[81]"
-  },
-  {
-    name: "Trastuzumab",
-    dci: "trastuzumab",
-    commercial: "Herceptin",
-    administration: "IV, SC",
-    class: "Monoclonal antibodies (HER2)",
-    category: "targeted",
-    halfLife: "28.5 days",
-    normofractionatedRT: "0",
-    palliativeRT: "0",
-    stereotacticRT: "0",
-    intracranialRT: "0",
-    references: "[80, 81]"
-  },
-  {
-    name: "Zanubrutinib",
-    dci: "zanubrutinib",
-    commercial: "Brukinsa",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (BTK)",
-    category: "targeted",
-    halfLife: "4h",
-    normofractionatedRT: "48h",
-    palliativeRT: "48h",
-    stereotacticRT: "48h",
-    intracranialRT: "48h"
-  },
-  {
-    name: "Pazopanib",
-    dci: "pazopanib",
-    commercial: "Votrient",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (c-Kit)",
-    category: "targeted",
-    halfLife: "31h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
-    references: "[233, 234]"
-  },
-  {
-    name: "Ripretinib",
-    dci: "riprétinib",
-    commercial: "Qinlock",
-    administration: "Oral",
-    class: "Tyrosine kinase inhibitors (c-Kit)",
-    category: "targeted",
-    halfLife: "15h",
-    normofractionatedRT: "3 days",
-    palliativeRT: "3 days",
-    stereotacticRT: "3 days",
-    intracranialRT: "3 days"
+    references: "[216]"
   },
   {
     name: "Cobimetinib",
@@ -1937,10 +1253,11 @@
     class: "Tyrosine kinase inhibitors (MEK)",
     category: "targeted",
     halfLife: "43h",
-    normofractionatedRT: "10 days",
-    palliativeRT: "10 days",
-    stereotacticRT: "10 days",
-    intracranialRT: "10 days"
+    normofractionatedRT: "7 days",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "7 days",
+    references: "[334]"
   },
   {
     name: "Trametinib",
@@ -1954,7 +1271,469 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[178]"
+    references: "[334–336]"
+  },
+  {
+    name: "Capmatinib",
+    dci: "capmatinib",
+    commercial: "Tabrecta",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (MET)",
+    category: "targeted",
+    halfLife: "6.5h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[337]"
+  },
+  {
+    name: "Cabozantinib",
+    dci: "cabozantinib",
+    commercial: "Cabometyx, Cometriq",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (MET, RET, ROS1, VEGFR)",
+    category: "targeted",
+    halfLife: "4.5 days",
+    normofractionatedRT: "21 days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "21 days",
+    intracranialRT: "0",
+    references: "[338–340]"
+  },
+  {
+    name: "Tepotinib",
+    dci: "tépotinib",
+    commercial: "Tepmetko",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (MET)",
+    category: "targeted",
+    halfLife: "32h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "None"
+  },
+  {
+    name: "Selpercatinib",
+    dci: "selpercatinib",
+    commercial: "Retsevmo",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (RET fusion)",
+    category: "targeted",
+    halfLife: "24h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "None"
+  },
+  {
+    name: "Larotrectinib",
+    dci: "larotrectinib",
+    commercial: "Vitrakvi",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (TRK)",
+    category: "targeted",
+    halfLife: "3h",
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[342]"
+  },
+  {
+    name: "Axitinib",
+    dci: "axitinib",
+    commercial: "Inlyta",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (VEGFR)",
+    category: "targeted",
+    halfLife: "2.5h to 6h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[343–346]"
+  },
+  {
+    name: "Lenvatinib",
+    dci: "lenvatinib",
+    commercial: "Lenvima, Kisplyx",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (c-Kit, FGFR, PDGFR, VEGFR)",
+    category: "targeted",
+    halfLife: "28h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[347,348]"
+  },
+  {
+    name: "Sorafenib",
+    dci: "sorafénib",
+    commercial: "Nexavar",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (c-Kit, FLT3, PDGFR, VEGFR)",
+    category: "targeted",
+    halfLife: "24h to 48h",
+    normofractionatedRT: "7 days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "7 days",
+    intracranialRT: "0",
+    references: "[351]"
+  },
+  {
+    name: "Pazopanib",
+    dci: "pazopanib",
+    commercial: "Votrient",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (c-Kit)",
+    category: "targeted",
+    halfLife: "31h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[321,322]"
+  },
+  {
+    name: "Ripretinib",
+    dci: "riprétinib",
+    commercial: "Qinlock",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (c-Kit)",
+    category: "targeted",
+    halfLife: "15h",
+    normofractionatedRT: "3 days",
+    palliativeRT: "3 days",
+    stereotacticRT: "3 days",
+    intracranialRT: "3 days",
+    references: "None"
+  },
+  {
+    name: "Sunitinib",
+    dci: "Sunitinib",
+    commercial: "Sutent",
+    administration: "Oral",
+    class: "Tyrosine kinase inhibitors (FLT3, PDGFR, RET, VEGFR)",
+    category: "targeted",
+    halfLife: "4.5 days",
+    normofractionatedRT: "21 days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "21 days",
+    intracranialRT: "0",
+    references: "[352]"
+  },
+  {
+    name: "Obinutuzumab",
+    dci: "obinutuzumab",
+    commercial: "Gazyvaro",
+    administration: "IV",
+    class: "Monoclonal antibodies (CD20)",
+    category: "targeted",
+    halfLife: "23.9 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[386]"
+  },
+  {
+    name: "Rituximab",
+    dci: "rituximab",
+    commercial: "MabThera, Rituxan",
+    administration: "IV, SC",
+    class: "Monoclonal antibodies (CD20)",
+    category: "targeted",
+    halfLife: "22 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[387]"
+  },
+  {
+    name: "Cetuximab",
+    dci: "cétuximab",
+    commercial: "Erbitux",
+    administration: "IV",
+    class: "Monoclonal antibodies (EGFR)",
+    category: "targeted",
+    halfLife: "4 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[130]"
+  },
+  {
+    name: "Panitumumab",
+    dci: "panitumumab",
+    commercial: "Vectibix",
+    administration: "IV",
+    class: "Monoclonal antibodies (EGFR)",
+    category: "targeted",
+    halfLife: "7 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[177,389]"
+  },
+  {
+    name: "Pertuzumab",
+    dci: "pertuzumab",
+    commercial: "Perjeta",
+    administration: "IV",
+    class: "Monoclonal antibodies (HER2)",
+    category: "targeted",
+    halfLife: "18 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[91,390–392]"
+  },
+  {
+    name: "Trastuzumab",
+    dci: "trastuzumab",
+    commercial: "Herceptin",
+    administration: "IV, SC",
+    class: "Monoclonal antibodies (HER2)",
+    category: "targeted",
+    halfLife: "28.5 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[91,390]"
+  },
+  {
+    name: "Bevacizumab",
+    dci: "bévacizumab",
+    commercial: "Avastin",
+    administration: "IV",
+    class: "Monoclonal antibodies (VEGFR)",
+    category: "targeted",
+    halfLife: "18 to 20 days",
+    normofractionatedRT: "21 days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "21 days",
+    intracranialRT: "0",
+    references: "[200–202,393]"
+  },
+  {
+    name: "Ramucirumab",
+    dci: "ramucirumab",
+    commercial: "Cyramza",
+    administration: "IV",
+    class: "Monoclonal antibodies (VEGFR)",
+    category: "targeted",
+    halfLife: "14 days",
+    normofractionatedRT: "21 days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "21 days",
+    intracranialRT: "0",
+    references: "[394,395]"
+  },
+  {
+    name: "Daratumumab",
+    dci: "daratumumab",
+    commercial: "Darzalex",
+    administration: "IV, SC",
+    class: "Monoclonal antibodies (CD38)",
+    category: "targeted",
+    halfLife: "9 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[373]"
+  },
+  {
+    name: "Venetoclax",
+    dci: "vénétoclax",
+    commercial: "Venclyxto",
+    administration: "Oral",
+    class: "Bcl-2 inhibitors",
+    category: "targeted",
+    halfLife: "26h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[353]"
+  },
+  {
+    name: "Dabrafenib",
+    dci: "dabrafénib",
+    commercial: "Tafinlar",
+    administration: "Oral",
+    class: "BRAF inhibitors",
+    category: "targeted",
+    halfLife: "2.6h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[216]"
+  },
+  {
+    name: "Encorafenib",
+    dci: "encorafénib",
+    commercial: "Braftovi",
+    administration: "Oral",
+    class: "BRAF inhibitors",
+    category: "targeted",
+    halfLife: "6.3h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[317]"
+  },
+  {
+    name: "Vemurafenib",
+    dci: "vémurafénib",
+    commercial: "Zelboraf",
+    administration: "Oral",
+    class: "BRAF inhibitors",
+    category: "targeted",
+    halfLife: "51h",
+    normofractionatedRT: "7 days",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "7 days",
+    references: "[318]"
+  },
+  {
+    name: "Niraparib",
+    dci: "niraparib",
+    commercial: "Zejula",
+    administration: "Oral",
+    class: "PARP inhibitors",
+    category: "targeted",
+    halfLife: "48h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[359]"
+  },
+  {
+    name: "Olaparib",
+    dci: "olaparib",
+    commercial: "Lynparza",
+    administration: "Oral",
+    class: "PARP inhibitors",
+    category: "targeted",
+    halfLife: "15h",
+    normofractionatedRT: "3 days",
+    palliativeRT: "0",
+    stereotacticRT: "3 days",
+    intracranialRT: "3 days",
+    references: "[360,361]"
+  },
+  {
+    name: "Rucaparib",
+    dci: "rucaparib",
+    commercial: "Rubraca",
+    administration: "Oral",
+    class: "PARP inhibitors",
+    category: "targeted",
+    halfLife: "26h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[360]"
+  },
+  {
+    name: "Talazoparib",
+    dci: "talazoparib",
+    commercial: "Talzenna",
+    administration: "Oral",
+    class: "PARP inhibitors",
+    category: "targeted",
+    halfLife: "3.75 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[362]"
+  },
+  {
+    name: "Bortezomib",
+    dci: "bortézomib",
+    commercial: "Velcade",
+    administration: "IV, SC",
+    class: "Proteasome inhibitors",
+    category: "targeted",
+    halfLife: "40 to 193h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[363–365]"
+  },
+  {
+    name: "Carfilzomib",
+    dci: "carfilzomib",
+    commercial: "Kyprolis",
+    administration: "IV",
+    class: "Proteasome inhibitors",
+    category: "targeted",
+    halfLife: "1h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "None"
+  },
+  {
+    name: "Ixazomib",
+    dci: "ixazomib",
+    commercial: "Ninlaro",
+    administration: "Oral",
+    class: "Proteasome inhibitors",
+    category: "targeted",
+    halfLife: "9.5 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "None"
+  },
+  {
+    name: "Vismodegib",
+    dci: "vismodégib",
+    commercial: "Erivedge",
+    administration: "Oral",
+    class: "SMO protein inhibitors",
+    category: "targeted",
+    halfLife: "4 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[366,367]"
+  },
+  {
+    name: "Sonidegib",
+    dci: "sonidégib",
+    commercial: "Odomzo",
+    administration: "Oral",
+    class: "SMO protein inhibitors",
+    category: "targeted",
+    halfLife: "28 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[368]"
   },
   {
     name: "Alpelisib",
@@ -1968,7 +1747,7 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[260, 272]"
+    references: "[369]"
   },
   {
     name: "Idelalisib",
@@ -1982,7 +1761,7 @@
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[261]"
+    references: "[370]"
   },
   {
     name: "Everolimus",
@@ -1996,20 +1775,49 @@
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
     intracranialRT: "7 days",
-    references: "[273, 274, 272]"
+    references: "[382–384]"
   },
   {
-    name: "Panitumumab",
-    dci: "panitumumab",
-    commercial: "Vectibix",
-    administration: "IV",
-    class: "Monoclonal antibodies (EGFR)",
+    name: "Sirolimus",
+    dci: "sirolimus",
+    commercial: "Rapamune",
+    administration: "Oral",
+    class: "mTOR inhibitors",
     category: "targeted",
-    halfLife: "7 days",
+    halfLife: "62h",
+    normofractionatedRT: "7 days",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "7 days",
+    references: "[379–381]"
+  },
+  {
+    name: "Ciclosporin",
+    dci: "ciclosporine",
+    commercial: "Neoral",
+    administration: "Oral",
+    class: "Anti calcineurins",
+    category: "targeted",
+    halfLife: "6-20h",
     normofractionatedRT: "0",
     palliativeRT: "0",
     stereotacticRT: "0",
-    intracranialRT: "0"
+    intracranialRT: "0",
+    references: "[377]"
+  },
+  {
+    name: "Tacrolimus",
+    dci: "tacrolimus",
+    commercial: "Prograf",
+    administration: "Oral",
+    class: "Anti calcineurins",
+    category: "targeted",
+    halfLife: "15h",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[378]"
   },
   {
     name: "Vandetanib",
@@ -2026,18 +1834,381 @@
     references: "[228]"
   },
   {
-    name: "Sunitinib",
-    dci: "Sunitinib",
-    commercial: "Sutent",
+    name: "Abemaciclib",
+    dci: "abémaciclib",
+    commercial: "Verzenios",
     administration: "Oral",
-    class: "Tyrosine kinase inhibitors (FLT3, PDGFR, RET, VEGFR)",
+    class: "CDK4/6 inhibitors",
     category: "targeted",
-    halfLife: "4.5 days",
-    normofractionatedRT: "21days",
-    palliativeRT: "0 (except abdomino pelvic)",
-    stereotacticRT: "21days",
+    halfLife: "25h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[91,354]"
+  },
+  {
+    name: "Palbociclib",
+    dci: "palbociclib",
+    commercial: "Ibrance",
+    administration: "Oral",
+    class: "CDK4/6 inhibitors",
+    category: "targeted",
+    halfLife: "29h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[91,354]"
+  },
+  {
+    name: "Ribociclib",
+    dci: "ribociclib",
+    commercial: "Kisqali",
+    administration: "Oral",
+    class: "CDK4/6 inhibitors",
+    category: "targeted",
+    halfLife: "30 to 55h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "0",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[91,354,355]"
+  },
+  {
+    name: "Vorinostat",
+    dci: "vorinostat",
+    commercial: "Zolinza",
+    administration: "Oral",
+    class: "Histones deacetylases HDAC inhibitors",
+    category: "targeted",
+    halfLife: "2h",
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[356]"
+  },
+  {
+    name: "Panobinostat",
+    dci: "panobinostat",
+    commercial: "Farydak",
+    administration: "Oral",
+    class: "Histones deacetylases HDAC inhibitors",
+    category: "targeted",
+    halfLife: "37h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[357]"
+  },
+  {
+    name: "Ivosidenib",
+    dci: "ivosidénib",
+    commercial: "Tibsovo",
+    administration: "Oral",
+    class: "Isocitrate dehydrogenase inhibitors (IDH-1)",
+    category: "targeted",
+    halfLife: "58h to 129h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[358]"
+  },
+  {
+    name: "Enasidenib",
+    dci: "énasidénib",
+    commercial: "Idhifa",
+    administration: "Oral",
+    class: "Isocitrate dehydrogenase inhibitors (IDH-2)",
+    category: "targeted",
+    halfLife: "8 days",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "None"
+  },
+  {
+    name: "Adagrasib",
+    dci: "adagrasib",
+    commercial: "Krazati",
+    administration: "Oral",
+    class: "KRAS G12C inhibitors",
+    category: "targeted",
+    halfLife: "24h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "None"
+  },
+  {
+    name: "Sotorasib",
+    dci: "sotorasib",
+    commercial: "Lumykras",
+    administration: "Oral",
+    class: "KRAS G12C inhibitors",
+    category: "targeted",
+    halfLife: "5h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "None"
+  },
+  {
+    name: "Brentuximab vedotin",
+    dci: "brentuximab védotine",
+    commercial: "Adcetris",
+    administration: "IV",
+    class: "Antibody-drug conjugates (CD30)",
+    category: "targeted",
+    halfLife: "4 to 6 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
     intracranialRT: "0",
+    references: "[396,397]"
+  },
+  {
+    name: "Trastuzumab Emtansine",
+    dci: "trastuzumab emtansine",
+    commercial: "Kadcyla",
+    administration: "IV",
+    class: "Antibody-drug conjugates (HER2)",
+    category: "targeted",
+    halfLife: "4 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "7 days",
+    references: "[91]"
+  },
+  {
+    name: "Trastuzumab Deruxtecan",
+    dci: "trastuzumab déruxtécan",
+    commercial: "Enhertu",
+    administration: "IV",
+    class: "Antibody-drug conjugates",
+    category: "targeted",
+    halfLife: "7 days",
+    normofractionatedRT: "7 days",
+    palliativeRT: "7 days",
+    stereotacticRT: "7 days",
+    intracranialRT: "7 days",
+    references: "[398]"
+  },
+  {
+    name: "Enfortumab Vedotin",
+    dci: "enfortumab védotine",
+    commercial: "Padcev",
+    administration: "IV",
+    class: "Antibody-drug conjugates (Nectin 4)",
+    category: "targeted",
+    halfLife: "3.6 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[399,400]"
+  },
+  {
+    name: "Sacituzumab govitecan",
+    dci: "sacituzumab govitécan",
+    commercial: "Trodelvy",
+    administration: "IV",
+    class: "Antibody-drug conjugates (TROP2)",
+    category: "targeted",
+    halfLife: "15h to 19h",
+    normofractionatedRT: "5 days",
+    palliativeRT: "5 days",
+    stereotacticRT: "5 days",
+    intracranialRT: "5 days",
+    references: "[401,402]"
+  },
+  {
+    name: "Aflibercept",
+    dci: "aflibercept",
+    commercial: "Zaltrap",
+    administration: "IV",
+    class: "Recombinant fusion protein (VEGF)",
+    category: "targeted",
+    halfLife: "6 days",
+    normofractionatedRT: "21 days",
+    palliativeRT: "0 (except abdomino pelvic)",
+    stereotacticRT: "21 days",
+    intracranialRT: "0",
+    references: "[204,385]"
+  },
+  {
+    name: "Lenalidomide",
+    dci: "lénalidomide",
+    commercial: "Revlimid",
+    administration: "Oral",
+    class: "Immunomodulators",
+    category: "immunotherapy",
+    halfLife: "3h to 5h",
+    normofractionatedRT: "24h",
+    palliativeRT: "24h",
+    stereotacticRT: "24h",
+    intracranialRT: "24h",
+    references: "[371,372]"
+  },
+  {
+    name: "Pomalidomide",
+    dci: "pomalidomide",
+    commercial: "Imnovid",
+    administration: "Oral",
+    class: "Immunomodulators",
+    category: "immunotherapy",
+    halfLife: "9h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
     references: "[373]"
   },
+  {
+    name: "Thalidomide",
+    dci: "thalidomide",
+    commercial: "Thalidomide",
+    administration: "Oral",
+    class: "Immunomodulators",
+    category: "immunotherapy",
+    halfLife: "7h",
+    normofractionatedRT: "48h",
+    palliativeRT: "48h",
+    stereotacticRT: "48h",
+    intracranialRT: "48h",
+    references: "[374–376]"
+  },
+  {
+    name: "Nivolumab",
+    dci: "nivolumab",
+    commercial: "Opdivo",
+    administration: "IV",
+    class: "PD1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "25 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[405,406]"
+  },
+  {
+    name: "Pembrolizumab",
+    dci: "pembrolizumab",
+    commercial: "Keytruda",
+    administration: "IV",
+    class: "PD1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "22 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[407,408]"
+  },
+  {
+    name: "Cemiplimab",
+    dci: "cemiplimab",
+    commercial: "Libtayo",
+    administration: "IV",
+    class: "PD1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "20 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[403]"
+  },
+  {
+    name: "Dostarlimab",
+    dci: "dostarlimab",
+    commercial: "Jemperli",
+    administration: "IV",
+    class: "PD1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "25 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[404]"
+  },
+  {
+    name: "Atezolizumab",
+    dci: "atézolizumab",
+    commercial: "Tecentriq",
+    administration: "IV",
+    class: "PDL1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "27 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[409,410]"
+  },
+  {
+    name: "Avelumab",
+    dci: "avélumab",
+    commercial: "Bavencio",
+    administration: "IV",
+    class: "PDL1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "6 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[411,412]"
+  },
+  {
+    name: "Durvalumab",
+    dci: "durvalumab",
+    commercial: "Imfinzi",
+    administration: "IV",
+    class: "PDL1 inhibitors",
+    category: "immunotherapy",
+    halfLife: "18 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[413]"
+  },
+  {
+    name: "Ipilimumab",
+    dci: "ipilimumab",
+    commercial: "Yervoy",
+    administration: "IV",
+    class: "CTLA4 inhibitors",
+    category: "immunotherapy",
+    halfLife: "15 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[414,415]"
+  },
+  {
+    name: "Tremelimumab",
+    dci: "trémélimumab",
+    commercial: "Imjudo",
+    administration: "IV",
+    class: "CTLA4 inhibitors",
+    category: "immunotherapy",
+    halfLife: "14.2 days",
+    normofractionatedRT: "0",
+    palliativeRT: "0",
+    stereotacticRT: "0",
+    intracranialRT: "0",
+    references: "[416,417]"
+  }
 ];
-  
