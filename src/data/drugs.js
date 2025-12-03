@@ -357,10 +357,10 @@ export const allDrugs = [
     class: "Antifolates",
     category: "chemotherapy",
     halfLife: "8 to 15h",
-    normofractionatedRT: "5 days",
-    palliativeRT: "5 days",
-    stereotacticRT: "5 days",
-    intracranialRT: "5 days",
+    normofractionatedRT: "5 days, 2 weeks if IT",
+    palliativeRT: "5 days, 2 weeks if IT",
+    stereotacticRT: "5 days, 2 weeks if IT",
+    intracranialRT: "5 days, 2 weeks if IT",
     references: "[197]"
   },
   {
