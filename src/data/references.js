@@ -870,5 +870,9 @@ export const referencesData = {
   "417": {
     text: "Pakkala S, Higgins K, Chen Z, Sica G, Steuer C, Zhang C, et al. Durvalumab and tremelimumab with or without stereotactic body radiation therapy in relapsed small cell lung cancer: a randomized phase II study. J Immunother Cancer. 2020 Dec;8(2):e001302.",
     url: "https://doi.org/10.1136/jitc-2020-001302"
+  },
+  "418": {
+    text: "Chelsea C Pinnix, Joachim Yahalom, Lena Specht, Bouthaina Shbib Dabaja, et al. Radiation in Central Nervous System Leukemia: Guidelines From the International Lymphoma Radiation Oncology Group. Int J Radiat Oncol Biol Phys. 2018 Sep 1;102(1):53-58.",
+    url: "https://doi.org/10.1136/jitc-2020-001302"
   }
 }
