@@ -800,9 +800,21 @@ const DrugExplorer = () => {
   // Debounced search term for performance
   const debouncedSearchTerm = useDebounce(state.searchTerm, 300);
 
-  // Sync document attributes when state changes
+  // Initialize from localStorage
   useEffect(() => {
-    if (typeof document === 'undefined') return;
+    const savedTheme = localStorage.getItem('drug-explorer-theme');
+    const savedLang = localStorage.getItem('drug-explorer-lang');
+
+    if (savedTheme) actions.setDarkMode(savedTheme === 'dark');
+    if (savedLang && ['fr', 'en'].includes(savedLang)) actions.setLang(savedLang);
+  }, [actions]);
+
+  // Save to localStorage when state changes
+  useEffect(() => {
+    localStorage.setItem('drug-explorer-theme', state.isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('drug-explorer-lang', state.lang);
+
+    // Apply theme to document
     document.documentElement.classList.toggle('dark', state.isDarkMode);
     document.documentElement.lang = state.lang;
   }, [state.isDarkMode, state.lang]);

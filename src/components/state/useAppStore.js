@@ -1,56 +1,5 @@
-import { useMemo, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { INITIAL_VISIBLE_COLUMNS } from '../constants';
-
-const STORAGE_KEY = 'drug-explorer-store';
-const PERSISTED_KEYS = [
-  'isDarkMode',
-  'lang',
-  'visibleColumns',
-  'favorites',
-  'recentSearches',
-  'selectedCategory',
-  'halfLifeFilter',
-  'classFilter',
-  'viewMode'
-];
-
-const isBrowser = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
-
-const getPreferredTheme = () => {
-  if (!isBrowser) return false;
-  const mediaQuery = window.matchMedia?.('(prefers-color-scheme: dark)');
-  return Boolean(mediaQuery?.matches);
-};
-
-const getPreferredLanguage = () => {
-  if (!isBrowser) return 'en';
-  return navigator.language?.startsWith('fr') ? 'fr' : 'en';
-};
-
-const loadPersistedState = () => {
-  if (!isBrowser) return {};
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    return parsed && typeof parsed === 'object' ? parsed : {};
-  } catch {
-    return {};
-  }
-};
-
-const persistState = (state) => {
-  if (!isBrowser) return;
-  const toPersist = PERSISTED_KEYS.reduce((acc, key) => {
-    acc[key] = state[key];
-    return acc;
-  }, {});
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(toPersist));
-  } catch {
-    // Persistence is best-effort; ignore storage errors
-  }
-};
 
 const createStore = (initialState) => {
   let state = initialState;
@@ -61,8 +10,7 @@ const createStore = (initialState) => {
     setState: (updater) => {
       const newState = typeof updater === 'function' ? updater(state) : updater;
       state = { ...state, ...newState };
-      persistState(state);
-      listeners.forEach(listener => listener());
+      listeners.forEach(listener => listener(state));
     },
     subscribe: (listener) => {
       listeners.add(listener);
@@ -73,8 +21,8 @@ const createStore = (initialState) => {
 
 const useAppStore = (() => {
   const store = createStore({
-    isDarkMode: getPreferredTheme(),
-    lang: getPreferredLanguage(),
+    isDarkMode: false,
+    lang: 'en',
     searchTerm: '',
     selectedCategory: 'all',
     halfLifeFilter: 'all',
@@ -89,12 +37,16 @@ const useAppStore = (() => {
     moleculesData: [],
     isLoadingProtocols: false,
     favorites: [],
-    recentSearches: [],
-    ...loadPersistedState()
+    recentSearches: []
   });
 
   return () => {
-    const state = useSyncExternalStore(store.subscribe, store.getState, () => store.getState());
+    const [state, setState] = useState(store.getState());
+
+    useEffect(() => {
+      const unsubscribe = store.subscribe(setState);
+      return unsubscribe;
+    }, []);
 
     const actions = useMemo(() => ({
       setDarkMode: (isDark) => store.setState({ isDarkMode: isDark }),
