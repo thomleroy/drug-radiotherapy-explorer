@@ -1,4 +1,4 @@
-import { useMemo, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { INITIAL_VISIBLE_COLUMNS } from '../constants';
 
 const createStore = (initialState) => {
@@ -10,7 +10,7 @@ const createStore = (initialState) => {
     setState: (updater) => {
       const newState = typeof updater === 'function' ? updater(state) : updater;
       state = { ...state, ...newState };
-      listeners.forEach(listener => listener());
+      listeners.forEach(listener => listener(state));
     },
     subscribe: (listener) => {
       listeners.add(listener);
@@ -41,7 +41,12 @@ const useAppStore = (() => {
   });
 
   return () => {
-    const state = useSyncExternalStore(store.subscribe, store.getState, () => store.getState());
+    const [state, setState] = useState(store.getState());
+
+    useEffect(() => {
+      const unsubscribe = store.subscribe(setState);
+      return unsubscribe;
+    }, []);
 
     const actions = useMemo(() => ({
       setDarkMode: (isDark) => store.setState({ isDarkMode: isDark }),
