@@ -319,7 +319,7 @@ export const allDrugs = [
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
     intracranialRT: "0",
-    references: "[237–242]"
+    references: "[237,238,239,240,241,242]"
   },
   {
     name: "Cytarabine",
@@ -361,7 +361,7 @@ export const allDrugs = [
     palliativeRT: "5 days, 2 weeks if IT",
     stereotacticRT: "5 days, 2 weeks if IT",
     intracranialRT: "5 days, 2 weeks if IT",
-    references: "[197]"
+    references: "[197,418]"
   },
   {
     name: "Pemetrexed",
@@ -417,7 +417,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[262–265]"
+    references: "[262,263,264,265]"
   },
   {
     name: "Lomustine",
@@ -473,7 +473,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[274–276]"
+    references: "[274,275,276]"
   },
   {
     name: "Mitomycin C",
@@ -515,7 +515,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[250–252]"
+    references: "[250,251,252]"
   },
   {
     name: "Mycophenolate mofetil",
@@ -543,7 +543,7 @@ export const allDrugs = [
     palliativeRT: "No concomitant association: an expert opinion is required before irradiation",
     stereotacticRT: "No concomitant association: an expert opinion is required before irradiation",
     intracranialRT: "No concomitant association: an expert opinion is required before irradiation",
-    references: "[270–272]"
+    references: "[270,271,272]"
   },
   {
     name: "Paclitaxel",
@@ -557,7 +557,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[277–279]"
+    references: "[277,278,279]"
   },
   {
     name: "Nab-Paclitaxel",
@@ -571,7 +571,7 @@ export const allDrugs = [
     palliativeRT: "5 days",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[280–282]"
+    references: "[280,281,282]"
   },
   {
     name: "Docetaxel",
@@ -669,7 +669,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[290–292]"
+    references: "[290,291,292]"
   },
   {
     name: "Leuproprelin",
@@ -809,7 +809,7 @@ export const allDrugs = [
     palliativeRT: "0 (except intrinsic radiosensitivity)",
     stereotacticRT: "0 (except intrinsic radiosensitivity)",
     intracranialRT: "0 (except intrinsic radiosensitivity)",
-    references: "[60–64]"
+    references: "[60,61,62,63,64]"
   },
   {
     name: "Fulvestrant",
@@ -935,7 +935,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "5 days",
     intracranialRT: "5 days",
-    references: "[310–312]"
+    references: "[310,311,312]"
   },
   {
     name: "Lorlatinib",
@@ -1271,7 +1271,7 @@ export const allDrugs = [
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[334–336]"
+    references: "[334,335,336]"
   },
   {
     name: "Capmatinib",
@@ -1299,7 +1299,7 @@ export const allDrugs = [
     palliativeRT: "0 (except abdomino pelvic)",
     stereotacticRT: "21 days",
     intracranialRT: "0",
-    references: "[338–340]"
+    references: "[338,339,340]"
   },
   {
     name: "Tepotinib",
@@ -1355,7 +1355,7 @@ export const allDrugs = [
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[343–346]"
+    references: "[343,344,345,346]"
   },
   {
     name: "Lenvatinib",
@@ -1495,7 +1495,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[91,390–392]"
+    references: "[91,390,391,392]"
   },
   {
     name: "Trastuzumab",
@@ -1523,7 +1523,7 @@ export const allDrugs = [
     palliativeRT: "0 (except abdomino pelvic)",
     stereotacticRT: "21 days",
     intracranialRT: "0",
-    references: "[200–202,393]"
+    references: "[200,201,202,393]"
   },
   {
     name: "Ramucirumab",
@@ -1677,7 +1677,7 @@ export const allDrugs = [
     palliativeRT: "0",
     stereotacticRT: "0",
     intracranialRT: "0",
-    references: "[363–365]"
+    references: "[363,364,365]"
   },
   {
     name: "Carfilzomib",
@@ -1775,7 +1775,7 @@ export const allDrugs = [
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
     intracranialRT: "7 days",
-    references: "[382–384]"
+    references: "[382,383,384]"
   },
   {
     name: "Sirolimus",
@@ -1789,7 +1789,7 @@ export const allDrugs = [
     palliativeRT: "7 days",
     stereotacticRT: "7 days",
     intracranialRT: "7 days",
-    references: "[379–381]"
+    references: "[379,380,381]"
   },
   {
     name: "Ciclosporin",
@@ -2083,7 +2083,7 @@ export const allDrugs = [
     palliativeRT: "48h",
     stereotacticRT: "48h",
     intracranialRT: "48h",
-    references: "[374–376]"
+    references: "[374,375,376]"
   },
   {
     name: "Nivolumab",
