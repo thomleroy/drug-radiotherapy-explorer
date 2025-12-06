@@ -782,7 +782,8 @@ const DrugExplorer = () => {
   const [state, actions] = useAppStore();
   
   // Local UI states that don't need global management
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
+  const initialIsMobileView = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const [isMobileView, setIsMobileView] = useState(initialIsMobileView);
   const [showTooltip, setShowTooltip] = useState(null);
   const [isTableScrolled, setIsTableScrolled] = useState(false);
   const [showColumnManager, setShowColumnManager] = useState(false);
