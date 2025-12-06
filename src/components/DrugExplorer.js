@@ -1,44 +1,19 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef, memo, Suspense } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Input } from '../components/ui/input';
-import { Search, Download, HelpCircle, Info, ExternalLink, Settings, Filter, X, Globe, Mail, Moon, Sun, AlertCircle } from 'lucide-react';
+import { Search, Download, Info, ExternalLink, Settings, X, Mail, AlertCircle } from 'lucide-react';
 import { allDrugs } from '../data/drugs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { referencesData } from '../data/references';
 import DotsOverlay from '../components/ui/DotsOverlay';
 import { translations } from './translations';
 import LanguageToggle from './LanguageToggle';
+import ThemeToggle from './ThemeToggle';
+import FilterPanel from './FilterPanel';
+import FavoritesPanel from './FavoritesPanel';
+import useAppStore from './state/useAppStore';
+import { CATEGORY_COLORS } from './constants';
 import { protocolsStaticData, extractUniqueData } from '../data/protocoleRTCT';
-
-// Constants - moved outside the component to avoid recreation on renders
-const INITIAL_VISIBLE_COLUMNS = {
-  name: true,
-  commercial: true,
-  administration: true,
-  class: true,
-  category: true,
-  halfLife: true,
-  normofractionatedRT: true,
-  palliativeRT: true,
-  stereotacticRT: true,
-  intracranialRT: true
-};
-
-// Category colors - updated for dark mode support
-const CATEGORY_COLORS = {
-  light: {
-    chemotherapy: 'bg-sfro-light text-sfro-dark border-sfro-primary',
-    endocrine: 'bg-purple-50 text-purple-800 border-purple-200',
-    targeted: 'bg-orange-50 text-orange-800 border-orange-200',
-    immunotherapy: 'bg-green-50 text-green-800 border-green-200'
-  },
-  dark: {
-    chemotherapy: 'bg-sfro-primary/20 text-sfro-light border-sfro-primary',
-    endocrine: 'bg-purple-900/30 text-purple-300 border-purple-600',
-    targeted: 'bg-orange-900/30 text-orange-300 border-orange-600',
-    immunotherapy: 'bg-green-900/30 text-green-300 border-green-600'
-  }
-};
 
 // Cell colors - memoized function for performance
 const getCellColor = (value, isDark = false) => {
@@ -110,91 +85,6 @@ class ErrorBoundary extends React.Component {
     return this.props.children;
   }
 }
-
-// Create a global store using a simplified Zustand-like pattern
-const createStore = (initialState) => {
-  let state = initialState;
-  const listeners = new Set();
-
-  return {
-    getState: () => state,
-    setState: (updater) => {
-      const newState = typeof updater === 'function' ? updater(state) : updater;
-      state = { ...state, ...newState };
-      listeners.forEach(listener => listener(state));
-    },
-    subscribe: (listener) => {
-      listeners.add(listener);
-      return () => listeners.delete(listener);
-    }
-  };
-};
-
-// Global store for app state
-const useAppStore = (() => {
-  const store = createStore({
-    isDarkMode: false,
-    lang: 'en',
-    searchTerm: '',
-    selectedCategory: 'all',
-    halfLifeFilter: 'all',
-    classFilter: 'all',
-    selectedOrgan: 'all',
-    selectedMolecule: 'all',
-    sortConfig: { key: null, direction: 'asc' },
-    visibleColumns: INITIAL_VISIBLE_COLUMNS,
-    viewMode: 'drugs',
-    protocolsData: [],
-    organsData: [],
-    moleculesData: [],
-    isLoadingProtocols: false,
-    favorites: [],
-    recentSearches: []
-  });
-
-  return () => {
-    const [state, setState] = useState(store.getState());
-
-    useEffect(() => {
-      const unsubscribe = store.subscribe(setState);
-      return unsubscribe;
-    }, []);
-
-    const actions = useMemo(() => ({
-      setDarkMode: (isDark) => store.setState({ isDarkMode: isDark }),
-      setLang: (lang) => store.setState({ lang }),
-      setSearchTerm: (term) => {
-        store.setState({ searchTerm: term });
-        // Add to recent searches if not empty
-        if (term.trim()) {
-          const current = store.getState().recentSearches;
-          const updated = [term, ...current.filter(s => s !== term)].slice(0, 5);
-          store.setState({ recentSearches: updated });
-        }
-      },
-      setFilters: (filters) => store.setState(filters),
-      setSortConfig: (config) => store.setState({ sortConfig: config }),
-      setVisibleColumns: (columns) => store.setState({ visibleColumns: columns }),
-      setViewMode: (mode) => store.setState({ viewMode: mode }),
-      setProtocolsData: (data) => store.setState({ protocolsData: data }),
-      setOrgansData: (data) => store.setState({ organsData: data }),
-      setMoleculesData: (data) => store.setState({ moleculesData: data }),
-      setLoadingProtocols: (loading) => store.setState({ isLoadingProtocols: loading }),
-      addFavorite: (drugId) => {
-        const current = store.getState().favorites;
-        if (!current.includes(drugId)) {
-          store.setState({ favorites: [...current, drugId] });
-        }
-      },
-      removeFavorite: (drugId) => {
-        const current = store.getState().favorites;
-        store.setState({ favorites: current.filter(id => id !== drugId) });
-      }
-    }), []);
-
-    return [state, actions];
-  };
-})();
 
 // About content in both languages
 const ABOUT_CONTENT = {
@@ -892,7 +782,8 @@ const DrugExplorer = () => {
   const [state, actions] = useAppStore();
   
   // Local UI states that don't need global management
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
+  const initialIsMobileView = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  const [isMobileView, setIsMobileView] = useState(initialIsMobileView);
   const [showTooltip, setShowTooltip] = useState(null);
   const [isTableScrolled, setIsTableScrolled] = useState(false);
   const [showColumnManager, setShowColumnManager] = useState(false);
@@ -909,29 +800,12 @@ const DrugExplorer = () => {
   // Debounced search term for performance
   const debouncedSearchTerm = useDebounce(state.searchTerm, 300);
 
-  // Initialize from localStorage
+  // Sync document attributes when state changes
   useEffect(() => {
-    const savedTheme = localStorage.getItem('drug-explorer-theme');
-    const savedLang = localStorage.getItem('drug-explorer-lang');
-    const savedFavorites = JSON.parse(localStorage.getItem('drug-explorer-favorites') || '[]');
-    
-    if (savedTheme) actions.setDarkMode(savedTheme === 'dark');
-    if (savedLang && ['fr', 'en'].includes(savedLang)) actions.setLang(savedLang);
-    if (savedFavorites.length > 0) {
-      // Initialize favorites if needed
-    }
-  }, [actions]);
-
-  // Save to localStorage when state changes
-  useEffect(() => {
-    localStorage.setItem('drug-explorer-theme', state.isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('drug-explorer-lang', state.lang);
-    localStorage.setItem('drug-explorer-favorites', JSON.stringify(state.favorites));
-    
-    // Apply theme to document
+    if (typeof document === 'undefined') return;
     document.documentElement.classList.toggle('dark', state.isDarkMode);
     document.documentElement.lang = state.lang;
-  }, [state.isDarkMode, state.lang, state.favorites]);
+  }, [state.isDarkMode, state.lang]);
 
   // Enhanced translation function with memoization
   const t = useCallback((key) => {
@@ -1235,14 +1109,18 @@ const DrugExplorer = () => {
 
   return (
     <ErrorBoundary>
-      <div className={`min-h-screen transition-colors duration-300
-        ${state.isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}
-      `}>
-        <Card className={`w-full max-w-7xl mx-auto my-8 shadow-xl transition-colors duration-300
-          ${state.isDarkMode 
-            ? 'bg-gray-800 border border-gray-700' 
-            : 'bg-white'
-          }`}>
+      <FavoritesPanel
+        favorites={state.favorites}
+        onInitializeFavorites={actions.setFavorites}
+      >
+        <div className={`min-h-screen transition-colors duration-300
+          ${state.isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}
+        `}>
+          <Card className={`w-full max-w-7xl mx-auto my-8 shadow-xl transition-colors duration-300
+            ${state.isDarkMode
+              ? 'bg-gray-800 border border-gray-700'
+              : 'bg-white'
+            }`}>
           <CardHeader className="relative overflow-hidden bg-gradient-to-br from-[#00BFF3] via-[#0080A5] to-[#006080] text-white rounded-t-xl">
             {/* Controls in header */}
             <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
@@ -1256,17 +1134,13 @@ const DrugExplorer = () => {
                 <Info className="h-4 w-4" />
                 <span className="text-sm font-medium">{t('footer.about')}</span>
               </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleDarkMode}
-                aria-label={t('theme.toggle')}
-                className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-gray-900 p-2 rounded-lg shadow-md transition-all duration-200"
-              >
-                {state.isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </motion.button>
-              
+
+              <ThemeToggle
+                isDarkMode={state.isDarkMode}
+                onToggle={toggleDarkMode}
+                label={t('theme.toggle')}
+              />
+
               <LanguageToggle lang={state.lang} setLang={actions.setLang} />
             </div>
 
@@ -1359,53 +1233,18 @@ const DrugExplorer = () => {
                   </AnimatePresence>
                 </div>
 
-                {/* Filters */}
-                <select
-                  value={state.selectedCategory}
-                  onChange={(e) => actions.setFilters({ selectedCategory: e.target.value })}
-                  className={`h-12 w-full border-2 rounded-lg px-4 transition-colors cursor-pointer
-                    ${state.isDarkMode 
-                      ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary' 
-                      : 'bg-white border-gray-200 hover:border-sfro-primary focus:border-sfro-primary'
-                    }`}
-                >
-                  <option value="all">{t('categories.all')}</option>
-                  <option value="chemotherapy">{t('categories.chemotherapy')}</option>
-                  <option value="endocrine">{t('categories.endocrine')}</option>
-                  <option value="targeted">{t('categories.targeted')}</option>
-                  <option value="immunotherapy">{t('categories.immunotherapy')}</option>
-                </select>
-
-                <select
-                  value={state.halfLifeFilter}
-                  onChange={(e) => actions.setFilters({ halfLifeFilter: e.target.value })}
-                  className={`h-12 w-full border-2 rounded-lg px-4 transition-colors cursor-pointer
-                    ${state.isDarkMode 
-                      ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary' 
-                      : 'bg-white border-gray-200 hover:border-sfro-primary focus:border-sfro-primary'
-                    }`}
-                >
-                  <option value="all">{t('halfLife.all')}</option>
-                  <option value="short">{t('halfLife.short')}</option>
-                  <option value="long">{t('halfLife.long')}</option>
-                </select>
-
-                <select
-                  value={state.classFilter}
-                  onChange={(e) => actions.setFilters({ classFilter: e.target.value })}
-                  className={`h-12 w-full border-2 rounded-lg px-4 transition-colors cursor-pointer
-                    ${state.isDarkMode 
-                      ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary' 
-                      : 'bg-white border-gray-200 hover:border-sfro-primary focus:border-sfro-primary'
-                    }`}
-                >
-                  <option value="all">{t('drugClass.all')}</option>
-                  {uniqueDrugClasses.map(drugClass => (
-                    <option key={drugClass} value={drugClass}>
-                      {translateDrugClass(drugClass)}
-                    </option>
-                  ))}
-                </select>
+                <FilterPanel
+                  selectedCategory={state.selectedCategory}
+                  halfLifeFilter={state.halfLifeFilter}
+                  classFilter={state.classFilter}
+                  onCategoryChange={(e) => actions.setFilters({ selectedCategory: e.target.value })}
+                  onHalfLifeChange={(e) => actions.setFilters({ halfLifeFilter: e.target.value })}
+                  onClassChange={(e) => actions.setFilters({ classFilter: e.target.value })}
+                  uniqueDrugClasses={uniqueDrugClasses}
+                  isDarkMode={state.isDarkMode}
+                  t={t}
+                  translateDrugClass={translateDrugClass}
+                />
               </div>
             </div>
 
@@ -1829,7 +1668,7 @@ const DrugExplorer = () => {
 
         <AnimatePresence>
           {selectedReferences && (
-            <ReferencesPopup 
+            <ReferencesPopup
               references={selectedReferences}
               onClose={() => setSelectedReferences(null)}
               isDarkMode={state.isDarkMode}
@@ -1838,6 +1677,7 @@ const DrugExplorer = () => {
           )}
         </AnimatePresence>
       </div>
+    </FavoritesPanel>
     </ErrorBoundary>
   );
 };
