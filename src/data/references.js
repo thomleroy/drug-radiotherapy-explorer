@@ -873,6 +873,6 @@ export const referencesData = {
   },
   "418": {
     text: "Chelsea C Pinnix, Joachim Yahalom, Lena Specht, Bouthaina Shbib Dabaja, et al. Radiation in Central Nervous System Leukemia: Guidelines From the International Lymphoma Radiation Oncology Group. Int J Radiat Oncol Biol Phys. 2018 Sep 1;102(1):53-58.",
-    url: "https://doi.org/10.1136/jitc-2020-001302"
+    url: "https://d10.1016/j.ijrobp.2018.05.067"
   }
 }
