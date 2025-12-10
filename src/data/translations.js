@@ -3,6 +3,8 @@ export const translations = {
     title: "Radiosync",
     subtitle: "A web-app to know when and how long to stop anticancer therapies before radiotherapy",
     search: "Search drugs...",
+    tableHint: "Click on the drug name to display its associated references."
+
     categories: {
       all: "All Categories",
       chemotherapy: "Chemotherapy",
@@ -53,6 +55,7 @@ export const translations = {
     title: "Radiosync",
     subtitle: "Une application web pour savoir quand et combien de temps arrêter les thérapies anticancéreuses avant la radiothérapie",
     search: "Rechercher des médicaments...",
+    tableHint: "Cliquez sur le nom de la molécule pour afficher les références associées."
     categories: {
       all: "Toutes les catégories",
       chemotherapy: "Chimiothérapie",
