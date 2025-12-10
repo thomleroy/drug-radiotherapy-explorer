@@ -1244,20 +1244,48 @@ const displayedDrugs = useMemo(() => {
             ${state.isDarkMode ? 'bg-gray-800' : 'bg-white'}
           `}>
             {/* Dashboard statistics */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`${stat.color} rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow`}
-                >
-                  <p className="text-sm font-medium">{stat.label}</p>
-                  <p className="text-2xl font-bold mt-1">{stat.value}</p>
-                </motion.div>
-              ))}
-            </div>
+{/* Vue mobile : petites cartes en ligne, scroll horizontal */}
+<div className="sm:hidden -mx-2">
+  <div className="flex gap-2 px-2 overflow-x-auto pb-1">
+    {stats.map((stat, index) => (
+      <motion.div
+        key={stat.label}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.05 }}
+        className={`
+          ${stat.color} 
+          rounded-lg px-3 py-2 shadow-sm flex-shrink-0
+          min-w-[110px] max-w-[130px]
+        `}
+      >
+        <p className="text-[10px] font-medium truncate">
+          {stat.label}
+        </p>
+        <p className="text-lg font-bold mt-0.5">
+          {stat.value}
+        </p>
+      </motion.div>
+    ))}
+  </div>
+</div>
+
+{/* Vue ≥ sm : grille comme avant */}
+<div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+  {stats.map((stat, index) => (
+    <motion.div
+      key={stat.label}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1 }}
+      className={`${stat.color} rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow`}
+    >
+      <p className="text-sm font-medium">{stat.label}</p>
+      <p className="text-2xl font-bold mt-1">{stat.value}</p>
+    </motion.div>
+  ))}
+</div>
+
 
 {/* Search bar with autocomplete + protocol panel */}
 <div className={`rounded-lg shadow-sm p-6 space-y-4 transition-colors duration-300
