@@ -1,0 +1,1820 @@
+[
+  {
+    "protocol": "PCV",
+    "drugs": [
+      {
+        "generic": "Procarbazine",
+        "brand": "Natulan"
+      },
+      {
+        "generic": "Lomustine",
+        "brand": "Belustine"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      }
+    ]
+  },
+  {
+    "protocol": "Temozolomide",
+    "drugs": [
+      {
+        "generic": "Temozolomide",
+        "brand": "Temodal"
+      }
+    ]
+  },
+  {
+    "protocol": "Carmustinecarmustine",
+    "drugs": [
+      {
+        "generic": "Carmustine",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Bevacizumab",
+    "drugs": [
+      {
+        "generic": "Bevacizumab",
+        "brand": "Avastin"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Cetuximab",
+    "drugs": [
+      {
+        "generic": "Cetuximab",
+        "brand": "Erbitux"
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin - 5-FU",
+    "drugs": [
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "TPF",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "PF",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "EXTREME",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      },
+      {
+        "generic": "Cetuximab",
+        "brand": "Erbitux"
+      }
+    ]
+  },
+  {
+    "protocol": "TPEx",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Cetuximab",
+        "brand": "Erbitux"
+      }
+    ]
+  },
+  {
+    "protocol": "Methotrexate",
+    "drugs": [
+      {
+        "generic": "Methotrexate",
+        "brand": "Methotrexate"
+      }
+    ]
+  },
+  {
+    "protocol": "CAP",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin - Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin - Vinorelbine",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Vinorelbine",
+        "brand": "Navelbine"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin - Pemetrexed",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Pemetrexed",
+        "brand": "Alimta"
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin - Pemetrexed",
+    "drugs": [
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Pemetrexed",
+        "brand": "Alimta"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin - Etoposide",
+    "drugs": [
+      {
+        "generic": "Etoposide",
+        "brand": "Celltop"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin - Etoposide",
+    "drugs": [
+      {
+        "generic": "Etoposide",
+        "brand": "Celltop"
+      },
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Docetaxel",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin - Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      },
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "Vinorelbine",
+    "drugs": [
+      {
+        "generic": "Vinorelbine",
+        "brand": "Navelbine"
+      }
+    ]
+  },
+  {
+    "protocol": "Topotecan",
+    "drugs": [
+      {
+        "generic": "Topotecan",
+        "brand": "Hycamtin"
+      }
+    ]
+  },
+  {
+    "protocol": "CAV",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      }
+    ]
+  },
+  {
+    "protocol": "Nivolumab - Ipilimumab",
+    "drugs": [
+      {
+        "generic": "Nivolumab",
+        "brand": "Opdivo"
+      },
+      {
+        "generic": "Ipilimumab",
+        "brand": "Yervoy"
+      }
+    ]
+  },
+  {
+    "protocol": "CAP",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "AC",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "EC",
+    "drugs": [
+      {
+        "generic": "Epirubicine",
+        "brand": "Farmorubicine"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      }
+    ]
+  },
+  {
+    "protocol": "CMF",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "TC",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      }
+    ]
+  },
+  {
+    "protocol": "TAC",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "TCH",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      },
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Trastuzumab",
+        "brand": "Herceptin"
+      }
+    ]
+  },
+  {
+    "protocol": "THP",
+    "drugs": [
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      },
+      {
+        "generic": "Trastuzumab",
+        "brand": "Herceptin"
+      },
+      {
+        "generic": "Pertuzumab",
+        "brand": "Perteja"
+      }
+    ]
+  },
+  {
+    "protocol": "Capecitabin",
+    "drugs": [
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      }
+    ]
+  },
+  {
+    "protocol": "Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "Eribulin",
+    "drugs": [
+      {
+        "generic": "Eribuline",
+        "brand": "Halaven"
+      }
+    ]
+  },
+  {
+    "protocol": "FOLFIRINOX",
+    "drugs": [
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      },
+      {
+        "generic": "Leucovorin",
+        "brand": null
+      },
+      {
+        "generic": "Irinotecan",
+        "brand": null
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      }
+    ]
+  },
+  {
+    "protocol": "FOLFOX",
+    "drugs": [
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      },
+      {
+        "generic": "Leucovorin",
+        "brand": null
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      }
+    ]
+  },
+  {
+    "protocol": "FOLFIRI",
+    "drugs": [
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      },
+      {
+        "generic": "Leucovorin",
+        "brand": null
+      },
+      {
+        "generic": "Irinotecan",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "CAPOX (XELOX)",
+    "drugs": [
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      }
+    ]
+  },
+  {
+    "protocol": "XELIRI",
+    "drugs": [
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      },
+      {
+        "generic": "Irinotecan",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "ECF",
+    "drugs": [
+      {
+        "generic": "Epirubicine",
+        "brand": "Farmorubicine"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "EOX",
+    "drugs": [
+      {
+        "generic": "Epirubicine",
+        "brand": "Farmorubicine"
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      },
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      }
+    ]
+  },
+  {
+    "protocol": "GEMOX",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      }
+    ]
+  },
+  {
+    "protocol": "GEMCIS",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      }
+    ]
+  },
+  {
+    "protocol": "TOMOX",
+    "drugs": [
+      {
+        "generic": "Raltitrexed",
+        "brand": "Tomudex"
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin - 5-FU",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin - Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "5-FU - MMC",
+    "drugs": [
+      {
+        "generic": "Fluorouracile",
+        "brand": null
+      },
+      {
+        "generic": "Mitomycin C",
+        "brand": "Amétycine"
+      }
+    ]
+  },
+  {
+    "protocol": "Capecitabin - MMC",
+    "drugs": [
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      },
+      {
+        "generic": "Mitomycin C",
+        "brand": "Amétycine"
+      }
+    ]
+  },
+  {
+    "protocol": "Capecitabin",
+    "drugs": [
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      }
+    ]
+  },
+  {
+    "protocol": "Cetuximab",
+    "drugs": [
+      {
+        "generic": "Cetuximab",
+        "brand": "Erbitux"
+      }
+    ]
+  },
+  {
+    "protocol": "Panitumumab",
+    "drugs": [
+      {
+        "generic": "Panitumumab",
+        "brand": "Vectibix"
+      }
+    ]
+  },
+  {
+    "protocol": "Capecitabin - Bevacizumab",
+    "drugs": [
+      {
+        "generic": "Capecitabine",
+        "brand": "Xeloda"
+      },
+      {
+        "generic": "Bevacizumab",
+        "brand": "Avastin"
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin-Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "Carboplatin - Pegylated liposomal Doxorubicin",
+    "drugs": [
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Pegylated liposomal Doxorubicin",
+        "brand": "Caelyx"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin - Cyclophosphamide",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      }
+    ]
+  },
+  {
+    "protocol": "Cisplatin - Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "Pegylated liposomal Doxorubicin",
+    "drugs": [
+      {
+        "generic": "Pegylated liposomal Doxorubicin",
+        "brand": "Caelyx"
+      }
+    ]
+  },
+  {
+    "protocol": "Topotecan",
+    "drugs": [
+      {
+        "generic": "Topotecan",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin - Carboplatin",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      },
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin - Paclitaxel",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      },
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      }
+    ]
+  },
+  {
+    "protocol": "Trabectédine - Pegylated liposomal Doxorubicin",
+    "drugs": [
+      {
+        "generic": "Trabectidine",
+        "brand": "Yondelis"
+      },
+      {
+        "generic": "Pegylated liposomal Doxorubicin",
+        "brand": "Caelyx"
+      }
+    ]
+  },
+  {
+    "protocol": "Docetaxel",
+    "drugs": [
+      {
+        "generic": "Docetaxel",
+        "brand": "Taxotere"
+      }
+    ]
+  },
+  {
+    "protocol": "Cabazitaxel",
+    "drugs": [
+      {
+        "generic": "Cabazitaxel",
+        "brand": "Jevtana"
+      }
+    ]
+  },
+  {
+    "protocol": "BEP",
+    "drugs": [
+      {
+        "generic": "Bleomycine",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "EP",
+    "drugs": [
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "VIP",
+    "drugs": [
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "TIP",
+    "drugs": [
+      {
+        "generic": "Paclitaxel",
+        "brand": "Taxol"
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "VEIP",
+    "drugs": [
+      {
+        "generic": "Vinblastine",
+        "brand": "Velbe"
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "MVAC",
+    "drugs": [
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      },
+      {
+        "generic": "Vinblastine",
+        "brand": "Velbe"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "M-CAVI",
+    "drugs": [
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      },
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Vinblastine",
+        "brand": "Velbe"
+      }
+    ]
+  },
+  {
+    "protocol": "Gemcitabin - Cisplatin",
+    "drugs": [
+      {
+        "generic": "Gemcitabine",
+        "brand": "Gemzar"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Nivolumab - Ipilimumab",
+    "drugs": [
+      {
+        "generic": "Nivolumab",
+        "brand": "Opdivo"
+      },
+      {
+        "generic": "Ipilimumab",
+        "brand": "Yervoy"
+      }
+    ]
+  },
+  {
+    "protocol": "Nivolumab - Ipilimumab",
+    "drugs": [
+      {
+        "generic": "Nivolumab",
+        "brand": "Opdivo"
+      },
+      {
+        "generic": "Ipilimumab",
+        "brand": "Yervoy"
+      }
+    ]
+  },
+  {
+    "protocol": "Dacarbazine",
+    "drugs": [
+      {
+        "generic": "Dacarbazine",
+        "brand": "Deticene"
+      }
+    ]
+  },
+  {
+    "protocol": "Temozolomide",
+    "drugs": [
+      {
+        "generic": "Temozolomide",
+        "brand": "Temodal"
+      }
+    ]
+  },
+  {
+    "protocol": "MAID",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Dacarbazine",
+        "brand": "Deticene"
+      }
+    ]
+  },
+  {
+    "protocol": "MAI",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "MAP",
+    "drugs": [
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "MAP-IE",
+    "drugs": [
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "IVA",
+    "drugs": [
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": "VP16"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      }
+    ]
+  },
+  {
+    "protocol": "IVA",
+    "drugs": [
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      }
+    ]
+  },
+  {
+    "protocol": "VDC-IE",
+    "drugs": [
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      }
+    ]
+  },
+  {
+    "protocol": "(= VAC-IE)",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "VAC",
+    "drugs": [
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Dactinomycin",
+        "brand": "Actinomycin-C"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      }
+    ]
+  },
+  {
+    "protocol": "VAC-IE",
+    "drugs": [
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      }
+    ]
+  },
+  {
+    "protocol": "(= VDC-IE)",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Trabectedin",
+    "drugs": [
+      {
+        "generic": "Trabectidine",
+        "brand": "Yondelis"
+      }
+    ]
+  },
+  {
+    "protocol": "ABVD",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Bleomycine",
+        "brand": "Bléomycine"
+      },
+      {
+        "generic": "Vinblastine",
+        "brand": "Velbe"
+      },
+      {
+        "generic": "Dacarbazine",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "ASHAP",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Methylprednisolone",
+        "brand": null
+      },
+      {
+        "generic": "Cytarabine",
+        "brand": "Ara-C"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "BEACOPP",
+    "drugs": [
+      {
+        "generic": "Bleomycine",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Procarbazine",
+        "brand": "Natulan"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "IVOx",
+    "drugs": [
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Oxaliplatine",
+        "brand": "Eloxatine"
+      }
+    ]
+  },
+  {
+    "protocol": "MOPP",
+    "drugs": [
+      {
+        "generic": "Mechlorethamin",
+        "brand": null
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Procarbazine",
+        "brand": "Natulan"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Stanford V",
+    "drugs": [
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycin"
+      },
+      {
+        "generic": "Vinblastine",
+        "brand": "Velbe"
+      },
+      {
+        "generic": "Mechlorethamin",
+        "brand": "Mustargen"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Bleomycine",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "DVd",
+    "drugs": [
+      {
+        "generic": "Pegylated liposomal Doxorubicin",
+        "brand": "Caelyx"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "MPV",
+    "drugs": [
+      {
+        "generic": "Melphalan",
+        "brand": null
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      },
+      {
+        "generic": "Bortezomib",
+        "brand": "Velcade"
+      }
+    ]
+  },
+  {
+    "protocol": "VAD",
+    "drugs": [
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "VCD",
+    "drugs": [
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "CHOP",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "R-CHOP",
+    "drugs": [
+      {
+        "generic": "Rituximab",
+        "brand": "Rituxan"
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "CVP",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "DHAP",
+    "drugs": [
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      },
+      {
+        "generic": "Cytarabine",
+        "brand": "Ara-C"
+      }
+    ]
+  },
+  {
+    "protocol": "ESHAP",
+    "drugs": [
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Methylprednisolone",
+        "brand": null
+      },
+      {
+        "generic": "Cytarabine",
+        "brand": "Ara-C"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Hyper-CVAD 1",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "Hyper-CVAD 2",
+    "drugs": [
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      },
+      {
+        "generic": "Cytarabine",
+        "brand": "Ara-C"
+      },
+      {
+        "generic": "Leucovorin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "MINE",
+    "drugs": [
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Mitoxantrone",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "CVP",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": "Endoxan"
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "R- CVP",
+    "drugs": [
+      {
+        "generic": "Rituximab",
+        "brand": null
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "DCEP",
+    "drugs": [
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "R-ICE",
+    "drugs": [
+      {
+        "generic": "Rituximab",
+        "brand": null
+      },
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "ICE",
+    "drugs": [
+      {
+        "generic": "Ifosfamide",
+        "brand": null
+      },
+      {
+        "generic": "Carboplatin",
+        "brand": null
+      },
+      {
+        "generic": "Etoposide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "DHAP",
+    "drugs": [
+      {
+        "generic": "Dexamethasone",
+        "brand": null
+      },
+      {
+        "generic": "Cytarabine",
+        "brand": "Ara-C"
+      },
+      {
+        "generic": "Cisplatin",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "FLAG-IDA",
+    "drugs": [
+      {
+        "generic": "Fludarabine",
+        "brand": null
+      },
+      {
+        "generic": "Cytarabine",
+        "brand": "Ara-C"
+      },
+      {
+        "generic": "Idarubicine",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "VMP",
+    "drugs": [
+      {
+        "generic": "Bortezomib",
+        "brand": "Velcade"
+      },
+      {
+        "generic": "Méthylprednisolone",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      }
+    ]
+  },
+  {
+    "protocol": "PCR",
+    "drugs": [
+      {
+        "generic": "Pentostatin",
+        "brand": null
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Rituximab",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "FC",
+    "drugs": [
+      {
+        "generic": "Fludarabine",
+        "brand": null
+      },
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "CVP",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Vincristine",
+        "brand": "Oncovin"
+      },
+      {
+        "generic": "Prednisone",
+        "brand": null
+      }
+    ]
+  },
+  {
+    "protocol": "COPADM",
+    "drugs": [
+      {
+        "generic": "Cyclophosphamide",
+        "brand": null
+      },
+      {
+        "generic": "Vincristine",
+        "brand": null
+      },
+      {
+        "generic": "Doxorubicine",
+        "brand": "Adriamycine"
+      },
+      {
+        "generic": "Methotrexate",
+        "brand": null
+      }
+    ]
+  }
+]
