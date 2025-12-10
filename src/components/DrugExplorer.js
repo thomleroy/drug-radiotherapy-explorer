@@ -160,6 +160,7 @@ const DEFAULT_TRANSLATIONS = {
     title: "Drug & Radiotherapy Explorer",
     subtitle: "Explore drug interactions with radiotherapy treatments",
     search: "Search by name, INN, or brand name...",
+    tableHint: "Click on the drug name to display its associated references.",
     categories: {
       all: "All Categories",
       chemotherapy: "Chemotherapy",
@@ -259,6 +260,7 @@ const DEFAULT_TRANSLATIONS = {
   fr: {
     title: "Explorateur Médicaments & Radiothérapie",
     subtitle: "Explorez les interactions des médicaments avec les traitements de radiothérapie",
+    tableHint: "Cliquez sur le nom de la molécule pour afficher les références associées.",
     search: "Rechercher par nom, DCI ou nom commercial...",
     categories: {
       all: "Toutes les Catégories",
@@ -1467,6 +1469,9 @@ const displayedDrugs = useMemo(() => {
                     {t('buttons.manageColumns')}
                   </motion.button>
                 )}
+{/* Hint: click to view references */}
+
+
 
                 {/* Export CSV button */}
                 <motion.button
@@ -1480,7 +1485,9 @@ const displayedDrugs = useMemo(() => {
                 </motion.button>
               </div>
             </div>
-
+<div className={`text-sm mb-2 ${state.isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+  {t('tableHint')}
+</div>
             {/* Results */}
             <AnimatePresence mode="wait">
               {isMobileView ? (
@@ -1512,6 +1519,8 @@ const displayedDrugs = useMemo(() => {
                   )}
                 </motion.div>
               ) : (
+        
+
                 <motion.div 
                   key="desktop-view"
                   initial={{ opacity: 0 }}
