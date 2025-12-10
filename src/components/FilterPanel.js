@@ -2,10 +2,8 @@ import React from 'react';
 
 const FilterPanel = ({
   selectedCategory,
-  halfLifeFilter,
   classFilter,
   onCategoryChange,
-  onHalfLifeChange,
   onClassChange,
   uniqueDrugClasses,
   isDarkMode,
@@ -29,12 +27,6 @@ const FilterPanel = ({
       <option value="immunotherapy">{t('categories.immunotherapy')}</option>
     </select>
 
-    <select
-      value={halfLifeFilter}
-      onChange={onHalfLifeChange}
-      className={`h-12 w-full border-2 rounded-lg px-4 transition-colors cursor-pointer
-        ${isDarkMode
-          : 'bg-white border-gray-200 hover:border-sfro-primary focus:border-sfro-primary'
   
 
     <select
