@@ -34,14 +34,8 @@ const FilterPanel = ({
       onChange={onHalfLifeChange}
       className={`h-12 w-full border-2 rounded-lg px-4 transition-colors cursor-pointer
         ${isDarkMode
-          ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary'
           : 'bg-white border-gray-200 hover:border-sfro-primary focus:border-sfro-primary'
-        }`}
-    >
-      <option value="all">{t('halfLife.all')}</option>
-      <option value="short">{t('halfLife.short')}</option>
-      <option value="long">{t('halfLife.long')}</option>
-    </select>
+  
 
     <select
       value={classFilter}
