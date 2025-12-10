@@ -3,6 +3,8 @@ import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card'
 import { Input } from '../components/ui/input';
 import { Search, Download, Info, ExternalLink, Settings, X, Mail, AlertCircle } from 'lucide-react';
 import { allDrugs } from '../data/drugs';
+import protocolsData from '../data/ctProtocols.json';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { referencesData } from '../data/references';
 import DotsOverlay from '../components/ui/DotsOverlay';
@@ -13,7 +15,7 @@ import FilterPanel from './FilterPanel';
 import FavoritesPanel from './FavoritesPanel';
 import useAppStore from './state/useAppStore';
 import { CATEGORY_COLORS } from './constants';
-import { protocolsStaticData, extractUniqueData } from '../data/protocoleRTCT';
+
 
 // Cell colors - memoized function for performance
 const getCellColor = (value, isDark = false) => {
@@ -791,7 +793,15 @@ const DrugExplorer = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
-  
+  // 🔽 AJOUTER CECI
+  // Protocole sélectionné et sa liste de drogues
+  const [selectedProtocol, setSelectedProtocol] = useState(null);
+
+  const protocolDrugs = useMemo(() => {
+    if (!selectedProtocol) return [];
+    const found = protocolsData.find(p => p.protocol === selectedProtocol);
+    return found ? found.drugs : [];
+  }, [selectedProtocol]);
   // Refs
   const searchInputRef = useRef(null);
   const suggestionsRef = useRef(null);
@@ -890,14 +900,32 @@ const DrugExplorer = () => {
         if (!addSuggestion(drug.class, 'class')) continue;
       }
     }
+  // 🔽 AJOUT : suggestions de protocoles
+  for (const protocol of protocolsData) {
+    if (suggestions.length >= maxSuggestions) break;
+    if (protocol.protocol.toLowerCase().includes(searchLower)) {
+      const exists = suggestions.find(
+        s => s.text.toLowerCase() === protocol.protocol.toLowerCase()
+      );
+      if (!exists) {
+        suggestions.push({
+          text: protocol.protocol,
+          type: 'protocol',
+          highlight: 0, // ou 1, selon ce que tu utilises déjà
+        });
+      }
+    }
+  }
 
     // Sort by relevance
-    return suggestions.sort((a, b) => {
-      if (a.highlight === 0 && b.highlight !== 0) return -1;
-      if (b.highlight === 0 && a.highlight !== 0) return 1;
-      const typeOrder = { drug: 0, commercial: 1, dci: 2, class: 3 };
-      return typeOrder[a.type] - typeOrder[b.type];
-    });
+      // Tri final
+  return suggestions.sort((a, b) => {
+    if (a.highlight === 0 && b.highlight !== 0) return -1;
+    if (b.highlight === 0 && a.highlight !== 0) return 1;
+    const typeOrder = { protocol: -1, drug: 0, commercial: 1, dci: 2, class: 3 };
+    return (typeOrder[a.type] ?? 99) - (typeOrder[b.type] ?? 99);
+  });
+
   }, [debouncedSearchTerm]);
 
   // Optimized filtering and sorting with memoization
@@ -918,13 +946,7 @@ const DrugExplorer = () => {
       filtered = filtered.filter(drug => drug.category === state.selectedCategory);
     }
 
-    if (state.halfLifeFilter !== 'all') {
-      filtered = filtered.filter(drug => {
-        const halfLife = parseFloat(drug.halfLife) || 0;
-        return state.halfLifeFilter === 'short' ? halfLife <= 24 : halfLife > 24;
-      });
-    }
-
+    
     if (state.classFilter !== 'all') {
       filtered = filtered.filter(drug => drug.class === state.classFilter);
     }
@@ -953,10 +975,28 @@ const DrugExplorer = () => {
     state.classFilter, 
     state.sortConfig
   ]);
+const protocolFilteredDrugs = useMemo(() => {
+  if (!selectedProtocol) return null;
+  if (!protocolDrugs.length) return [];
+  const names = protocolDrugs.map(d => d.generic.toLowerCase());
+
+  return filteredAndSortedDrugs.filter(drug =>
+    names.includes(drug.name?.toLowerCase()) ||
+    names.includes(drug.dci?.toLowerCase())
+  );
+}, [selectedProtocol, protocolDrugs, filteredAndSortedDrugs]);
+
+const displayedDrugs = useMemo(() => {
+  if (selectedProtocol && protocolFilteredDrugs) {
+    return protocolFilteredDrugs;
+  }
+  return filteredAndSortedDrugs;
+}, [selectedProtocol, protocolFilteredDrugs, filteredAndSortedDrugs]);
+
 
   // Performance optimized statistics
   const stats = useMemo(() => {
-    const counts = filteredAndSortedDrugs.reduce((acc, drug) => {
+    const counts = displayedDrugs.reduce((acc, drug) => {
       acc.total++;
       acc[drug.category] = (acc[drug.category] || 0) + 1;
       return acc;
@@ -1006,10 +1046,19 @@ const DrugExplorer = () => {
   }, [actions]);
 
   const selectSuggestion = useCallback((suggestion) => {
+  if (suggestion.type === 'protocol') {
+    // On sélectionne un protocole : on vide le champ de recherche
+    setSelectedProtocol(suggestion.text);
+    actions.setSearchTerm('');
+  } else {
+    // Comportement habituel pour les drogues, DCI, classes, etc.
+    setSelectedProtocol(null);
     actions.setSearchTerm(suggestion.text);
-    setShowSuggestions(false);
-    setSelectedSuggestionIndex(-1);
-  }, [actions]);
+  }
+  setShowSuggestions(false);
+  setSelectedSuggestionIndex(-1);
+}, [actions]);
+
 
   const handleKeyDown = useCallback((e) => {
     if (!showSuggestions || searchSuggestions.length === 0) return;
@@ -1100,7 +1149,7 @@ const DrugExplorer = () => {
   const downloadCSV = useCallback(() => {
     try {
       const header = "Drug Name,Commercial Name,Administration,Class,Category,Half-life,Normofractionated RT,Palliative RT,Stereotactic RT,Intracranial RT,References\n";
-      const rows = filteredAndSortedDrugs.map(drug => 
+      const rows = ((selectedProtocol && protocolFilteredDrugs) || filteredAndSortedDrugs).map(drug => 
         `"${drug.name}","${drug.commercial}","${drug.administration}","${drug.class}","${drug.category}","${drug.halfLife}","${drug.normofractionatedRT}","${drug.palliativeRT}","${drug.stereotacticRT}","${drug.intracranialRT}","${drug.references || ''}"`
       ).join('\n');
       const csv = header + rows;
@@ -1210,54 +1259,166 @@ const DrugExplorer = () => {
               ))}
             </div>
 
-            {/* Search bar with autocomplete */}
-            <div className={`rounded-lg shadow-sm p-6 space-y-4 transition-colors duration-300
-              ${state.isDarkMode ? 'bg-gray-700' : 'bg-white'}
-            `}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="relative">
-                  <Search className={`absolute left-3 top-3.5 h-5 w-5 ${state.isDarkMode ? 'text-gray-400' : 'text-gray-400'}`} />
-                  <Input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder={t('search')}
-                    value={state.searchTerm}
-                    onChange={handleSearchChange}
-                    onKeyDown={handleKeyDown}
-                    onFocus={() => state.searchTerm.length >= 2 && setShowSuggestions(true)}
-                    className={`pl-10 h-12 w-full border-2 transition-colors rounded-lg
-                      ${state.isDarkMode 
-                        ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary' 
-                        : 'border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light'
-                      }`}
-                  />
-                  <AnimatePresence>
-                    <SearchSuggestions 
-                      suggestions={searchSuggestions}
-                      showSuggestions={showSuggestions}
-                      selectedIndex={selectedSuggestionIndex}
-                      onSelect={selectSuggestion}
-                      isDarkMode={state.isDarkMode}
-                      t={t}
-                      suggestionsRef={suggestionsRef}
-                    />
-                  </AnimatePresence>
-                </div>
+{/* Search bar with autocomplete + protocol panel */}
+<div className={`rounded-lg shadow-sm p-6 space-y-4 transition-colors duration-300
+  ${state.isDarkMode ? 'bg-gray-700' : 'bg-white'}
+`}>
+  <div className="flex flex-col gap-4 xl:flex-row xl:items-start">
+    
+    {/* Colonne gauche : recherche + filtres */}
+    <div className="flex-1 min-w-0 space-y-4">
+      {/* Barre de recherche */}
+      <div className="relative">
+        <Search
+          className={`absolute left-3 top-3.5 h-5 w-5 ${
+            state.isDarkMode ? 'text-gray-400' : 'text-gray-400'
+          }`}
+        />
+        <Input
+          ref={searchInputRef}
+          type="text"
+          placeholder={t('search')}
+          value={state.searchTerm}
+          onChange={handleSearchChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => state.searchTerm.length >= 2 && setShowSuggestions(true)}
+          className={`pl-10 h-12 w-full border-2 transition-colors rounded-lg
+            ${
+              state.isDarkMode
+                ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary'
+                : 'border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light'
+            }`}
+        />
+        <AnimatePresence>
+          <SearchSuggestions
+            suggestions={searchSuggestions}
+            showSuggestions={showSuggestions}
+            selectedIndex={selectedSuggestionIndex}
+            onSelect={selectSuggestion}
+            isDarkMode={state.isDarkMode}
+            t={t}
+            suggestionsRef={suggestionsRef}
+          />
+        </AnimatePresence>
+      </div>
 
-                <FilterPanel
-                  selectedCategory={state.selectedCategory}
-                  halfLifeFilter={state.halfLifeFilter}
-                  classFilter={state.classFilter}
-                  onCategoryChange={(e) => actions.setFilters({ selectedCategory: e.target.value })}
-                  onHalfLifeChange={(e) => actions.setFilters({ halfLifeFilter: e.target.value })}
-                  onClassChange={(e) => actions.setFilters({ classFilter: e.target.value })}
-                  uniqueDrugClasses={uniqueDrugClasses}
-                  isDarkMode={state.isDarkMode}
-                  t={t}
-                  translateDrugClass={translateDrugClass}
-                />
-              </div>
+      {/* Filtres (catégorie / classe) */}
+      <FilterPanel
+        selectedCategory={state.selectedCategory}
+        classFilter={state.classFilter}
+        onCategoryChange={(e) =>
+          actions.setFilters({ selectedCategory: e.target.value })
+        }
+        onClassChange={(e) =>
+          actions.setFilters({ classFilter: e.target.value })
+        }
+        uniqueDrugClasses={uniqueDrugClasses}
+        isDarkMode={state.isDarkMode}
+        t={t}
+        translateDrugClass={translateDrugClass}
+      />
+    </div>
+
+    {/* Colonne droite : panneau protocole */}
+    {selectedProtocol && protocolDrugs.length > 0 && (
+      <div
+        className={`
+          w-full xl:w-80 2xl:w-96 
+          shrink-0 
+          rounded-2xl border shadow-lg p-4 xl:p-5 space-y-3
+          transition-colors duration-300
+          ${
+            state.isDarkMode
+              ? 'bg-slate-800/80 border-slate-700 text-slate-50'
+              : 'bg-white border-slate-200 text-slate-900'
+          }
+        `}
+      >
+        {/* Titre + badge */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <div
+              className={`
+                w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold
+                ${
+                  state.isDarkMode
+                    ? 'bg-sky-500/20 text-sky-200'
+                    : 'bg-sky-100 text-sky-700'
+                }
+              `}
+            >
+              Rx
             </div>
+            <div className="flex flex-col">
+              <span className="text-xs uppercase tracking-wider opacity-70">
+                Protocole sélectionné
+              </span>
+              <span className="font-semibold truncate max-w-[14rem]">
+                {selectedProtocol}
+              </span>
+            </div>
+          </div>
+
+          <span
+            className={`
+              inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium
+              ${
+                state.isDarkMode
+                  ? 'bg-slate-700 text-slate-100'
+                  : 'bg-slate-100 text-slate-700'
+              }
+            `}
+          >
+            {protocolDrugs.length} molécule
+            {protocolDrugs.length > 1 ? 's' : ''}
+          </span>
+        </div>
+
+        {/* Ligne séparatrice */}
+        <div
+          className={`
+            h-px my-1
+            ${state.isDarkMode ? 'bg-slate-700/80' : 'bg-slate-200'}
+          `}
+        />
+
+        {/* Liste des drogues */}
+        <div className="max-h-56 overflow-auto pr-1 space-y-1.5">
+          {protocolDrugs.map((d, idx) => (
+            <div
+              key={idx}
+              className={`
+                text-xs rounded-xl px-2.5 py-1.5 flex flex-col
+                ${
+                  state.isDarkMode
+                    ? 'bg-slate-800/80'
+                    : 'bg-slate-50'
+                }
+              `}
+            >
+              <span className="font-medium">{d.generic}</span>
+              {d.brand && (
+                <span className="text-[11px] opacity-70">
+                  {d.brand}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Petit footer */}
+        <div
+          className={`
+            pt-1 border-t text-[11px] opacity-70 mt-1 border-dashed
+            ${state.isDarkMode ? 'border-slate-700' : 'border-slate-200'}
+          `}
+        >
+          Cliquer sur une molécule dans le tableau pour voir les détails complets.
+        </div>
+      </div>
+    )}
+  </div>
+</div>
 
             {/* Action buttons */}
             <div className={`flex ${isMobileView ? 'justify-center' : 'justify-between'} gap-4 flex-wrap`}>
@@ -1302,8 +1463,8 @@ const DrugExplorer = () => {
                   exit={{ opacity: 0 }}
                   className="space-y-4"
                 >
-                  {filteredAndSortedDrugs.length > 0 ? (
-                    filteredAndSortedDrugs.map((drug, index) => (
+                  {displayedDrugs.length > 0 ? (
+                    displayedDrugs.map((drug, index) => (
                       <DrugCard 
                         key={`${drug.name}-${index}`} 
                         drug={drug}
@@ -1515,8 +1676,8 @@ const DrugExplorer = () => {
                       </tr>
                     </thead>
                     <tbody className={`divide-y ${state.isDarkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
-                      {filteredAndSortedDrugs.length > 0 ? (
-                        filteredAndSortedDrugs.map((drug, index) => (
+                      {displayedDrugs.length > 0 ? (
+                        displayedDrugs.map((drug, index) => (
                           <tr 
                             key={index} 
                             className={`transition-colors duration-150 ease-in-out text-xs
