@@ -17,6 +17,32 @@ import useAppStore from './state/useAppStore';
 import { CATEGORY_COLORS } from './constants';
 
 
+// Highlight a substring match (case-insensitive) by wrapping it in a <mark>.
+// Returns an array of React nodes. Plain string input with empty query
+// is returned unchanged.
+const highlightMatch = (text, query) => {
+  if (!query || typeof text !== 'string' || typeof query !== 'string') return text;
+  const q = query.trim();
+  if (q.length === 0) return text;
+  const lower = text.toLowerCase();
+  const needle = q.toLowerCase();
+  const idx = lower.indexOf(needle);
+  if (idx === -1) return text;
+  const before = text.slice(0, idx);
+  const match = text.slice(idx, idx + needle.length);
+  const after = text.slice(idx + needle.length);
+  return [
+    before,
+    <mark
+      key="hl"
+      className="bg-yellow-200 text-inherit rounded px-0.5 dark:bg-yellow-600/50"
+    >
+      {match}
+    </mark>,
+    after,
+  ];
+};
+
 // Cell colors - memoized function for performance
 const getCellColor = (value, isDark = false) => {
   if (typeof value !== 'string') return '';
@@ -696,6 +722,7 @@ const SearchSuggestions = memo(({
                suggestion.type === 'commercial' ? t('columns.commercial') :
                suggestion.type === 'dci' ? t('columns.dci') :
                suggestion.type === 'protocol' ? 'Protocol' :
+               suggestion.type === 'recent' ? '↻' :
                t('columns.class')}
             </span>
           </li>
@@ -930,6 +957,166 @@ const AboutPopup = memo(({ show, onClose, content, lang, isDarkMode, t }) => {
   );
 });
 
+// Memoized Drug Detail Popup — a compact read-only panel that shows all
+// available information about a single drug plus a shortcut to its
+// associated bibliographic references.
+const DrugDetailPopup = memo(({ drug, onClose, onOpenReferences, isDarkMode, t, translateDrugClass }) => {
+  const isOpen = Boolean(drug);
+  const dialogRef = useModalA11y(isOpen, onClose);
+  const titleId = 'drug-detail-dialog-title';
+
+  if (!drug) return null;
+
+  const timings = [
+    { key: 'normofractionatedRT', label: t('columns.normofractionatedRT'), value: drug.normofractionatedRT },
+    { key: 'palliativeRT', label: t('columns.palliativeRT'), value: drug.palliativeRT },
+    { key: 'stereotacticRT', label: t('columns.stereotacticRT'), value: drug.stereotacticRT },
+    { key: 'intracranialRT', label: t('columns.intracranialRT'), value: drug.intracranialRT },
+  ];
+
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ type: 'spring', damping: 20 }}
+        className={`rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto
+          ${isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'}
+        `}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div
+          className={`sticky top-0 border-b px-6 py-4 rounded-t-lg flex justify-between items-center
+            ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}
+          `}
+        >
+          <div>
+            <h2 id={titleId} className={`text-2xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}`}>
+              {drug.name}
+            </h2>
+            {drug.commercial && (
+              <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                {drug.commercial}
+              </p>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('buttons.close')}
+            className={`rounded-full p-2 transition-colors
+              ${isDarkMode
+                ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+              }`}
+          >
+            <X size={24} aria-hidden="true" />
+          </button>
+        </div>
+
+        <div className="p-6 space-y-6">
+          <div>
+            <h3 className={`text-xs font-semibold uppercase tracking-wide mb-3
+              ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}
+            `}>
+              {t('details.title')}
+            </h3>
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+              {drug.administration && (
+                <div>
+                  <dt className={`font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {t('details.administration')}
+                  </dt>
+                  <dd className={isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}>
+                    {drug.administration}
+                  </dd>
+                </div>
+              )}
+              {drug.halfLife && (
+                <div>
+                  <dt className={`font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {t('details.halfLife')}
+                  </dt>
+                  <dd className={isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}>
+                    {drug.halfLife}
+                  </dd>
+                </div>
+              )}
+              {drug.class && (
+                <div>
+                  <dt className={`font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {t('details.class')}
+                  </dt>
+                  <dd className={isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}>
+                    {translateDrugClass(drug.class)}
+                  </dd>
+                </div>
+              )}
+              {drug.category && (
+                <div>
+                  <dt className={`font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {t('details.category')}
+                  </dt>
+                  <dd className={isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}>
+                    {t(`categories.${drug.category}`)}
+                  </dd>
+                </div>
+              )}
+            </dl>
+          </div>
+
+          <div>
+            <h3 className={`text-xs font-semibold uppercase tracking-wide mb-3
+              ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}
+            `}>
+              {t('details.radiotherapyTimings')}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {timings.map((timing) => (
+                <div
+                  key={timing.key}
+                  className={`rounded-lg p-3 border ${getCellColor(timing.value, isDarkMode)}
+                    ${isDarkMode ? 'border-gray-600' : 'border-gray-200'}
+                  `}
+                >
+                  <div className="text-[11px] font-semibold uppercase tracking-wide mb-1 opacity-80">
+                    {timing.label}
+                  </div>
+                  <div className="text-sm font-medium">
+                    {timing.value || '—'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {drug.references && (
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => onOpenReferences(drug.references)}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-sfro-primary hover:bg-sfro-secondary text-white font-medium transition-colors"
+              >
+                <ExternalLink size={16} aria-hidden="true" />
+                {t('details.seeReferences')}
+              </button>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </div>
+  );
+});
+
 // Memoized References Popup component
 const ReferencesPopup = memo(({ references, onClose, isDarkMode, t }) => {
   const isOpen = Boolean(references);
@@ -1086,6 +1273,7 @@ const DrugExplorer = () => {
   const [isTableScrolled, setIsTableScrolled] = useState(false);
   const [showColumnManager, setShowColumnManager] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
+  const [selectedDrugDetail, setSelectedDrugDetail] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
@@ -1183,12 +1371,103 @@ const DrugExplorer = () => {
     return () => clearTimeout(timer);
   }, [prefersReducedMotion]);
 
+  // Bootstrap filters and search from URL query params so shared links
+  // land on the right view. Runs once on mount.
+  const urlHydratedRef = useRef(false);
+  useEffect(() => {
+    if (urlHydratedRef.current) return;
+    urlHydratedRef.current = true;
+    if (typeof window === 'undefined') return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('q');
+      const category = params.get('category');
+      const cls = params.get('class');
+      const halfLife = params.get('halfLife');
+      const sort = params.get('sort');
+      const dir = params.get('dir');
+
+      if (q) actions.setSearchTerm(q);
+      const filterPatch = {};
+      if (category && ['all', 'chemotherapy', 'endocrine', 'targeted', 'immunotherapy'].includes(category)) {
+        filterPatch.selectedCategory = category;
+      }
+      if (cls) filterPatch.classFilter = cls;
+      if (halfLife && ['all', 'short', 'long'].includes(halfLife)) {
+        filterPatch.halfLifeFilter = halfLife;
+      }
+      if (Object.keys(filterPatch).length > 0) {
+        actions.setFilters(filterPatch);
+      }
+      if (sort && (dir === 'asc' || dir === 'desc')) {
+        actions.setSortConfig({ key: sort, direction: dir });
+      }
+    } catch {
+      // Malformed URL: ignore and use defaults.
+    }
+  }, [actions]);
+
+  // Keep URL query params in sync with filters/search/sort so the current
+  // view is shareable. Uses replaceState to avoid polluting history.
+  useEffect(() => {
+    if (!urlHydratedRef.current) return;
+    if (typeof window === 'undefined') return;
+    try {
+      const params = new URLSearchParams();
+      if (state.searchTerm && state.searchTerm.length >= 2) {
+        params.set('q', state.searchTerm);
+      }
+      if (state.selectedCategory !== 'all') {
+        params.set('category', state.selectedCategory);
+      }
+      if (state.classFilter !== 'all') {
+        params.set('class', state.classFilter);
+      }
+      if (state.halfLifeFilter !== 'all') {
+        params.set('halfLife', state.halfLifeFilter);
+      }
+      if (state.sortConfig.key) {
+        params.set('sort', state.sortConfig.key);
+        params.set('dir', state.sortConfig.direction);
+      }
+      const query = params.toString();
+      const next = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+      if (next !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+        window.history.replaceState(null, '', next);
+      }
+    } catch {
+      // Non-fatal: URL sync is a nice-to-have.
+    }
+  }, [
+    state.searchTerm,
+    state.selectedCategory,
+    state.classFilter,
+    state.halfLifeFilter,
+    state.sortConfig,
+  ]);
+
   // Auto-dismiss toasts after a few seconds.
   useEffect(() => {
     if (!toast) return undefined;
     const timer = setTimeout(() => setToast(null), 3500);
     return () => clearTimeout(timer);
   }, [toast]);
+
+  // Global Cmd/Ctrl+K shortcut: focus the search input from anywhere.
+  useEffect(() => {
+    const handler = (event) => {
+      const isK = event.key === 'k' || event.key === 'K';
+      if (isK && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault();
+        if (searchInputRef.current && typeof searchInputRef.current.focus === 'function') {
+          searchInputRef.current.focus();
+          searchInputRef.current.select?.();
+        }
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   // Enhanced translation function with memoization
   const t = useCallback((key) => {
@@ -1223,9 +1502,20 @@ const DrugExplorer = () => {
     return className; // Simplified for performance
   }, [state.lang]);
 
-  // Generate search suggestions with performance optimization
+  // Generate search suggestions with performance optimization.
+  // When the query is empty, fall back to the user's recent searches so
+  // the input doubles as a quick-history panel.
   const searchSuggestions = useMemo(() => {
-    if (!debouncedSearchTerm || debouncedSearchTerm.length < 2) return [];
+    if (!debouncedSearchTerm || debouncedSearchTerm.length < 2) {
+      if (state.recentSearches && state.recentSearches.length > 0) {
+        return state.recentSearches.map((text) => ({
+          text,
+          type: 'recent',
+          highlight: 0,
+        }));
+      }
+      return [];
+    }
 
     const suggestions = [];
     const searchLower = debouncedSearchTerm.toLowerCase();
@@ -1288,7 +1578,7 @@ const DrugExplorer = () => {
     return (typeOrder[a.type] ?? 99) - (typeOrder[b.type] ?? 99);
   });
 
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, state.recentSearches]);
 
   // Optimized filtering and sorting with memoization
   const filteredAndSortedDrugs = useMemo(() => {
@@ -1503,12 +1793,10 @@ const displayedDrugs = useMemo(() => {
     actions.setDarkMode(!state.isDarkMode);
   }, [actions, state.isDarkMode]);
 
+  // Clicking a drug name opens the detail panel. From there, users can
+  // open the dedicated references popup if they need the bibliography.
   const handleDrugClick = useCallback((drug) => {
-    if (drug.references) {
-      setSelectedReferences(drug.references);
-    } else {
-      setSelectedReferences("no-references");
-    }
+    setSelectedDrugDetail(drug);
   }, []);
 
   // Toggle sort by column: asc → desc → none
@@ -1685,6 +1973,40 @@ const displayedDrugs = useMemo(() => {
     }
   }, [filteredAndSortedDrugs, selectedProtocol, protocolFilteredDrugs, t]);
 
+  // Excel export using the SheetJS xlsx package. We dynamic-import the
+  // library only when the user actually clicks the button so the ~90kb
+  // payload is kept out of the initial bundle.
+  const downloadXLSX = useCallback(async () => {
+    try {
+      const XLSX = await import('xlsx');
+      const dataset = ((selectedProtocol && protocolFilteredDrugs) || filteredAndSortedDrugs) || [];
+      const rows = dataset.map((drug) => ({
+        'Drug Name': drug.name ?? '',
+        'Commercial Name': drug.commercial ?? '',
+        'Administration': drug.administration ?? '',
+        'Class': drug.class ?? '',
+        'Category': drug.category ?? '',
+        'Half-life': drug.halfLife ?? '',
+        'Normofractionated RT': drug.normofractionatedRT ?? '',
+        'Palliative RT': drug.palliativeRT ?? '',
+        'Stereotactic RT': drug.stereotacticRT ?? '',
+        'Intracranial RT': drug.intracranialRT ?? '',
+        'References': drug.references ?? '',
+      }));
+      const worksheet = XLSX.utils.json_to_sheet(rows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Radiosync');
+      const today = new Date().toISOString().split('T')[0];
+      XLSX.writeFile(workbook, `drug-radiotherapy-data-${today}.xlsx`);
+      setToast({ type: 'success', message: t('toast.xlsxSuccess') });
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Error downloading XLSX:', error);
+      }
+      setToast({ type: 'error', message: t('toast.xlsxError') });
+    }
+  }, [filteredAndSortedDrugs, selectedProtocol, protocolFilteredDrugs, t]);
+
   if (isInitialLoading) {
     return (
       <ErrorBoundary>
@@ -1850,7 +2172,11 @@ const displayedDrugs = useMemo(() => {
           value={state.searchTerm}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => state.searchTerm.length >= 2 && setShowSuggestions(true)}
+          onFocus={() => {
+            if (state.searchTerm.length >= 2 || (state.recentSearches && state.recentSearches.length > 0)) {
+              setShowSuggestions(true);
+            }
+          }}
           maxLength={100}
           aria-label={t('search')}
           aria-autocomplete="list"
@@ -2073,8 +2399,23 @@ const displayedDrugs = useMemo(() => {
                   onClick={downloadCSV}
                   className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
                 >
-                  <Download className="h-5 w-5" />
+                  <Download className="h-5 w-5" aria-hidden="true" />
                   {t('buttons.exportCSV')}
+                </motion.button>
+
+                {/* Export XLSX button */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={downloadXLSX}
+                  className={`flex items-center gap-2 transition-colors px-6 py-3 rounded-lg shadow-sm font-medium
+                    ${state.isDarkMode
+                      ? 'bg-gray-600 hover:bg-gray-500 text-white border border-gray-500'
+                      : 'bg-white hover:bg-gray-50 text-sfro-dark border border-gray-300'
+                    }`}
+                >
+                  <Download className="h-5 w-5" aria-hidden="true" />
+                  {t('buttons.exportXLSX')}
                 </motion.button>
               </div>
             </div>
@@ -2378,15 +2719,15 @@ const displayedDrugs = useMemo(() => {
                               <td className={`px-3 py-2 whitespace-normal font-medium
                                 ${state.isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}
                               `}>
-                                <button 
+                                <button
                                   onClick={() => handleDrugClick(drug)}
                                   className={`text-left cursor-pointer hover:underline
-                                    ${state.isDarkMode 
-                                      ? 'text-blue-400 hover:text-blue-300' 
+                                    ${state.isDarkMode
+                                      ? 'text-blue-400 hover:text-blue-300'
                                       : 'text-blue-600 hover:text-blue-800'
                                     }`}
                                 >
-                                  {drug.name}
+                                  {highlightMatch(drug.name, debouncedSearchTerm)}
                                 </button>
                               </td>
                             )}
@@ -2394,7 +2735,7 @@ const displayedDrugs = useMemo(() => {
                               <td className={`px-3 py-2 whitespace-normal
                                 ${state.isDarkMode ? 'text-gray-300' : 'text-gray-500'}
                               `}>
-                                {drug.commercial}
+                                {highlightMatch(drug.commercial, debouncedSearchTerm)}
                               </td>
                             )}
                             {state.visibleColumns.administration && (
@@ -2559,6 +2900,22 @@ const displayedDrugs = useMemo(() => {
               onClose={() => setSelectedReferences(null)}
               isDarkMode={state.isDarkMode}
               t={t}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {selectedDrugDetail && (
+            <DrugDetailPopup
+              drug={selectedDrugDetail}
+              onClose={() => setSelectedDrugDetail(null)}
+              onOpenReferences={(refs) => {
+                setSelectedDrugDetail(null);
+                setSelectedReferences(refs);
+              }}
+              isDarkMode={state.isDarkMode}
+              t={t}
+              translateDrugClass={translateDrugClass}
             />
           )}
         </AnimatePresence>
