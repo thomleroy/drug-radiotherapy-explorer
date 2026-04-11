@@ -55,7 +55,7 @@ describe('SearchSuggestions', () => {
   });
 
   test('clicking an option calls onSelect with the suggestion', () => {
-    const onSelect = jest.fn();
+    const onSelect = vi.fn();
     const suggestions = [{ type: 'drug', text: 'Cisplatin', highlight: 0 }];
     render(<SearchSuggestions {...baseProps} suggestions={suggestions} onSelect={onSelect} />);
     fireEvent.mouseDown(screen.getByText('Cisplatin'));
@@ -67,7 +67,7 @@ describe('SearchSuggestions', () => {
       { type: 'recent', text: 'taxol', highlight: 0 },
       { type: 'recent', text: 'doxo', highlight: 0 },
     ];
-    const onClearRecent = jest.fn();
+    const onClearRecent = vi.fn();
     render(
       <SearchSuggestions
         {...baseProps}

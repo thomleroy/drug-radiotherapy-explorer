@@ -15,27 +15,31 @@ therapy, targeted therapy and immunotherapy.
 
 ```bash
 npm install
-npm start             # dev server on http://localhost:3000
+npm run dev           # Vite dev server on http://localhost:3000
 ```
 
 ```bash
-npm test              # Jest unit tests (watchAll by default)
+npm test              # Vitest, single run
+npm run test:watch    # Vitest in watch mode
 npm run build         # production bundle in build/
+npm run preview       # serve the production build locally
 npm run validate:data # sanity-check the drug catalog
 ```
 
-Requires **Node.js 18+**.
+The project uses **Vite + Vitest** (migrated from Create React App). Requires **Node.js 18+**.
 
 ## Project layout
 
 ```
+index.html                Vite entry, CSP, OpenGraph, manifest, favicon
+vite.config.js            build + Vitest config + dev CSP stripper
 public/
-  index.html              CSP, OpenGraph, manifest, favicon
   manifest.json           PWA manifest
   service-worker.js       offline cache (production only)
+  sfro-logo.png, …        static assets served at /
 src/
-  App.js                  thin wrapper around DrugExplorer
-  index.js                React entry point + service worker registration
+  App.jsx                 thin wrapper around DrugExplorer
+  index.jsx               React entry point + service worker registration
   buildMeta.js            ⚠️ generated, do not edit
   components/
     DrugExplorer.js       orchestration: state, effects, main JSX
@@ -64,7 +68,6 @@ src/
     security.js           escapeCsvField, isSafeHttpUrl, readFavorites/writeFavorites
     text.js               getCellColor, highlightMatch, hasMeaningfulReferences, …
     markdown.js           tiny markdown renderer used by AboutPopup
-  __mocks__/              Jest stubs for ESM-only packages (lucide-react, @vercel/*)
 scripts/
   generate-build-meta.js  prebuild step writing src/buildMeta.js
   validate-drugs.js       prebuild step validating the catalog

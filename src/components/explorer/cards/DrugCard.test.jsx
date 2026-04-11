@@ -37,14 +37,14 @@ describe('DrugCard', () => {
   });
 
   test('clicking the drug name calls onDrugClick with the drug', () => {
-    const onDrugClick = jest.fn();
+    const onDrugClick = vi.fn();
     render(<DrugCard {...baseProps} onDrugClick={onDrugClick} />);
     fireEvent.click(screen.getByText('Cisplatin'));
     expect(onDrugClick).toHaveBeenCalledWith(drug);
   });
 
   test('favorite button uses drug.id (not name) when toggling', () => {
-    const onToggleFavorite = jest.fn();
+    const onToggleFavorite = vi.fn();
     render(<DrugCard {...baseProps} onToggleFavorite={onToggleFavorite} />);
     const favBtn = screen.getByLabelText('buttons.addToFavorites');
     fireEvent.click(favBtn);

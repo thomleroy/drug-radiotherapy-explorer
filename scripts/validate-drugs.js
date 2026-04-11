@@ -11,8 +11,12 @@
 //
 // Exits with code 1 on the first batch of failures so it can gate CI.
 
-const path = require('path');
-const url = require('url');
+import path from 'node:path';
+import url from 'node:url';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const REQUIRED_FIELDS = [
   'name',

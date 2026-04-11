@@ -30,14 +30,14 @@ describe('ColumnManagerModal', () => {
   });
 
   test('toggling a checkbox calls onChange with the new value', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<ColumnManagerModal {...baseProps} onChange={onChange} />);
     fireEvent.click(screen.getByLabelText('commercial'));
     expect(onChange).toHaveBeenCalledWith('commercial', true);
   });
 
   test('Done and Close buttons trigger onClose', () => {
-    const onClose = jest.fn();
+    const onClose = vi.fn();
     render(<ColumnManagerModal {...baseProps} onClose={onClose} />);
     fireEvent.click(screen.getByText('buttons.done'));
     fireEvent.click(screen.getByLabelText('buttons.close'));
@@ -45,7 +45,7 @@ describe('ColumnManagerModal', () => {
   });
 
   test('clicking the backdrop closes the dialog', () => {
-    const onClose = jest.fn();
+    const onClose = vi.fn();
     const { container } = render(<ColumnManagerModal {...baseProps} onClose={onClose} />);
     // The backdrop is the outermost div with the bg overlay
     const backdrop = container.firstChild;

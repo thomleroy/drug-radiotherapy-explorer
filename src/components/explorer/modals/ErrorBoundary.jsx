@@ -28,7 +28,7 @@ export class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (import.meta.env.DEV) {
       // eslint-disable-next-line no-console
       console.error('Drug Explorer Error:', error, errorInfo);
     }
@@ -53,7 +53,7 @@ export class ErrorBoundary extends React.Component {
         lang = 'en';
       }
       const strings = ERROR_BOUNDARY_STRINGS[lang];
-      const showDetails = process.env.NODE_ENV !== 'production' && this.state.error;
+      const showDetails = import.meta.env.DEV && this.state.error;
 
       return (
         <div

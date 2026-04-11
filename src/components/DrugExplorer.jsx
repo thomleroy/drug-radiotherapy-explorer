@@ -806,7 +806,7 @@ const displayedDrugs = useMemo(() => {
       window.URL.revokeObjectURL(url);
       setToast({ type: 'success', message: t('toast.csvSuccess') });
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (import.meta.env.DEV) {
         console.error('Error downloading CSV:', error);
       }
       setToast({ type: 'error', message: t('toast.csvError') });
@@ -840,7 +840,7 @@ const displayedDrugs = useMemo(() => {
       XLSX.writeFile(workbook, `drug-radiotherapy-data-${today}.xlsx`);
       setToast({ type: 'success', message: t('toast.xlsxSuccess') });
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (import.meta.env.DEV) {
         console.error('Error downloading XLSX:', error);
       }
       setToast({ type: 'error', message: t('toast.xlsxError') });

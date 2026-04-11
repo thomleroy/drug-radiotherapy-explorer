@@ -29,7 +29,7 @@ describe('useModalA11y', () => {
   });
 
   test('Escape calls onClose', async () => {
-    const onClose = jest.fn();
+    const onClose = vi.fn();
     render(<Harness onClose={onClose} />);
     await act(async () => {
       await new Promise((r) => setTimeout(r, 10));
