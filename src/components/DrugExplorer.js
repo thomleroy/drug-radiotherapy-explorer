@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
+import { Card, CardHeader, CardContent } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Search, Download, Info, ExternalLink, Settings, X, Mail, AlertCircle } from 'lucide-react';
 import { allDrugs } from '../data/drugs';
@@ -7,7 +7,6 @@ import protocolsData from '../data/ctProtocols.json';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { referencesData } from '../data/references';
-import DotsOverlay from '../components/ui/DotsOverlay';
 import { translations } from './translations';
 import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
@@ -17,8 +16,34 @@ import useAppStore from './state/useAppStore';
 import { CATEGORY_COLORS } from './constants';
 
 
+// Escape a single field for CSV output. Protects against CSV injection (formulas
+// starting with =, +, -, @) and properly quotes values containing ", , \n or \r.
+// See https://owasp.org/www-community/attacks/CSV_Injection
+const escapeCsvField = (value) => {
+  const raw = value === undefined || value === null ? '' : String(value);
+  // Prefix formula-triggering characters with an apostrophe so spreadsheet apps
+  // treat the value as a literal string rather than evaluating it.
+  const neutralized = /^[=+\-@\t\r]/.test(raw) ? `'${raw}` : raw;
+  const escaped = neutralized.replace(/"/g, '""');
+  // Always quote; cheap and avoids ambiguity on edge cases.
+  return `"${escaped}"`;
+};
+
+// Validate a URL string and only accept http/https. Anything else (javascript:,
+// data:, vbscript:, …) is rejected and rendered as plain text by callers.
+const isSafeHttpUrl = (value) => {
+  if (typeof value !== 'string') return false;
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
+  }
+};
+
 // Cell colors - memoized function for performance
 const getCellColor = (value, isDark = false) => {
+  if (typeof value !== 'string') return '';
   if (value === '0' || value.includes('0 (except')) {
     return isDark ? 'bg-green-900/30 text-green-300' : 'bg-green-100 text-green-800';
   }
@@ -48,6 +73,20 @@ const useDebounce = (value, delay) => {
   return debouncedValue;
 };
 
+// Bilingual fallback strings used before the translation system is reachable.
+const ERROR_BOUNDARY_STRINGS = {
+  en: {
+    title: "Oops! Something went wrong",
+    description: "The application encountered an unexpected error. Please refresh the page.",
+    refresh: "Refresh Page"
+  },
+  fr: {
+    title: "Oups ! Une erreur est survenue",
+    description: "L'application a rencontré une erreur inattendue. Veuillez rafraîchir la page.",
+    refresh: "Rafraîchir la page"
+  }
+};
+
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -60,24 +99,54 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Drug Explorer Error:', error, errorInfo);
+    // Keep console for dev inspection; optional hook for external reporters (Sentry, etc.)
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Drug Explorer Error:', error, errorInfo);
+    }
+    if (typeof window !== 'undefined' && typeof window.__errorHandler === 'function') {
+      try {
+        window.__errorHandler(error, errorInfo);
+      } catch {
+        // Never let the reporter itself crash the boundary.
+      }
+    }
   }
 
   render() {
     if (this.state.hasError) {
+      // Pick a language from localStorage defensively; fallback to English on any failure.
+      let lang = 'en';
+      try {
+        const stored = typeof window !== 'undefined'
+          ? window.localStorage.getItem('drug-explorer-lang')
+          : null;
+        if (stored === 'fr' || stored === 'en') lang = stored;
+      } catch {
+        lang = 'en';
+      }
+      const strings = ERROR_BOUNDARY_STRINGS[lang];
+      const showDetails = process.env.NODE_ENV !== 'production' && this.state.error;
+
       return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="min-h-screen bg-gray-50 flex items-center justify-center p-4"
+        >
           <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full text-center">
-            <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Oops! Something went wrong</h2>
-            <p className="text-gray-600 mb-4">
-              The application encountered an unexpected error. Please refresh the page.
-            </p>
+            <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" aria-hidden="true" />
+            <h2 className="text-xl font-bold text-gray-900 mb-2">{strings.title}</h2>
+            <p className="text-gray-600 mb-4">{strings.description}</p>
+            {showDetails && (
+              <pre className="text-left text-xs bg-gray-100 text-gray-700 p-3 rounded mb-4 overflow-auto max-h-40">
+                {String(this.state.error?.message || this.state.error)}
+              </pre>
+            )}
             <button
               onClick={() => window.location.reload()}
               className="bg-sfro-primary text-white px-6 py-2 rounded-lg hover:bg-sfro-secondary transition-colors"
             >
-              Refresh Page
+              {strings.refresh}
             </button>
           </div>
         </div>
@@ -255,7 +324,21 @@ const DEFAULT_TRANSLATIONS = {
     performance: {
       loadingFallback: "Loading...",
       errorRetry: "Retry"
-    }
+    },
+    errorBoundary: {
+      title: "Oops! Something went wrong",
+      description: "The application encountered an unexpected error. Please refresh the page.",
+      refresh: "Refresh Page"
+    },
+    toast: {
+      csvSuccess: "CSV exported successfully",
+      csvError: "Failed to export CSV",
+      dismiss: "Dismiss"
+    },
+    searchResults: {
+      count: "{count} results found"
+    },
+    tableHintShort: "Click a drug name to see its references"
   },
   fr: {
     title: "Explorateur Médicaments & Radiothérapie",
@@ -356,7 +439,21 @@ const DEFAULT_TRANSLATIONS = {
     performance: {
       loadingFallback: "Chargement...",
       errorRetry: "Réessayer"
-    }
+    },
+    errorBoundary: {
+      title: "Oups ! Une erreur est survenue",
+      description: "L'application a rencontré une erreur inattendue. Veuillez rafraîchir la page.",
+      refresh: "Rafraîchir la page"
+    },
+    toast: {
+      csvSuccess: "Export CSV réussi",
+      csvError: "Échec de l'export CSV",
+      dismiss: "Fermer"
+    },
+    searchResults: {
+      count: "{count} résultats trouvés"
+    },
+    tableHintShort: "Cliquez sur un nom de molécule pour voir ses références"
   }
 };
 
@@ -476,66 +573,161 @@ const DrugCard = memo(({
 ));
 
 // Memoized Search Suggestions component
-const SearchSuggestions = memo(({ 
-  suggestions, 
-  showSuggestions, 
-  selectedIndex, 
-  onSelect, 
-  isDarkMode, 
-  t, 
-  suggestionsRef 
+const SearchSuggestions = memo(({
+  suggestions,
+  showSuggestions,
+  selectedIndex,
+  onSelect,
+  isDarkMode,
+  t,
+  suggestionsRef,
+  listboxId
 }) => {
   if (!showSuggestions || suggestions.length === 0) return null;
 
   return (
-    <motion.div
+    <motion.ul
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       ref={suggestionsRef}
-      className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-md shadow-lg border max-h-64 overflow-y-auto
-        ${isDarkMode 
-          ? 'bg-gray-800 border-gray-600' 
+      id={listboxId}
+      role="listbox"
+      aria-label={t('search')}
+      className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-md shadow-lg border max-h-64 overflow-y-auto list-none p-0
+        ${isDarkMode
+          ? 'bg-gray-800 border-gray-600'
           : 'bg-white border-gray-200'
         }`}
     >
-      {suggestions.map((suggestion, index) => (
-        <div
-          key={index}
-          className={`px-4 py-2 cursor-pointer flex items-center justify-between
-            ${selectedIndex === index 
-              ? (isDarkMode ? 'bg-gray-700' : 'bg-gray-100')
-              : (isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50')
-            }`}
-          onClick={() => onSelect(suggestion)}
-        >
-          <div className="flex items-center">
-            <Search className={`h-4 w-4 mr-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`} />
-            <span className={isDarkMode ? 'text-gray-200' : 'text-gray-900'}>
-              {suggestion.text}
+      {suggestions.map((suggestion, index) => {
+        const isSelected = selectedIndex === index;
+        return (
+          <li
+            key={`${suggestion.type}-${suggestion.text}`}
+            id={`${listboxId}-option-${index}`}
+            role="option"
+            aria-selected={isSelected}
+            className={`px-4 py-2 cursor-pointer flex items-center justify-between
+              ${isSelected
+                ? (isDarkMode ? 'bg-sfro-primary/20 text-white' : 'bg-sfro-light text-sfro-dark')
+                : (isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50')
+              }`}
+            onMouseDown={(e) => {
+              // Prevent input blur before click handler runs.
+              e.preventDefault();
+              onSelect(suggestion);
+            }}
+          >
+            <div className="flex items-center">
+              <Search className={`h-4 w-4 mr-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`} aria-hidden="true" />
+              <span className={isDarkMode ? 'text-gray-200' : 'text-gray-900'}>
+                {suggestion.text}
+              </span>
+            </div>
+            <span className={`text-xs px-2 py-1 rounded
+              ${isDarkMode ? 'bg-gray-600 text-gray-300' : 'bg-gray-200 text-gray-600'}
+            `}>
+              {suggestion.type === 'drug' ? t('columns.name') :
+               suggestion.type === 'commercial' ? t('columns.commercial') :
+               suggestion.type === 'dci' ? t('columns.dci') :
+               suggestion.type === 'protocol' ? 'Protocol' :
+               t('columns.class')}
             </span>
-          </div>
-          <span className={`text-xs px-2 py-1 rounded
-            ${isDarkMode ? 'bg-gray-600 text-gray-300' : 'bg-gray-200 text-gray-600'}
-          `}>
-            {suggestion.type === 'drug' ? t('columns.name') :
-             suggestion.type === 'commercial' ? t('columns.commercial') :
-             suggestion.type === 'dci' ? t('columns.dci') :
-             t('columns.class')}
-          </span>
-        </div>
-      ))}
-    </motion.div>
+          </li>
+        );
+      })}
+    </motion.ul>
   );
 });
 
 // Loading fallback component
 const LoadingFallback = ({ message = "Loading..." }) => (
-  <div className="flex items-center justify-center p-8">
-    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sfro-primary border-r-transparent mr-3"></div>
+  <div
+    className="flex items-center justify-center p-8"
+    role="status"
+    aria-live="polite"
+  >
+    <div
+      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-sfro-primary border-r-transparent mr-3"
+      aria-hidden="true"
+    ></div>
     <span className="text-gray-600">{message}</span>
   </div>
 );
+
+// Custom hook: accessible modal dialog behavior (ESC to close, focus trap,
+// focus restoration to the previously focused element). Returns a ref that
+// should be attached to the dialog container.
+const useModalA11y = (isOpen, onClose) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previouslyFocused =
+      typeof document !== 'undefined' ? document.activeElement : null;
+
+    const getFocusable = () => {
+      const node = containerRef.current;
+      if (!node) return [];
+      return Array.from(
+        node.querySelectorAll(
+          'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable="true"]'
+        )
+      ).filter((el) => !el.hasAttribute('disabled') && !el.getAttribute('aria-hidden'));
+    };
+
+    // Auto-focus the first focusable element (usually the close button).
+    const focusTimer = setTimeout(() => {
+      const focusables = getFocusable();
+      if (focusables.length > 0) {
+        focusables[0].focus();
+      } else if (containerRef.current) {
+        containerRef.current.focus();
+      }
+    }, 0);
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        onClose?.();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const focusables = getFocusable();
+      if (focusables.length === 0) {
+        event.preventDefault();
+        return;
+      }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener('keydown', handleKeyDown);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        try {
+          previouslyFocused.focus();
+        } catch {
+          // Ignore focus restoration errors.
+        }
+      }
+    };
+  }, [isOpen, onClose]);
+
+  return containerRef;
+};
 
 // Function to render markdown-like text (moved outside component)
 const renderMarkdownContent = (content, isDarkMode) => {
@@ -573,7 +765,7 @@ const renderMarkdownContent = (content, isDarkMode) => {
     // Handle regular paragraphs with links and bold text
     if (line.trim()) {
       // Split by both bold text and URLs
-      const parts = line.split(/(\*\*.*?\*\*|https?:\/\/[^\s\)]+)/g);
+      const parts = line.split(/(\*\*.*?\*\*|https?:\/\/[^\s)]+)/g);
       return (
         <p key={index} className={`mb-4 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
           {parts.map((part, partIndex) => {
@@ -583,17 +775,21 @@ const renderMarkdownContent = (content, isDarkMode) => {
               </strong>;
             }
             if (part.startsWith('http')) {
-              return (
-                <a 
-                  key={partIndex} 
-                  href={part} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`underline ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}
-                >
-                  {part}
-                </a>
-              );
+              // Only render as link when the URL is explicitly http(s).
+              if (isSafeHttpUrl(part)) {
+                return (
+                  <a
+                    key={partIndex}
+                    href={part}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`underline ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}
+                  >
+                    {part}
+                  </a>
+                );
+              }
+              return part;
             }
             return part;
           })}
@@ -608,49 +804,58 @@ const renderMarkdownContent = (content, isDarkMode) => {
 
 // Memoized About Popup component
 const AboutPopup = memo(({ show, onClose, content, lang, isDarkMode, t }) => {
+  const dialogRef = useModalA11y(show, onClose);
   if (!show) return null;
 
   const aboutData = content[lang];
+  const titleId = 'about-dialog-title';
 
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
       onClick={onClose}
     >
-      <motion.div 
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ type: 'spring', damping: 20 }}
         className={`rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto
-          ${isDarkMode 
-            ? 'bg-gray-800 border border-gray-700' 
+          ${isDarkMode
+            ? 'bg-gray-800 border border-gray-700'
             : 'bg-white'
           }`}
         onClick={e => e.stopPropagation()}
       >
         <div className={`sticky top-0 border-b px-6 py-4 rounded-t-lg
-          ${isDarkMode 
-            ? 'bg-gray-800 border-gray-700' 
+          ${isDarkMode
+            ? 'bg-gray-800 border-gray-700'
             : 'bg-white border-gray-200'
           }`}>
           <div className="flex justify-between items-center">
-            <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}`}>
+            <h2 id={titleId} className={`text-2xl font-bold ${isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}`}>
               {aboutData.title}
             </h2>
-            <button 
+            <button
+              type="button"
               onClick={onClose}
+              aria-label={t('buttons.close')}
               className={`rounded-full p-2 transition-colors
-                ${isDarkMode 
-                  ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700' 
+                ${isDarkMode
+                  ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
                   : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
                 }`}
             >
-              <X size={24} />
+              <X size={24} aria-hidden="true" />
             </button>
           </div>
         </div>
-        
+
         <div className="px-6 py-6">
           <div className="prose max-w-none">
             {renderMarkdownContent(aboutData.content, isDarkMode)}
@@ -663,36 +868,47 @@ const AboutPopup = memo(({ show, onClose, content, lang, isDarkMode, t }) => {
 
 // Memoized References Popup component
 const ReferencesPopup = memo(({ references, onClose, isDarkMode, t }) => {
+  const isOpen = Boolean(references);
+  const dialogRef = useModalA11y(isOpen, onClose);
+  const titleId = 'references-dialog-title';
+
   if (!references) return null;
 
   // Handle the case when no references are available
-  if (references === "no-references") {
+  if (references === 'no-references') {
     return (
-      <div 
+      <div
         className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
         onClick={onClose}
       >
-        <motion.div 
+        <motion.div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          tabIndex={-1}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ type: 'spring', damping: 20 }}
           className={`p-6 rounded-lg max-w-md m-4
-            ${isDarkMode 
-              ? 'bg-gray-800 border border-gray-700' 
+            ${isDarkMode
+              ? 'bg-gray-800 border border-gray-700'
               : 'bg-white'
             }`}
           onClick={e => e.stopPropagation()}
         >
           <div className="flex justify-between items-center mb-4">
-            <h3 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+            <h3 id={titleId} className={`text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
               {t('references.title')}
             </h3>
-            <button 
+            <button
+              type="button"
               onClick={onClose}
+              aria-label={t('buttons.close')}
               className={isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'}
             >
-              <X size={24} />
+              <X size={24} aria-hidden="true" />
             </button>
           </div>
           <div className={`p-4 rounded-lg text-center
@@ -707,48 +923,63 @@ const ReferencesPopup = memo(({ references, onClose, isDarkMode, t }) => {
     );
   }
 
-  const refArray = references.split(',').map(ref => ref.replace(/[\[\]]/g, '').trim());
-  
+  // Defensive parsing: references may be undefined, not a string, or contain
+  // stray brackets/whitespace. Anything unparsable becomes an empty list.
+  const refArray = typeof references === 'string'
+    ? references
+        .split(',')
+        .map((ref) => ref.replace(/[[\]]/g, '').trim())
+        .filter(Boolean)
+    : [];
+
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      <motion.div 
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ type: 'spring', damping: 20 }}
         className={`p-6 rounded-lg max-w-4xl m-4 max-h-[80vh] overflow-y-auto
-          ${isDarkMode 
-            ? 'bg-gray-800 border border-gray-700' 
+          ${isDarkMode
+            ? 'bg-gray-800 border border-gray-700'
             : 'bg-white'
           }`}
         onClick={e => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">
-          <h3 className={`text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+          <h3 id={titleId} className={`text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
             {t('references.title')}
           </h3>
-          <button 
+          <button
+            type="button"
             onClick={onClose}
+            aria-label={t('buttons.close')}
             className={isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'}
           >
-            <X size={24} />
+            <X size={24} aria-hidden="true" />
           </button>
         </div>
         <div className="space-y-4">
           {refArray.map((refNumber, index) => {
             const fullReference = referencesData[refNumber];
+            const hasSafeUrl = fullReference?.url && isSafeHttpUrl(fullReference.url);
             return (
-              <motion.div 
-                key={index}
+              <motion.div
+                key={`ref-${refNumber}-${index}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 className={`p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center justify-between
-                  ${isDarkMode 
-                    ? 'bg-gray-700 hover:bg-gray-600' 
+                  ${isDarkMode
+                    ? 'bg-gray-700 hover:bg-gray-600'
                     : 'bg-gray-50 hover:bg-gray-100'
                   }`}
               >
@@ -760,14 +991,14 @@ const ReferencesPopup = memo(({ references, onClose, isDarkMode, t }) => {
                     {fullReference?.text || `Reference text not available for [${refNumber}]`}
                   </div>
                 </div>
-                {fullReference?.url && (
-                  <a 
-                    href={fullReference.url} 
-                    target="_blank" 
+                {hasSafeUrl && (
+                  <a
+                    href={fullReference.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className={`ml-4 flex items-center ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'}`}
                   >
-                    <ExternalLink className="h-5 w-5" />
+                    <ExternalLink className="h-5 w-5" aria-hidden="true" />
                     <span className="ml-2 text-sm">{t('references.openArticle')}</span>
                   </a>
                 )}
@@ -788,14 +1019,17 @@ const DrugExplorer = () => {
   // Local UI states that don't need global management
   const initialIsMobileView = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
   const [isMobileView, setIsMobileView] = useState(initialIsMobileView);
-  const [showTooltip, setShowTooltip] = useState(null);
   const [isTableScrolled, setIsTableScrolled] = useState(false);
   const [showColumnManager, setShowColumnManager] = useState(false);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
+  // Transient toast notification ({ type: 'success'|'error', message: string } | null)
+  const [toast, setToast] = useState(null);
+  // Initial loading state (data is synchronous, but we render a brief fallback
+  // for perceived performance and to hide the large table until first paint).
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   // 🔽 AJOUTER CECI
   // Protocole sélectionné et sa liste de drogues
   const [selectedProtocol, setSelectedProtocol] = useState(null);
@@ -812,24 +1046,50 @@ const DrugExplorer = () => {
   // Debounced search term for performance
   const debouncedSearchTerm = useDebounce(state.searchTerm, 300);
 
-  // Initialize from localStorage
+  // Initialize from localStorage (defensive: ignore corrupted/unexpected values)
   useEffect(() => {
-    const savedTheme = localStorage.getItem('drug-explorer-theme');
-    const savedLang = localStorage.getItem('drug-explorer-lang');
+    try {
+      const savedTheme = localStorage.getItem('drug-explorer-theme');
+      const savedLang = localStorage.getItem('drug-explorer-lang');
 
-    if (savedTheme) actions.setDarkMode(savedTheme === 'dark');
-    if (savedLang && ['fr', 'en'].includes(savedLang)) actions.setLang(savedLang);
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        actions.setDarkMode(savedTheme === 'dark');
+      }
+      if (savedLang === 'fr' || savedLang === 'en') {
+        actions.setLang(savedLang);
+      }
+    } catch {
+      // Storage unavailable (private mode, disabled): just use defaults.
+    }
   }, [actions]);
 
   // Save to localStorage when state changes
   useEffect(() => {
-    localStorage.setItem('drug-explorer-theme', state.isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('drug-explorer-lang', state.lang);
+    try {
+      localStorage.setItem('drug-explorer-theme', state.isDarkMode ? 'dark' : 'light');
+      localStorage.setItem('drug-explorer-lang', state.lang);
+    } catch {
+      // Storage unavailable: state is still kept in memory.
+    }
 
     // Apply theme to document
     document.documentElement.classList.toggle('dark', state.isDarkMode);
     document.documentElement.lang = state.lang;
   }, [state.isDarkMode, state.lang]);
+
+  // Release the initial loading state shortly after mount so the first paint
+  // can focus on the header + card skeleton rather than the full drug table.
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitialLoading(false), 120);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-dismiss toasts after a few seconds.
+  useEffect(() => {
+    if (!toast) return undefined;
+    const timer = setTimeout(() => setToast(null), 3500);
+    return () => clearTimeout(timer);
+  }, [toast]);
 
   // Enhanced translation function with memoization
   const t = useCallback((key) => {
@@ -972,10 +1232,9 @@ const DrugExplorer = () => {
 
     return filtered;
   }, [
-    debouncedSearchTerm, 
-    state.selectedCategory, 
-    state.halfLifeFilter, 
-    state.classFilter, 
+    debouncedSearchTerm,
+    state.selectedCategory,
+    state.classFilter,
     state.sortConfig
   ]);
 const protocolFilteredDrugs = useMemo(() => {
@@ -1006,33 +1265,33 @@ const displayedDrugs = useMemo(() => {
     }, { total: 0 });
 
     return [
-      { 
+      {
         label: t('categories.all'),
         value: counts.total,
         color: state.isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-sfro-light text-sfro-dark'
       },
-      { 
+      {
         label: t('categories.chemotherapy'),
         value: counts.chemotherapy || 0,
         color: state.isDarkMode ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-50 text-blue-800'
       },
-      { 
+      {
         label: t('categories.endocrine'),
         value: counts.endocrine || 0,
         color: state.isDarkMode ? 'bg-purple-900/30 text-purple-300' : 'bg-purple-50 text-purple-800'
       },
-      { 
+      {
         label: t('categories.targeted'),
         value: counts.targeted || 0,
         color: state.isDarkMode ? 'bg-orange-900/30 text-orange-300' : 'bg-orange-50 text-orange-800'
       },
-      { 
+      {
         label: t('categories.immunotherapy'),
         value: counts.immunotherapy || 0,
         color: state.isDarkMode ? 'bg-green-900/30 text-green-300' : 'bg-green-50 text-green-800'
       }
     ];
-  }, [filteredAndSortedDrugs, t, state.isDarkMode]);
+  }, [displayedDrugs, t, state.isDarkMode]);
 
   // Memoized unique drug classes
   const uniqueDrugClasses = useMemo(() => 
@@ -1042,7 +1301,9 @@ const displayedDrugs = useMemo(() => {
 
   // Event handlers with useCallback for performance
   const handleSearchChange = useCallback((e) => {
-    const value = e.target.value;
+    // Defensive length cap: prevents pathological regex/filter costs on very
+    // long pastes and keeps the input aligned with the maxLength attribute.
+    const value = (e.target.value || '').slice(0, 100);
     actions.setSearchTerm(value);
     setShowSuggestions(value.length >= 2);
     setSelectedSuggestionIndex(-1);
@@ -1090,6 +1351,8 @@ const displayedDrugs = useMemo(() => {
       case 'Escape':
         setShowSuggestions(false);
         setSelectedSuggestionIndex(-1);
+        break;
+      default:
         break;
     }
   }, [showSuggestions, searchSuggestions, selectedSuggestionIndex, selectSuggestion]);
@@ -1148,27 +1411,76 @@ const displayedDrugs = useMemo(() => {
     setIsTableScrolled(e.target.scrollTop > 0);
   }, []);
 
-  // CSV download handler
+  // CSV download handler (CSV-injection safe, UTF-8 BOM for Excel)
   const downloadCSV = useCallback(() => {
     try {
-      const header = "Drug Name,Commercial Name,Administration,Class,Category,Half-life,Normofractionated RT,Palliative RT,Stereotactic RT,Intracranial RT,References\n";
-      const rows = ((selectedProtocol && protocolFilteredDrugs) || filteredAndSortedDrugs).map(drug => 
-        `"${drug.name}","${drug.commercial}","${drug.administration}","${drug.class}","${drug.category}","${drug.halfLife}","${drug.normofractionatedRT}","${drug.palliativeRT}","${drug.stereotacticRT}","${drug.intracranialRT}","${drug.references || ''}"`
-      ).join('\n');
-      const csv = header + rows;
+      const columns = [
+        'name',
+        'commercial',
+        'administration',
+        'class',
+        'category',
+        'halfLife',
+        'normofractionatedRT',
+        'palliativeRT',
+        'stereotacticRT',
+        'intracranialRT',
+        'references'
+      ];
+      const headerLabels = [
+        'Drug Name',
+        'Commercial Name',
+        'Administration',
+        'Class',
+        'Category',
+        'Half-life',
+        'Normofractionated RT',
+        'Palliative RT',
+        'Stereotactic RT',
+        'Intracranial RT',
+        'References'
+      ];
+      const header = headerLabels.map(escapeCsvField).join(',');
+      const dataset = ((selectedProtocol && protocolFilteredDrugs) || filteredAndSortedDrugs) || [];
+      const rows = dataset.map((drug) =>
+        columns.map((col) => escapeCsvField(drug[col] ?? '')).join(',')
+      );
+      // BOM + CRLF line endings for best Excel compatibility (esp. French accents).
+      const csv = '\uFEFF' + [header, ...rows].join('\r\n');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.csv`);
+      link.setAttribute(
+        'download',
+        `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.csv`
+      );
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      setToast({ type: 'success', message: t('toast.csvSuccess') });
     } catch (error) {
-      console.error('Error downloading CSV:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Error downloading CSV:', error);
+      }
+      setToast({ type: 'error', message: t('toast.csvError') });
     }
-  }, [filteredAndSortedDrugs]);
+  }, [filteredAndSortedDrugs, selectedProtocol, protocolFilteredDrugs, t]);
+
+  if (isInitialLoading) {
+    return (
+      <ErrorBoundary>
+        <div
+          className={`min-h-screen transition-colors duration-300 flex items-center justify-center
+            ${state.isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}
+          `}
+        >
+          <LoadingFallback message={t('performance.loadingFallback')} />
+        </div>
+      </ErrorBoundary>
+    );
+  }
 
   return (
     <ErrorBoundary>
@@ -1299,11 +1611,18 @@ const displayedDrugs = useMemo(() => {
     {/* Colonne gauche : recherche + filtres */}
     <div className="flex-1 min-w-0 space-y-4">
       {/* Barre de recherche */}
-      <div className="relative">
+      <div
+        className="relative"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-controls="drug-search-listbox"
+        aria-expanded={showSuggestions && searchSuggestions.length > 0}
+      >
         <Search
           className={`absolute left-3 top-3.5 h-5 w-5 ${
             state.isDarkMode ? 'text-gray-400' : 'text-gray-400'
           }`}
+          aria-hidden="true"
         />
         <Input
           ref={searchInputRef}
@@ -1313,6 +1632,15 @@ const displayedDrugs = useMemo(() => {
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
           onFocus={() => state.searchTerm.length >= 2 && setShowSuggestions(true)}
+          maxLength={100}
+          aria-label={t('search')}
+          aria-autocomplete="list"
+          aria-controls="drug-search-listbox"
+          aria-activedescendant={
+            showSuggestions && selectedSuggestionIndex >= 0
+              ? `drug-search-listbox-option-${selectedSuggestionIndex}`
+              : undefined
+          }
           className={`pl-10 h-12 w-full border-2 transition-colors rounded-lg
             ${
               state.isDarkMode
@@ -1329,8 +1657,15 @@ const displayedDrugs = useMemo(() => {
             isDarkMode={state.isDarkMode}
             t={t}
             suggestionsRef={suggestionsRef}
+            listboxId="drug-search-listbox"
           />
         </AnimatePresence>
+        {/* Live region announcing the result count to assistive technologies */}
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          {state.searchTerm.length >= 2
+            ? t('searchResults.count').replace('{count}', filteredAndSortedDrugs.length)
+            : ''}
+        </div>
       </div>
 
       {/* Filtres (catégorie / classe) */}
@@ -1501,8 +1836,8 @@ const displayedDrugs = useMemo(() => {
                 >
                   {displayedDrugs.length > 0 ? (
                     displayedDrugs.map((drug, index) => (
-                      <DrugCard 
-                        key={`${drug.name}-${index}`} 
+                      <DrugCard
+                        key={drug.id ?? `${drug.name}-${drug.class ?? 'na'}-${index}`}
                         drug={drug}
                         isDarkMode={state.isDarkMode}
                         onDrugClick={handleDrugClick}
@@ -1605,11 +1940,32 @@ const displayedDrugs = useMemo(() => {
                           <th className={`px-3 py-2 text-left text-xs font-semibold min-w-[160px] w-[20%]
                             ${state.isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}
                           `}>
-                            <ColumnHeaderWithTooltip 
-                              title={t('columns.name')} 
-                              longTitle={t('columns.name')}
-                              isDarkMode={state.isDarkMode}
-                            />
+                            <div className="flex items-center gap-1">
+                              <ColumnHeaderWithTooltip
+                                title={t('columns.name')}
+                                longTitle={t('columns.name')}
+                                isDarkMode={state.isDarkMode}
+                              />
+                              <span
+                                className="relative group inline-flex items-center"
+                                title={t('tableHintShort')}
+                              >
+                                <Info
+                                  className={`h-3.5 w-3.5 cursor-help ${state.isDarkMode ? 'text-gray-400' : 'text-sfro-primary'}`}
+                                  aria-label={t('tableHintShort')}
+                                />
+                                <span
+                                  role="tooltip"
+                                  className={`invisible group-hover:visible absolute left-5 top-full mt-1 p-2 text-[11px] font-normal rounded shadow-lg max-w-[220px] z-50
+                                    ${state.isDarkMode
+                                      ? 'bg-gray-700 text-gray-200'
+                                      : 'bg-gray-800 text-white'
+                                    }`}
+                                >
+                                  {t('tableHintShort')}
+                                </span>
+                              </span>
+                            </div>
                           </th>
                         )}
                         {state.visibleColumns.commercial && (
@@ -1716,8 +2072,8 @@ const displayedDrugs = useMemo(() => {
                     <tbody className={`divide-y ${state.isDarkMode ? 'divide-gray-600' : 'divide-gray-200'}`}>
                       {displayedDrugs.length > 0 ? (
                         displayedDrugs.map((drug, index) => (
-                          <tr 
-                            key={index} 
+                          <tr
+                            key={drug.id ?? `${drug.name}-${drug.class ?? 'na'}-${index}`}
                             className={`transition-colors duration-150 ease-in-out text-xs
                               ${state.isDarkMode 
                                 ? 'hover:bg-gray-700' 
@@ -1884,6 +2240,35 @@ const displayedDrugs = useMemo(() => {
               isDarkMode={state.isDarkMode}
               t={t}
             />
+          )}
+        </AnimatePresence>
+
+        {/* Toast notifications (success/error feedback, auto-dismiss) */}
+        <AnimatePresence>
+          {toast && (
+            <motion.div
+              key={toast.message}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              role="status"
+              aria-live="polite"
+              className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 max-w-sm
+                ${toast.type === 'success'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-red-600 text-white'
+                }`}
+            >
+              <span className="text-sm font-medium">{toast.message}</span>
+              <button
+                type="button"
+                onClick={() => setToast(null)}
+                aria-label={t('toast.dismiss')}
+                className="opacity-80 hover:opacity-100"
+              >
+                <X size={16} aria-hidden="true" />
+              </button>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
