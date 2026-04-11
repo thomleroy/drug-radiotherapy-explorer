@@ -50,7 +50,7 @@ export const DrugCard = memo(({
               drug.category.charAt(0).toUpperCase() + drug.category.slice(1)}
           </Badge>
           <button
-            onClick={() => onToggleFavorite(drug.name)}
+            onClick={() => onToggleFavorite(drug.id)}
             className={`p-1 rounded-full transition-colors
               ${isFavorite
                 ? 'text-red-500 hover:text-red-700'

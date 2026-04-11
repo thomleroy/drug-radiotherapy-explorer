@@ -1,70 +1,176 @@
-# Getting Started with Create React App
+# Radiosync — Drug & Radiotherapy Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A bilingual (FR/EN) reference web app, built under the aegis of the
+[Société Française de Radiothérapie Oncologique (SFRO)](https://www.sfro.fr),
+to help oncology clinicians decide **when and how long to stop systemic
+anticancer therapies before radiotherapy**.
 
-## Available Scripts
+The app covers four radiotherapy modalities (normofractionated, palliative,
+stereotactic, intracranial) and 158+ drugs across chemotherapy, endocrine
+therapy, targeted therapy and immunotherapy.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Quick start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+npm install
+npm start             # dev server on http://localhost:3000
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm test              # Jest unit tests (watchAll by default)
+npm run build         # production bundle in build/
+npm run validate:data # sanity-check the drug catalog
+```
 
-### `npm test`
+Requires **Node.js 18+**.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project layout
 
-### `npm run build`
+```
+public/
+  index.html              CSP, OpenGraph, manifest, favicon
+  manifest.json           PWA manifest
+  service-worker.js       offline cache (production only)
+src/
+  App.js                  thin wrapper around DrugExplorer
+  index.js                React entry point + service worker registration
+  buildMeta.js            ⚠️ generated, do not edit
+  components/
+    DrugExplorer.js       orchestration: state, effects, main JSX
+    translations.js       single source of truth for UI strings + drug class labels
+    state/useAppStore.js  tiny in-memory store (theme, lang, filters, …)
+    explorer/
+      cards/DrugCard.js
+      content/aboutContent.js
+      hooks/useDebounce.js
+      hooks/useModalA11y.js
+      modals/AboutPopup.js
+      modals/ColumnManagerModal.js
+      modals/ErrorBoundary.js
+      modals/HelpModal.js
+      modals/ReferencesPopup.js
+      search/SearchSuggestions.js
+      ui/Badge.js
+      ui/ColumnHeaderWithTooltip.js
+      ui/LoadingFallback.js
+  data/
+    drugs.js              the drug catalog (single source)
+    drugCatalog.js        wraps drugs.js, generates stable IDs
+    references.js         bibliographic references keyed by string number
+    ctProtocols.json      RT-CT protocol map
+  utils/
+    security.js           escapeCsvField, isSafeHttpUrl, readFavorites/writeFavorites
+    text.js               getCellColor, highlightMatch, hasMeaningfulReferences, …
+    markdown.js           tiny markdown renderer used by AboutPopup
+  __mocks__/              Jest stubs for ESM-only packages (lucide-react, @vercel/*)
+scripts/
+  generate-build-meta.js  prebuild step writing src/buildMeta.js
+  validate-drugs.js       prebuild step validating the catalog
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Adding a new drug
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Open `src/data/drugs.js` and add an object to the `allDrugs` array.
+   The schema is:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```js
+   {
+     name: "Cisplatin",                // required, displayed in the table
+     dci: "cisplatine",                // optional, INN
+     commercial: "Platinol",           // brand name
+     administration: "IV",             // "IV", "Oral", …
+     class: "Platinum based drugs",    // must match a key in translations.fr.drugClasses
+     category: "chemotherapy",         // chemotherapy | endocrine | targeted | immunotherapy
+     halfLife: "30min to 2h",          // free-text, parsed for the half-life filter
+     normofractionatedRT: "0",         // "0" | "24h" | "48h" | "3 days" | …
+     palliativeRT: "0",
+     stereotacticRT: "0",
+     intracranialRT: "0",
+     references: "[228,229]"           // comma-separated reference IDs in references.js,
+                                       // or "[None]" to mark "no bibliography"
+   }
+   ```
 
-### `npm run eject`
+2. If the drug class is new, add the French translation in
+   `src/components/translations.js` under `fr.drugClasses`.
+3. Add any new bibliographic references to `src/data/references.js`,
+   keyed by their identifier string.
+4. Run `npm run validate:data` — it checks that:
+   - every required field is present
+   - the category is one of the allowed buckets
+   - the slugified id (`name`-`class`) is unique
+   - every cited reference number exists in `references.js`
+   - reports orphan (uncited) references as a non-blocking warning
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+CI fails the build if `validate:data` fails.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Color semantics (radiotherapy delay cells)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Color  | Meaning                       | Examples                  |
+|--------|-------------------------------|---------------------------|
+| Green  | No delay required             | `0`, `0 (except IV)`      |
+| Yellow | Short delay (≤ 48h)           | `24h`, `48h`, `24h to 48h`|
+| Red    | Long delay (> 48h, days/weeks)| `3 days`, `21 days`       |
+| —      | Free-text note (no rule)      | `No concomitant association: …` |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The legend in the table footer reflects this.
 
-## Learn More
+## Keyboard shortcuts
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+| Shortcut    | Action                          |
+|-------------|---------------------------------|
+| `⌘K` / `Ctrl+K` | Focus the search input      |
+| `?`         | Open the keyboard help modal    |
+| `↑` / `↓`   | Navigate search suggestions     |
+| `Enter`     | Pick the highlighted suggestion |
+| `Esc`       | Close the active dialog         |
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Sharing a filtered view
 
-### Code Splitting
+The current filters, search term and sort column are mirrored to the URL
+query string (`?q=…&category=…&class=…&halfLife=…&sort=…&dir=…`). Use the
+**Copy link** button next to the filter chips to copy a shareable URL.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Offline / PWA
 
-### Analyzing the Bundle Size
+In production builds, `src/serviceWorkerRegistration.js` installs a small
+service worker (`public/service-worker.js`) that:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- pre-caches the app shell on install
+- serves navigation requests network-first with a fallback to the cached shell
+- serves static assets cache-first with background revalidation
 
-### Making a Progressive Web App
+Once the main JS chunk has been cached, the entire drug catalog is bundled
+inside it, so the app keeps working without a network connection.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Tests
 
-### Advanced Configuration
+```bash
+npm test                       # all suites
+npm test -- --watchAll=false   # CI mode, single run
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The test suites cover the security/text helpers and a smoke test for
+`<App />`. Component-level tests live alongside their components in
+`src/components/explorer/**`.
 
-### Deployment
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm run build
+```
 
-### `npm run build` fails to minify
+Outputs static assets in `build/` ready to serve from any CDN. Deployed on
+Vercel; the `Analytics` and `SpeedInsights` components are imported in
+`src/App.js`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact / contributing
+
+Suggestions, corrections and new molecules can be sent to
+[contact@sfro.fr](mailto:contact@sfro.fr).
+
+## License
+
+© SFRO — Société Française de Radiothérapie Oncologique. All rights reserved.

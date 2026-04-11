@@ -30,295 +30,6 @@ import { ColumnHeaderWithTooltip } from './explorer/ui/ColumnHeaderWithTooltip';
 import { ABOUT_CONTENT } from './explorer/content/aboutContent';
 
 
-const DEFAULT_TRANSLATIONS = {
-  en: {
-    title: "Drug & Radiotherapy Explorer",
-    subtitle: "Explore drug interactions with radiotherapy treatments",
-    search: "Search by name, INN, or brand name...",
-    tableHint: "Click on the drug name to display its associated references.",
-    categories: {
-      all: "All Categories",
-      chemotherapy: "Chemotherapy",
-      endocrine: "Endocrine Therapy",
-      targeted: "Targeted Therapy",
-      immunotherapy: "Immunotherapy"
-    },
-    halfLife: {
-      all: "All Half-lives",
-      short: "Short Half-life (≤24h)",
-      long: "Long Half-life (>24h)"
-    },
-    drugClass: {
-      all: "All Drug Classes"
-    },
-    columns: {
-      name: "Drug Name",
-      dci: "INN",
-      commercial: "Brand Name",
-      administration: "Administration",
-      administration_short: "Admin",
-      class: "Class",
-      category: "Category",
-      category_short: "Cat",
-      halfLife: "Half-life",
-      halfLife_short: "Half-life",
-      normofractionatedRT: "Normofractionated RT",
-      normofractionatedRT_short: "Norm RT",
-      palliativeRT: "Palliative RT",
-      palliativeRT_short: "Pal RT",
-      stereotacticRT: "Stereotactic RT",
-      stereotacticRT_short: "Ster RT",
-      intracranialRT: "Intracranial RT",
-      intracranialRT_short: "IC RT"
-    },
-    buttons: {
-      manageColumns: "Manage Columns",
-      exportCSV: "Export CSV",
-      exportXLSX: "Export Excel",
-      done: "Done",
-      close: "Close",
-      applyFilters: "Apply Filters",
-      drugExplorer: "Drugs",
-      protocolsExplorer: "RT-CT Protocols",
-      addToFavorites: "Add to Favorites",
-      removeFromFavorites: "Remove from Favorites"
-    },
-    legend: {
-      noDelay: "No delay required",
-      shortDelay: "Short delay (≤48h)",
-      longDelay: "Long delay (days)"
-    },
-    references: {
-      title: "References",
-      openArticle: "Open Article",
-      viewReferences: "View References",
-      noReferences: "No references available"
-    },
-    columnManager: {
-      title: "Manage Columns"
-    },
-    noResults: "No drugs found matching your criteria",
-    accessibility: {
-      skipToContent: "Skip to main content"
-    },
-    radiotherapyTiming: "Radiotherapy Timing",
-    protocol: {
-      allOrgans: "All Organs",
-      allMolecules: "All Molecules",
-      organ: "Organ",
-      condition: "Condition",
-      molecule: "Molecule",
-      route: "Route",
-      modality: "Administration Modality",
-      timing: "Start relative to RT",
-      legendGroup: "Organ grouping",
-    },
-    protocolsSearch: "Search by molecule or organ...",
-    loading: "Loading protocols...",
-    noProtocolResults: "No protocols found matching your criteria",
-    theme: {
-      light: "Light mode",
-      dark: "Dark mode",
-      toggle: "Toggle theme"
-    },
-    performance: {
-      loadingFallback: "Loading...",
-      errorRetry: "Retry"
-    },
-    errorBoundary: {
-      title: "Oops! Something went wrong",
-      description: "The application encountered an unexpected error. Please refresh the page.",
-      refresh: "Refresh Page"
-    },
-    toast: {
-      csvSuccess: "CSV exported successfully",
-      csvError: "Failed to export CSV",
-      xlsxSuccess: "Excel file exported successfully",
-      xlsxError: "Failed to export Excel file",
-      linkCopied: "Link copied to clipboard",
-      linkCopyError: "Could not copy link",
-      dismiss: "Dismiss"
-    },
-    searchResults: {
-      count: "{count} results found"
-    },
-    tableHintShort: "Click a drug name to see its references",
-    filtersMeta: {
-      title: "Filters",
-      active: "Active filters",
-      reset: "Reset filters",
-      none: "No filter",
-      search: "Search",
-      category: "Category",
-      class: "Class",
-      halfLife: "Half-life",
-      protocol: "Protocol",
-      copyLink: "Copy link",
-      clearRecent: "Clear recent searches",
-      noResultsHint: "No drug matches the current filters. Try removing one or",
-      noResultsAction: "reset all filters"
-    },
-    shortcuts: {
-      title: "Keyboard shortcuts",
-      focusSearch: "Focus search",
-      help: "Open help",
-      close: "Close dialog",
-      navigateSuggestions: "Navigate suggestions",
-      selectSuggestion: "Pick a suggestion",
-      sortColumn: "Sort by column",
-      reset: "Reset filters"
-    },
-    footer: {
-      about: "About",
-      legal: "Legal",
-      lastUpdated: "Last updated"
-    },
-  },
-  fr: {
-    title: "Explorateur Médicaments & Radiothérapie",
-    subtitle: "Explorez les interactions des médicaments avec les traitements de radiothérapie",
-    tableHint: "Cliquez sur le nom de la molécule pour afficher les références associées.",
-    search: "Rechercher par nom, DCI ou nom commercial...",
-    categories: {
-      all: "Toutes les Catégories",
-      chemotherapy: "Chimiothérapie",
-      endocrine: "Thérapie Endocrine",
-      targeted: "Thérapie Ciblée",
-      immunotherapy: "Immunothérapie"
-    },
-    halfLife: {
-      all: "Toutes les Demi-vies",
-      short: "Demi-vie Courte (≤24h)",
-      long: "Demi-vie Longue (>24h)"
-    },
-    drugClass: {
-      all: "Toutes les Classes de Médicaments"
-    },
-    columns: {
-      name: "Nom du Médicament",
-      dci: "DCI",
-      commercial: "Nom Commercial",
-      administration: "Administration",
-      administration_short: "Admin",
-      class: "Classe",
-      category: "Catégorie",
-      category_short: "Cat",
-      halfLife: "Demi-vie",
-      halfLife_short: "Demi-vie",
-      normofractionatedRT: "RT Normofractionnée",
-      normofractionatedRT_short: "RT Normo",
-      palliativeRT: "RT Palliative",
-      palliativeRT_short: "RT Pal",
-      stereotacticRT: "RT Stéréotaxique",
-      stereotacticRT_short: "RT Stéréo",
-      intracranialRT: "RT Intracrânienne",
-      intracranialRT_short: "RT IC"
-    },
-    buttons: {
-      manageColumns: "Gérer les Colonnes",
-      exportCSV: "Exporter CSV",
-      exportXLSX: "Exporter Excel",
-      done: "Terminé",
-      close: "Fermer",
-      applyFilters: "Appliquer les Filtres",
-      drugExplorer: "Médicaments",
-      protocolsExplorer: "Protocoles de RT-CT",
-      addToFavorites: "Ajouter aux Favoris",
-      removeFromFavorites: "Retirer des Favoris"
-    },
-    legend: {
-      noDelay: "Aucun délai requis",
-      shortDelay: "Délai court (≤48h)",
-      longDelay: "Délai long (jours)"
-    },
-    footer: {
-      about: "À propos",
-      legal: "Mentions légales",
-      lastUpdated: "Dernière mise à jour"
-    },
-    references: {
-      title: "Références",
-      openArticle: "Ouvrir l'Article",
-      viewReferences: "Voir les Références",
-      noReferences: "Aucune référence disponible"
-    },
-    columnManager: {
-      title: "Gérer les Colonnes"
-    },
-    noResults: "Aucun médicament ne correspond à vos critères",
-    accessibility: {
-      skipToContent: "Passer au contenu principal"
-    },
-    radiotherapyTiming: "Planification de la Radiothérapie",
-    protocol: {
-      allOrgans: "Tous les organes",
-      allMolecules: "Toutes les molécules",
-      organ: "Organe",
-      condition: "Condition",
-      molecule: "Molécule",
-      route: "Voie",
-      modality: "Modalités d'administration",
-      timing: "Début par rapport à la RT",
-      legendGroup: "Groupement par organe",
-    },
-    protocolsSearch: "Rechercher par molécule ou organe...",
-    loading: "Chargement des protocoles...",
-    noProtocolResults: "Aucun protocole ne correspond à vos critères",
-    theme: {
-      light: "Mode clair",
-      dark: "Mode sombre",
-      toggle: "Basculer le thème"
-    },
-    performance: {
-      loadingFallback: "Chargement...",
-      errorRetry: "Réessayer"
-    },
-    errorBoundary: {
-      title: "Oups ! Une erreur est survenue",
-      description: "L'application a rencontré une erreur inattendue. Veuillez rafraîchir la page.",
-      refresh: "Rafraîchir la page"
-    },
-    toast: {
-      csvSuccess: "Export CSV réussi",
-      csvError: "Échec de l'export CSV",
-      xlsxSuccess: "Export Excel réussi",
-      xlsxError: "Échec de l'export Excel",
-      linkCopied: "Lien copié dans le presse-papiers",
-      linkCopyError: "Impossible de copier le lien",
-      dismiss: "Fermer"
-    },
-    searchResults: {
-      count: "{count} résultats trouvés"
-    },
-    tableHintShort: "Cliquez sur un nom de molécule pour voir ses références",
-    filtersMeta: {
-      title: "Filtres",
-      active: "Filtres actifs",
-      reset: "Réinitialiser les filtres",
-      none: "Aucun filtre",
-      search: "Recherche",
-      category: "Catégorie",
-      class: "Classe",
-      halfLife: "Demi-vie",
-      protocol: "Protocole",
-      copyLink: "Copier le lien",
-      clearRecent: "Effacer les recherches récentes",
-      noResultsHint: "Aucune molécule ne correspond aux filtres actuels. Essayez d'en retirer un, ou",
-      noResultsAction: "réinitialisez tous les filtres"
-    },
-    shortcuts: {
-      title: "Raccourcis clavier",
-      focusSearch: "Focus sur la recherche",
-      help: "Ouvrir l'aide",
-      close: "Fermer la modale",
-      navigateSuggestions: "Naviguer dans les suggestions",
-      selectSuggestion: "Choisir une suggestion",
-      sortColumn: "Trier par colonne",
-      reset: "Réinitialiser les filtres"
-    },
-  }
-};
-
 // Last-updated date for the footer (computed once at module load).
 const dataLastUpdatedDisplay = formatDataDate(DATA_LAST_UPDATED);
 
@@ -547,30 +258,28 @@ const DrugExplorer = () => {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
-  // Enhanced translation function with memoization
+  // Resolve a dotted i18n key against the active language, falling back to
+  // English when a translation is missing, and finally returning the raw
+  // key as a debugging aid for unknown identifiers.
   const t = useCallback((key) => {
-    const keys = key.split('.');
-    const sources = [
-      translations[state.lang],
-      DEFAULT_TRANSLATIONS[state.lang],
-      state.lang !== 'en' ? DEFAULT_TRANSLATIONS['en'] : null
-    ];
-    
-    for (const source of sources) {
-      if (!source) continue;
-      
-      let value = source;
-      for (const k of keys) {
+    const segments = key.split('.');
+    const lookup = (lang) => {
+      let value = translations[lang];
+      for (const seg of segments) {
         if (value && typeof value === 'object') {
-          value = value[k];
+          value = value[seg];
         } else {
-          value = undefined;
-          break;
+          return undefined;
         }
       }
-      if (value !== undefined) return value;
+      return value;
+    };
+    const primary = lookup(state.lang);
+    if (primary !== undefined) return primary;
+    if (state.lang !== 'en') {
+      const fallback = lookup('en');
+      if (fallback !== undefined) return fallback;
     }
-    
     return key;
   }, [state.lang]);
 
@@ -1176,10 +885,11 @@ const displayedDrugs = useMemo(() => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowAbout(true)}
                 aria-label={t('footer.about')}
-                className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-sfro-primary px-3 py-2 rounded-lg shadow-md transition-all duration-200 flex items-center gap-2"
+                title={t('footer.about')}
+                className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-sfro-primary px-2 sm:px-3 py-2 rounded-lg shadow-md transition-all duration-200 flex items-center gap-2"
               >
                 <Info className="h-4 w-4" aria-hidden="true" />
-                <span className="text-sm font-medium">{t('footer.about')}</span>
+                <span className="hidden sm:inline text-sm font-medium">{t('footer.about')}</span>
               </motion.button>
 
               {/* Keyboard shortcuts help (also openable via the "?" key) */}
@@ -1611,7 +1321,7 @@ const displayedDrugs = useMemo(() => {
                         drug={drug}
                         isDarkMode={state.isDarkMode}
                         onDrugClick={handleDrugClick}
-                        isFavorite={state.favorites.includes(drug.name)}
+                        isFavorite={state.favorites.includes(drug.id)}
                         onToggleFavorite={toggleFavorite}
                         t={t}
                         translateDrugClass={translateDrugClass}
