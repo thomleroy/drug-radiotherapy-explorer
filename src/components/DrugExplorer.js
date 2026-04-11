@@ -21,7 +21,6 @@ import { ErrorBoundary } from './explorer/modals/ErrorBoundary';
 import { AboutPopup } from './explorer/modals/AboutPopup';
 import { HelpModal } from './explorer/modals/HelpModal';
 import { ColumnManagerModal } from './explorer/modals/ColumnManagerModal';
-import { DrugDetailPopup } from './explorer/modals/DrugDetailPopup';
 import { ReferencesPopup } from './explorer/modals/ReferencesPopup';
 import { DrugCard } from './explorer/cards/DrugCard';
 import { SearchSuggestions } from './explorer/search/SearchSuggestions';
@@ -174,16 +173,6 @@ const DEFAULT_TRANSLATIONS = {
       legal: "Legal",
       lastUpdated: "Last updated"
     },
-    details: {
-      title: "Drug details",
-      radiotherapyTimings: "Radiotherapy timings",
-      administration: "Administration",
-      halfLife: "Half-life",
-      class: "Class",
-      category: "Category",
-      commercial: "Commercial name",
-      seeReferences: "View references"
-    }
   },
   fr: {
     title: "Explorateur Médicaments & Radiothérapie",
@@ -327,16 +316,6 @@ const DEFAULT_TRANSLATIONS = {
       sortColumn: "Trier par colonne",
       reset: "Réinitialiser les filtres"
     },
-    details: {
-      title: "Détails de la molécule",
-      radiotherapyTimings: "Délais de radiothérapie",
-      administration: "Administration",
-      halfLife: "Demi-vie",
-      class: "Classe",
-      category: "Catégorie",
-      commercial: "Nom commercial",
-      seeReferences: "Voir les références"
-    }
   }
 };
 
@@ -356,7 +335,6 @@ const DrugExplorer = () => {
   const [isTableScrolled, setIsTableScrolled] = useState(false);
   const [showColumnManager, setShowColumnManager] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
-  const [selectedDrugDetail, setSelectedDrugDetail] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -898,10 +876,12 @@ const displayedDrugs = useMemo(() => {
     actions.setDarkMode(!state.isDarkMode);
   }, [actions, state.isDarkMode]);
 
-  // Clicking a drug name opens the detail panel. From there, users can
-  // open the dedicated references popup if they need the bibliography.
+  // Clicking a drug name opens the references dialog directly.
+  // (We previously routed through an intermediate detail panel, but the
+  // bibliography is what users actually want — the rest of the data is
+  // already visible in the row.)
   const handleDrugClick = useCallback((drug) => {
-    setSelectedDrugDetail(drug);
+    setSelectedReferences(drug.references || 'no-references');
   }, []);
 
   // Toggle sort by column: asc → desc → none
@@ -2072,22 +2052,6 @@ const displayedDrugs = useMemo(() => {
               onClose={() => setSelectedReferences(null)}
               isDarkMode={state.isDarkMode}
               t={t}
-            />
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {selectedDrugDetail && (
-            <DrugDetailPopup
-              drug={selectedDrugDetail}
-              onClose={() => setSelectedDrugDetail(null)}
-              onOpenReferences={(refs) => {
-                setSelectedDrugDetail(null);
-                setSelectedReferences(refs);
-              }}
-              isDarkMode={state.isDarkMode}
-              t={t}
-              translateDrugClass={translateDrugClass}
             />
           )}
         </AnimatePresence>
