@@ -1,29 +1,5 @@
 import React, { useEffect } from 'react';
-
-const STORAGE_KEY = 'drug-explorer-favorites';
-
-// Defensive reader: ignore corrupted or unexpected localStorage payloads.
-const readFavorites = () => {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (item) => typeof item === 'string' || typeof item === 'number'
-    );
-  } catch {
-    return [];
-  }
-};
-
-const writeFavorites = (favorites) => {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-  } catch {
-    // Quota exceeded or storage disabled (private mode): silently ignore.
-  }
-};
+import { readFavorites, writeFavorites } from '../utils/security';
 
 const FavoritesPanel = ({ favorites, onInitializeFavorites, children }) => {
   useEffect(() => {
