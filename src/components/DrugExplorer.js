@@ -2,13 +2,14 @@ import React, { useState, useEffect, useCallback, useMemo, useRef, memo } from '
 import { Card, CardHeader, CardContent } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Search, Download, Info, ExternalLink, Settings, X, Mail, AlertCircle } from 'lucide-react';
-import { allDrugs } from '../data/drugs';
+import { allDrugs } from '../data/drugCatalog';
 import protocolsData from '../data/ctProtocols.json';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { referencesData } from '../data/references';
 import { escapeCsvField, isSafeHttpUrl } from '../utils/security';
 import { translations } from './translations';
+import { DATA_LAST_UPDATED } from '../buildMeta';
 import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
 import FilterPanel from './FilterPanel';
@@ -16,6 +17,33 @@ import FavoritesPanel from './FavoritesPanel';
 import useAppStore from './state/useAppStore';
 import { CATEGORY_COLORS } from './constants';
 
+
+// Format the last-updated date once. Falls back gracefully when the
+// generator hasn't run (e.g. during ad-hoc test runs).
+const formatDataDate = (iso) => {
+  if (!iso) return '';
+  try {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toISOString().slice(0, 10);
+  } catch {
+    return '';
+  }
+};
+const dataLastUpdatedDisplay = formatDataDate(DATA_LAST_UPDATED);
+
+// Some catalog entries use "[None]" / "None" / "N/A" as a sentinel meaning
+// "no bibliography for this molecule". Returns true only when at least one
+// real reference token is present.
+const hasMeaningfulReferences = (raw) => {
+  if (typeof raw !== 'string' || raw.length === 0) return false;
+  const NONE_TOKENS = new Set(['none', 'na', 'n/a']);
+  return raw
+    .split(',')
+    .map((token) => token.replace(/[[\]]/g, '').trim())
+    .filter(Boolean)
+    .some((token) => !NONE_TOKENS.has(token.toLowerCase()));
+};
 
 // Highlight a substring match (case-insensitive) by wrapping it in a <mark>.
 // Returns an array of React nodes. Plain string input with empty query
@@ -284,10 +312,6 @@ const DEFAULT_TRANSLATIONS = {
       shortDelay: "Short delay (≤48h)",
       longDelay: "Long delay (days)"
     },
-    footer: {
-      about: "About",
-      legal: "Legal"
-    },
     references: {
       title: "References",
       openArticle: "Open Article",
@@ -335,6 +359,8 @@ const DEFAULT_TRANSLATIONS = {
       csvError: "Failed to export CSV",
       xlsxSuccess: "Excel file exported successfully",
       xlsxError: "Failed to export Excel file",
+      linkCopied: "Link copied to clipboard",
+      linkCopyError: "Could not copy link",
       dismiss: "Dismiss"
     },
     searchResults: {
@@ -349,11 +375,27 @@ const DEFAULT_TRANSLATIONS = {
       search: "Search",
       category: "Category",
       class: "Class",
-      halfLife: "Half-life"
+      halfLife: "Half-life",
+      protocol: "Protocol",
+      copyLink: "Copy link",
+      clearRecent: "Clear recent searches",
+      noResultsHint: "No drug matches the current filters. Try removing one or",
+      noResultsAction: "reset all filters"
     },
     shortcuts: {
+      title: "Keyboard shortcuts",
       focusSearch: "Focus search",
-      close: "Close"
+      help: "Open help",
+      close: "Close dialog",
+      navigateSuggestions: "Navigate suggestions",
+      selectSuggestion: "Pick a suggestion",
+      sortColumn: "Sort by column",
+      reset: "Reset filters"
+    },
+    footer: {
+      about: "About",
+      legal: "Legal",
+      lastUpdated: "Last updated"
     },
     details: {
       title: "Drug details",
@@ -425,7 +467,8 @@ const DEFAULT_TRANSLATIONS = {
     },
     footer: {
       about: "À propos",
-      legal: "Mentions légales"
+      legal: "Mentions légales",
+      lastUpdated: "Dernière mise à jour"
     },
     references: {
       title: "Références",
@@ -474,6 +517,8 @@ const DEFAULT_TRANSLATIONS = {
       csvError: "Échec de l'export CSV",
       xlsxSuccess: "Export Excel réussi",
       xlsxError: "Échec de l'export Excel",
+      linkCopied: "Lien copié dans le presse-papiers",
+      linkCopyError: "Impossible de copier le lien",
       dismiss: "Fermer"
     },
     searchResults: {
@@ -488,11 +533,22 @@ const DEFAULT_TRANSLATIONS = {
       search: "Recherche",
       category: "Catégorie",
       class: "Classe",
-      halfLife: "Demi-vie"
+      halfLife: "Demi-vie",
+      protocol: "Protocole",
+      copyLink: "Copier le lien",
+      clearRecent: "Effacer les recherches récentes",
+      noResultsHint: "Aucune molécule ne correspond aux filtres actuels. Essayez d'en retirer un, ou",
+      noResultsAction: "réinitialisez tous les filtres"
     },
     shortcuts: {
+      title: "Raccourcis clavier",
       focusSearch: "Focus sur la recherche",
-      close: "Fermer"
+      help: "Ouvrir l'aide",
+      close: "Fermer la modale",
+      navigateSuggestions: "Naviguer dans les suggestions",
+      selectSuggestion: "Choisir une suggestion",
+      sortColumn: "Trier par colonne",
+      reset: "Réinitialiser les filtres"
     },
     details: {
       title: "Détails de la molécule",
@@ -671,26 +727,32 @@ const SearchSuggestions = memo(({
   isDarkMode,
   t,
   suggestionsRef,
-  listboxId
+  listboxId,
+  onClearRecent,
 }) => {
   if (!showSuggestions || suggestions.length === 0) return null;
 
+  const isRecent = suggestions.every((s) => s.type === 'recent');
+
   return (
-    <motion.ul
+    <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       ref={suggestionsRef}
-      id={listboxId}
-      role="listbox"
-      aria-label={t('search')}
-      className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-md shadow-lg border max-h-64 overflow-y-auto list-none p-0
+      className={`absolute top-full left-0 right-0 z-50 mt-1 rounded-md shadow-lg border max-h-72 overflow-hidden
         ${isDarkMode
           ? 'bg-gray-800 border-gray-600'
           : 'bg-white border-gray-200'
         }`}
     >
-      {suggestions.map((suggestion, index) => {
+      <ul
+        id={listboxId}
+        role="listbox"
+        aria-label={t('search')}
+        className="list-none p-0 max-h-64 overflow-y-auto"
+      >
+        {suggestions.map((suggestion, index) => {
         const isSelected = selectedIndex === index;
         return (
           <li
@@ -728,7 +790,28 @@ const SearchSuggestions = memo(({
           </li>
         );
       })}
-    </motion.ul>
+      </ul>
+      {isRecent && onClearRecent && (
+        <div
+          className={`border-t px-4 py-2 text-right
+            ${isDarkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-100 bg-gray-50'}
+          `}
+        >
+          <button
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              onClearRecent();
+            }}
+            className={`text-xs font-medium underline
+              ${isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-sfro-primary'}
+            `}
+          >
+            {t('filtersMeta.clearRecent')}
+          </button>
+        </div>
+      )}
+    </motion.div>
   );
 });
 
@@ -957,6 +1040,166 @@ const AboutPopup = memo(({ show, onClose, content, lang, isDarkMode, t }) => {
   );
 });
 
+// Memoized keyboard-shortcut help dialog. Triggered by the toolbar button
+// or by pressing "?" anywhere in the app (outside of a text input).
+const HelpModal = memo(({ show, onClose, isDarkMode, t, isMacPlatform }) => {
+  const dialogRef = useModalA11y(show, onClose);
+  if (!show) return null;
+  const titleId = 'help-dialog-title';
+  const cmd = isMacPlatform ? '⌘' : 'Ctrl';
+  const shortcuts = [
+    { keys: [`${cmd}`, 'K'], label: t('shortcuts.focusSearch') },
+    { keys: ['?'], label: t('shortcuts.help') },
+    { keys: ['Esc'], label: t('shortcuts.close') },
+    { keys: ['↑', '↓'], label: t('shortcuts.navigateSuggestions') },
+    { keys: ['Enter'], label: t('shortcuts.selectSuggestion') },
+  ];
+
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        className={`rounded-lg shadow-xl max-w-md w-full p-6
+          ${isDarkMode ? 'bg-gray-800 border border-gray-700 text-gray-200' : 'bg-white text-sfro-dark'}
+        `}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2 id={titleId} className="text-xl font-bold">
+            {t('shortcuts.title')}
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('buttons.close')}
+            className={`rounded-full p-1
+              ${isDarkMode ? 'text-gray-400 hover:bg-gray-700' : 'text-gray-400 hover:bg-gray-100'}
+            `}
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+        </div>
+        <ul className="space-y-3">
+          {shortcuts.map((sc) => (
+            <li key={sc.label} className="flex justify-between items-center text-sm">
+              <span>{sc.label}</span>
+              <span className="flex gap-1">
+                {sc.keys.map((k) => (
+                  <kbd
+                    key={k}
+                    className={`px-1.5 py-0.5 rounded border text-[11px] font-mono font-semibold
+                      ${isDarkMode
+                        ? 'bg-gray-700 border-gray-600 text-gray-200'
+                        : 'bg-gray-100 border-gray-300 text-gray-700'
+                      }`}
+                  >
+                    {k}
+                  </kbd>
+                ))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </motion.div>
+    </div>
+  );
+});
+
+// Memoized accessible Column Manager modal. Uses the same a11y hook as
+// the other dialogs (focus trap, ESC close, focus restoration).
+const ColumnManagerModal = memo(({
+  show,
+  onClose,
+  visibleColumns,
+  onChange,
+  isDarkMode,
+  t,
+  formatColumnName,
+}) => {
+  const dialogRef = useModalA11y(show, onClose);
+  if (!show) return null;
+
+  const titleId = 'column-manager-title';
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        onClick={(e) => e.stopPropagation()}
+        className={`rounded-lg shadow-xl p-6 w-80 max-w-full mx-4
+          ${isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'}
+        `}
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h3 id={titleId} className={`text-lg font-semibold ${isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}`}>
+            {t('columnManager.title')}
+          </h3>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label={t('buttons.close')}
+            className={`rounded-full p-1 transition-colors
+              ${isDarkMode
+                ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+              }`}
+          >
+            <X size={20} aria-hidden="true" />
+          </button>
+        </div>
+        <div className="space-y-3">
+          {Object.entries(visibleColumns).map(([column, isVisible]) => (
+            <label
+              key={column}
+              className={`flex items-center space-x-3 cursor-pointer p-2 rounded transition-colors
+                ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}
+              `}
+            >
+              <input
+                type="checkbox"
+                checked={isVisible}
+                onChange={() => onChange(column, !isVisible)}
+                className="rounded text-sfro-primary focus:ring-sfro-primary h-4 w-4"
+              />
+              <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                {formatColumnName(column)}
+              </span>
+            </label>
+          ))}
+        </div>
+        <div className="mt-6 flex justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 bg-sfro-primary text-white rounded-md hover:bg-sfro-secondary focus:outline-none focus:ring-2 focus:ring-sfro-light"
+          >
+            {t('buttons.done')}
+          </button>
+        </div>
+      </motion.div>
+    </div>
+  );
+});
+
 // Memoized Drug Detail Popup — a compact read-only panel that shows all
 // available information about a single drug plus a shortcut to its
 // associated bibliographic references.
@@ -1099,7 +1342,7 @@ const DrugDetailPopup = memo(({ drug, onClose, onOpenReferences, isDarkMode, t, 
             </div>
           </div>
 
-          {drug.references && (
+          {hasMeaningfulReferences(drug.references) && (
             <div className="flex justify-end">
               <button
                 type="button"
@@ -1175,13 +1418,64 @@ const ReferencesPopup = memo(({ references, onClose, isDarkMode, t }) => {
   }
 
   // Defensive parsing: references may be undefined, not a string, or contain
-  // stray brackets/whitespace. Anything unparsable becomes an empty list.
+  // stray brackets/whitespace. Some entries use "None" / "N/A" as a sentinel
+  // meaning "no bibliography" — drop them so we don't render bogus rows.
+  const NONE_TOKENS = new Set(['none', 'na', 'n/a']);
   const refArray = typeof references === 'string'
     ? references
         .split(',')
         .map((ref) => ref.replace(/[[\]]/g, '').trim())
         .filter(Boolean)
+        .filter((ref) => !NONE_TOKENS.has(ref.toLowerCase()))
     : [];
+
+  // After cleanup, fall back to the "no references available" UI when the
+  // resulting list is empty.
+  if (refArray.length === 0) {
+    return (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        onClick={onClose}
+      >
+        <motion.div
+          ref={dialogRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
+          tabIndex={-1}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ type: 'spring', damping: 20 }}
+          className={`p-6 rounded-lg max-w-md m-4
+            ${isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'}
+          `}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h3 id={titleId} className={`text-xl font-semibold ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+              {t('references.title')}
+            </h3>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={t('buttons.close')}
+              className={isDarkMode ? 'text-gray-400 hover:text-gray-200' : 'text-gray-400 hover:text-gray-600'}
+            >
+              <X size={24} aria-hidden="true" />
+            </button>
+          </div>
+          <div className={`p-4 rounded-lg text-center
+            ${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'}
+          `}>
+            <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
+              {t('references.noReferences')}
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -1268,13 +1562,16 @@ const DrugExplorer = () => {
   const [state, actions] = useAppStore();
   
   // Local UI states that don't need global management
-  const initialIsMobileView = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  // Bump the table → cards breakpoint up to lg (1024px) so the dense
+  // 1200px-wide drug table doesn't force horizontal scroll on tablets.
+  const initialIsMobileView = typeof window !== 'undefined' ? window.innerWidth < 1024 : false;
   const [isMobileView, setIsMobileView] = useState(initialIsMobileView);
   const [isTableScrolled, setIsTableScrolled] = useState(false);
   const [showColumnManager, setShowColumnManager] = useState(false);
   const [selectedReferences, setSelectedReferences] = useState(null);
   const [selectedDrugDetail, setSelectedDrugDetail] = useState(null);
   const [showAbout, setShowAbout] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
   // Transient toast notification ({ type: 'success'|'error', message: string } | null)
@@ -1453,9 +1750,19 @@ const DrugExplorer = () => {
     return () => clearTimeout(timer);
   }, [toast]);
 
-  // Global Cmd/Ctrl+K shortcut: focus the search input from anywhere.
+  // Global keyboard shortcuts:
+  //  - Cmd/Ctrl+K → focus the search input
+  //  - ?         → open the help dialog (only when not typing in a field)
   useEffect(() => {
     const handler = (event) => {
+      const target = event.target;
+      const tag = target?.tagName;
+      const isTyping =
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        tag === 'SELECT' ||
+        target?.isContentEditable;
+
       const isK = event.key === 'k' || event.key === 'K';
       if (isK && (event.metaKey || event.ctrlKey)) {
         event.preventDefault();
@@ -1463,6 +1770,12 @@ const DrugExplorer = () => {
           searchInputRef.current.focus();
           searchInputRef.current.select?.();
         }
+        return;
+      }
+
+      if (event.key === '?' && !isTyping && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        event.preventDefault();
+        setShowHelp(true);
       }
     };
     window.addEventListener('keydown', handler);
@@ -1496,10 +1809,15 @@ const DrugExplorer = () => {
     return key;
   }, [state.lang]);
 
-  // Memoized drug class translation
+  // Memoized drug class translation. Falls back to the English label if no
+  // French translation is available for a given class.
   const translateDrugClass = useCallback((className) => {
     if (state.lang === 'en') return className;
-    return className; // Simplified for performance
+    const map = translations.fr?.drugClasses;
+    if (map && Object.prototype.hasOwnProperty.call(map, className)) {
+      return map[className];
+    }
+    return className;
   }, [state.lang]);
 
   // Generate search suggestions with performance optimization.
@@ -1831,7 +2149,8 @@ const displayedDrugs = useMemo(() => {
     (state.searchTerm && state.searchTerm.length >= 1) ||
     state.selectedCategory !== 'all' ||
     state.classFilter !== 'all' ||
-    state.halfLifeFilter !== 'all';
+    state.halfLifeFilter !== 'all' ||
+    Boolean(selectedProtocol);
 
   const activeFilterChips = useMemo(() => {
     const chips = [];
@@ -1863,12 +2182,20 @@ const displayedDrugs = useMemo(() => {
         onClear: () => actions.setFilters({ halfLifeFilter: 'all' }),
       });
     }
+    if (selectedProtocol) {
+      chips.push({
+        key: 'protocol',
+        label: `${t('filtersMeta.protocol')}: ${selectedProtocol}`,
+        onClear: () => setSelectedProtocol(null),
+      });
+    }
     return chips;
   }, [
     state.searchTerm,
     state.selectedCategory,
     state.classFilter,
     state.halfLifeFilter,
+    selectedProtocol,
     t,
     actions,
     translateDrugClass,
@@ -1889,7 +2216,7 @@ const displayedDrugs = useMemo(() => {
 
   // Handle responsive layout
   useEffect(() => {
-    const handleResize = () => setIsMobileView(window.innerWidth < 768);
+    const handleResize = () => setIsMobileView(window.innerWidth < 1024);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -1915,6 +2242,43 @@ const displayedDrugs = useMemo(() => {
   const handleTableScroll = useCallback((e) => {
     setIsTableScrolled(e.target.scrollTop > 0);
   }, []);
+
+  // Detect macOS to display the right keyboard shortcut hint (⌘ vs Ctrl).
+  const isMacPlatform = useMemo(() => {
+    if (typeof navigator === 'undefined') return false;
+    return /Mac|iPhone|iPad|iPod/.test(navigator.userAgent || navigator.platform || '');
+  }, []);
+
+  // Copy the current shareable URL (with all filters) to the clipboard.
+  const copyShareLink = useCallback(async () => {
+    if (typeof window === 'undefined') return;
+    const url = window.location.href;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        // Fallback for older browsers / non-secure contexts.
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      setToast({ type: 'success', message: t('toast.linkCopied') });
+    } catch {
+      setToast({ type: 'error', message: t('toast.linkCopyError') });
+    }
+  }, [t]);
+
+  // Clear the in-memory recent searches (also wipes them from the suggestion
+  // listbox). The store helper does the actual work.
+  const clearRecentSearches = useCallback(() => {
+    actions.setRecentSearches?.([]);
+  }, [actions]);
 
   // CSV download handler (CSV-injection safe, UTF-8 BOM for Excel)
   const downloadCSV = useCallback(() => {
@@ -2047,8 +2411,20 @@ const displayedDrugs = useMemo(() => {
                 aria-label={t('footer.about')}
                 className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-sfro-primary px-3 py-2 rounded-lg shadow-md transition-all duration-200 flex items-center gap-2"
               >
-                <Info className="h-4 w-4" />
+                <Info className="h-4 w-4" aria-hidden="true" />
                 <span className="text-sm font-medium">{t('footer.about')}</span>
+              </motion.button>
+
+              {/* Keyboard shortcuts help (also openable via the "?" key) */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowHelp(true)}
+                aria-label={t('shortcuts.title')}
+                title={t('shortcuts.title')}
+                className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-700 hover:text-sfro-primary w-9 h-9 rounded-lg shadow-md transition-all duration-200 flex items-center justify-center font-bold"
+              >
+                ?
               </motion.button>
 
               <ThemeToggle
@@ -2179,6 +2555,7 @@ const displayedDrugs = useMemo(() => {
           }}
           maxLength={100}
           aria-label={t('search')}
+          aria-describedby="search-shortcut-hint"
           aria-autocomplete="list"
           aria-controls="drug-search-listbox"
           aria-activedescendant={
@@ -2186,13 +2563,25 @@ const displayedDrugs = useMemo(() => {
               ? `drug-search-listbox-option-${selectedSuggestionIndex}`
               : undefined
           }
-          className={`pl-10 h-12 w-full border-2 transition-colors rounded-lg
+          className={`pl-10 pr-16 h-12 w-full border-2 transition-colors rounded-lg
             ${
               state.isDarkMode
                 ? 'bg-gray-600 border-gray-500 text-gray-100 hover:border-sfro-primary focus:border-sfro-primary'
                 : 'border-gray-200 hover:border-sfro-primary focus:border-sfro-primary focus:ring-2 focus:ring-sfro-light'
             }`}
         />
+        {/* Keyboard shortcut hint — hidden on small screens */}
+        <kbd
+          id="search-shortcut-hint"
+          aria-label={t('shortcuts.focusSearch')}
+          className={`hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono font-semibold rounded border pointer-events-none select-none
+            ${state.isDarkMode
+              ? 'bg-gray-700 border-gray-500 text-gray-300'
+              : 'bg-gray-100 border-gray-300 text-gray-600'
+            }`}
+        >
+          {isMacPlatform ? '⌘' : 'Ctrl'}+K
+        </kbd>
         <AnimatePresence>
           <SearchSuggestions
             suggestions={searchSuggestions}
@@ -2203,6 +2592,7 @@ const displayedDrugs = useMemo(() => {
             t={t}
             suggestionsRef={suggestionsRef}
             listboxId="drug-search-listbox"
+            onClearRecent={clearRecentSearches}
           />
         </AnimatePresence>
         {/* Live region announcing the result count to assistive technologies */}
@@ -2233,7 +2623,7 @@ const displayedDrugs = useMemo(() => {
         translateDrugClass={translateDrugClass}
       />
 
-      {/* Active filter chips + reset button */}
+      {/* Active filter chips + reset / copy-link buttons */}
       {hasActiveFilters && (
         <div className="flex flex-wrap items-center gap-2">
           <span className={`text-xs font-medium ${state.isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -2255,15 +2645,26 @@ const displayedDrugs = useMemo(() => {
               <X size={12} aria-hidden="true" />
             </button>
           ))}
-          <button
-            type="button"
-            onClick={resetFilters}
-            className={`ml-auto text-xs font-medium underline
-              ${state.isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-sfro-primary'}
-            `}
-          >
-            {t('filtersMeta.reset')}
-          </button>
+          <div className="ml-auto flex items-center gap-3">
+            <button
+              type="button"
+              onClick={copyShareLink}
+              className={`text-xs font-medium underline
+                ${state.isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-sfro-primary'}
+              `}
+            >
+              {t('filtersMeta.copyLink')}
+            </button>
+            <button
+              type="button"
+              onClick={resetFilters}
+              className={`text-xs font-medium underline
+                ${state.isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-sfro-primary'}
+              `}
+            >
+              {t('filtersMeta.reset')}
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -2392,22 +2793,25 @@ const displayedDrugs = useMemo(() => {
 
 
 
-                {/* Export CSV button */}
+                {/* Export buttons — labels include the visible row count so
+                    users know exactly how many drugs will be exported. */}
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={downloadCSV}
+                  title={`${t('buttons.exportCSV')} (${displayedDrugs.length})`}
                   className="flex items-center gap-2 bg-sfro-primary hover:bg-sfro-secondary transition-colors px-6 py-3 rounded-lg text-white shadow-sm font-medium"
                 >
                   <Download className="h-5 w-5" aria-hidden="true" />
                   {t('buttons.exportCSV')}
+                  <span className="text-xs opacity-80">({displayedDrugs.length})</span>
                 </motion.button>
 
-                {/* Export XLSX button */}
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={downloadXLSX}
+                  title={`${t('buttons.exportXLSX')} (${displayedDrugs.length})`}
                   className={`flex items-center gap-2 transition-colors px-6 py-3 rounded-lg shadow-sm font-medium
                     ${state.isDarkMode
                       ? 'bg-gray-600 hover:bg-gray-500 text-white border border-gray-500'
@@ -2416,6 +2820,7 @@ const displayedDrugs = useMemo(() => {
                 >
                   <Download className="h-5 w-5" aria-hidden="true" />
                   {t('buttons.exportXLSX')}
+                  <span className="text-xs opacity-80">({displayedDrugs.length})</span>
                 </motion.button>
               </div>
             </div>
@@ -2435,7 +2840,7 @@ const displayedDrugs = useMemo(() => {
                   {displayedDrugs.length > 0 ? (
                     displayedDrugs.map((drug, index) => (
                       <DrugCard
-                        key={drug.id ?? `${drug.name}-${drug.class ?? 'na'}-${index}`}
+                        key={drug.id}
                         drug={drug}
                         isDarkMode={state.isDarkMode}
                         onDrugClick={handleDrugClick}
@@ -2447,8 +2852,24 @@ const displayedDrugs = useMemo(() => {
                       />
                     ))
                   ) : (
-                    <div className={`text-center py-12 ${state.isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                      {t('noResults')}
+                    <div className={`flex flex-col items-center gap-2 text-center py-12
+                      ${state.isDarkMode ? 'text-gray-400' : 'text-gray-500'}
+                    `}>
+                      <Search className="h-10 w-10 opacity-40" aria-hidden="true" />
+                      <p className="font-medium">{t('noResults')}</p>
+                      {hasActiveFilters && (
+                        <p className="text-xs">
+                          {t('filtersMeta.noResultsHint')}{' '}
+                          <button
+                            type="button"
+                            onClick={resetFilters}
+                            className="underline font-medium hover:text-sfro-primary"
+                          >
+                            {t('filtersMeta.noResultsAction')}
+                          </button>
+                          .
+                        </p>
+                      )}
                     </div>
                   )}
                 </motion.div>
@@ -2465,67 +2886,6 @@ const displayedDrugs = useMemo(() => {
                   `}
                   onScroll={handleTableScroll}
                 >
-                  {/* Column Manager Modal */}
-                  <AnimatePresence>
-                    {showColumnManager && (
-                      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          onClick={(e) => e.stopPropagation()}
-                          className={`rounded-lg shadow-xl p-6 w-80 max-w-full mx-4
-                            ${state.isDarkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white'}
-                          `}
-                        >
-                          <div className="flex justify-between items-center mb-4">
-                            <h3 className={`text-lg font-semibold ${state.isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}`}>
-                              {t('columnManager.title')}
-                            </h3>
-                            <button 
-                              onClick={() => setShowColumnManager(false)}
-                              className={`rounded-full p-1 transition-colors
-                                ${state.isDarkMode 
-                                  ? 'text-gray-400 hover:text-gray-200 hover:bg-gray-700' 
-                                  : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
-                                }`}
-                            >
-                              <X size={20} />
-                            </button>
-                          </div>
-                          <div className="space-y-3">
-                            {Object.entries(state.visibleColumns).map(([column, isVisible]) => (
-                              <label key={column} className={`flex items-center space-x-3 cursor-pointer p-2 rounded transition-colors
-                                ${state.isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'}
-                              `}>
-                                <input 
-                                  type="checkbox"
-                                  checked={isVisible}
-                                  onChange={() => actions.setVisibleColumns({
-                                    ...state.visibleColumns,
-                                    [column]: !isVisible
-                                  })}
-                                  className="rounded text-sfro-primary focus:ring-sfro-primary h-4 w-4"
-                                />
-                                <span className={`text-sm font-medium ${state.isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                                  {formatColumnName(column)}
-                                </span>
-                              </label>
-                            ))}
-                          </div>
-                          <div className="mt-6 flex justify-end">
-                            <button
-                              onClick={() => setShowColumnManager(false)}
-                              className="px-4 py-2 bg-sfro-primary text-white rounded-md hover:bg-sfro-secondary focus:outline-none focus:ring-2 focus:ring-sfro-light"
-                            >
-                              {t('buttons.done')}
-                            </button>
-                          </div>
-                        </motion.div>
-                      </div>
-                    )}
-                  </AnimatePresence>
-
                   <table className={`w-full border-collapse min-w-[1200px]
                     ${state.isDarkMode ? 'bg-gray-800' : 'bg-white'}
                   `}>
@@ -2708,7 +3068,7 @@ const displayedDrugs = useMemo(() => {
                       {displayedDrugs.length > 0 ? (
                         displayedDrugs.map((drug, index) => (
                           <tr
-                            key={drug.id ?? `${drug.name}-${drug.class ?? 'na'}-${index}`}
+                            key={drug.id}
                             className={`transition-colors duration-150 ease-in-out text-xs
                               ${state.isDarkMode 
                                 ? 'hover:bg-gray-700' 
@@ -2716,12 +3076,15 @@ const displayedDrugs = useMemo(() => {
                               }`}
                           >
                             {state.visibleColumns.name && (
-                              <td className={`px-3 py-2 whitespace-normal font-medium
-                                ${state.isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}
-                              `}>
+                              <th
+                                scope="row"
+                                className={`px-3 py-2 whitespace-normal font-medium text-left
+                                  ${state.isDarkMode ? 'text-gray-200' : 'text-sfro-dark'}
+                                `}
+                              >
                                 <button
                                   onClick={() => handleDrugClick(drug)}
-                                  className={`text-left cursor-pointer hover:underline
+                                  className={`text-left cursor-pointer hover:underline font-medium
                                     ${state.isDarkMode
                                       ? 'text-blue-400 hover:text-blue-300'
                                       : 'text-blue-600 hover:text-blue-800'
@@ -2729,7 +3092,7 @@ const displayedDrugs = useMemo(() => {
                                 >
                                   {highlightMatch(drug.name, debouncedSearchTerm)}
                                 </button>
-                              </td>
+                              </th>
                             )}
                             {state.visibleColumns.commercial && (
                               <td className={`px-3 py-2 whitespace-normal
@@ -2795,13 +3158,29 @@ const displayedDrugs = useMemo(() => {
                         ))
                       ) : (
                         <tr>
-                          <td 
-                            colSpan={Object.values(state.visibleColumns).filter(Boolean).length} 
-                            className={`px-3 py-8 text-center
+                          <td
+                            colSpan={Object.values(state.visibleColumns).filter(Boolean).length}
+                            className={`px-3 py-12 text-center
                               ${state.isDarkMode ? 'text-gray-400' : 'text-gray-500'}
                             `}
                           >
-                            {t('noResults')}
+                            <div className="flex flex-col items-center gap-2">
+                              <Search className="h-10 w-10 opacity-40" aria-hidden="true" />
+                              <p className="font-medium">{t('noResults')}</p>
+                              {hasActiveFilters && (
+                                <p className="text-xs">
+                                  {t('filtersMeta.noResultsHint')}{' '}
+                                  <button
+                                    type="button"
+                                    onClick={resetFilters}
+                                    className="underline font-medium hover:text-sfro-primary"
+                                  >
+                                    {t('filtersMeta.noResultsAction')}
+                                  </button>
+                                  .
+                                </p>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       )}
@@ -2858,22 +3237,28 @@ const displayedDrugs = useMemo(() => {
 
           {/* Footer */}
           <div className={`border-t mt-8 p-6 transition-colors
-            ${state.isDarkMode 
-              ? 'border-gray-700 bg-gray-700 text-gray-300' 
+            ${state.isDarkMode
+              ? 'border-gray-700 bg-gray-700 text-gray-300'
               : 'border-gray-200 bg-sfro-light text-sfro-dark'
             }`}>
             <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0">
-              <div>
-                © {new Date().getFullYear()} SFRO - Société Française de Radiothérapie Oncologique
+              <div className="flex flex-col items-center md:items-start gap-1">
+                <div>
+                  © {new Date().getFullYear()} SFRO - Société Française de Radiothérapie Oncologique
+                </div>
+                {dataLastUpdatedDisplay && (
+                  <div className="text-xs opacity-80">
+                    {t('footer.lastUpdated')} : {dataLastUpdatedDisplay}
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-6">
                 <a href="mailto:contact@sfro.fr" className={`transition-colors flex items-center gap-2
                   ${state.isDarkMode ? 'hover:text-blue-400' : 'hover:text-sfro-primary'}
                 `}>
-                  <Mail className="h-4 w-4" />
+                  <Mail className="h-4 w-4" aria-hidden="true" />
                   contact
                 </a>
-                
               </div>
             </div>
           </div>
@@ -2918,6 +3303,30 @@ const displayedDrugs = useMemo(() => {
               translateDrugClass={translateDrugClass}
             />
           )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          <ColumnManagerModal
+            show={showColumnManager}
+            onClose={() => setShowColumnManager(false)}
+            visibleColumns={state.visibleColumns}
+            onChange={(column, value) =>
+              actions.setVisibleColumns({ ...state.visibleColumns, [column]: value })
+            }
+            isDarkMode={state.isDarkMode}
+            t={t}
+            formatColumnName={formatColumnName}
+          />
+        </AnimatePresence>
+
+        <AnimatePresence>
+          <HelpModal
+            show={showHelp}
+            onClose={() => setShowHelp(false)}
+            isDarkMode={state.isDarkMode}
+            t={t}
+            isMacPlatform={isMacPlatform}
+          />
         </AnimatePresence>
 
         {/* Toast notifications (success/error feedback, auto-dismiss) */}
