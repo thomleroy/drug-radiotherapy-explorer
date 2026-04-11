@@ -77,7 +77,8 @@ const useAppStore = (() => {
       removeFavorite: (drugId) => {
         const current = store.getState().favorites;
         store.setState({ favorites: current.filter(id => id !== drugId) });
-      }
+      },
+      setRecentSearches: (recentSearches) => store.setState({ recentSearches })
     }), []);
 
     return [state, actions];

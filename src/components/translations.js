@@ -53,13 +53,6 @@ export const translations = {
     title: "Radiosync",
     subtitle: "Une application web pour savoir quand et combien de temps arrêter les thérapies anticancéreuses avant la radiothérapie",
     search: "Rechercher des médicaments...",
-    categories: {
-      all: "Toutes les catégories",
-      chemotherapy: "Chimiothérapie",
-      endocrine: "Thérapie endocrine",
-      targeted: "Thérapie ciblée",
-      immunotherapy: "Immunothérapie"
-    },
     halfLife: {
       all: "Toutes les demi-vies",
       short: "Courte (≤24h)",

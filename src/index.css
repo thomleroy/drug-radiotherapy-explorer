@@ -144,3 +144,115 @@ tr:hover {
   color: white;
   border-radius: 0.5rem 0.5rem 0 0;
 }
+
+/* ----------------------------------------------------------------------
+   Accessibility: skip-to-content link. Visually hidden until focused.
+---------------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: #006080;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0;
+}
+
+.skip-link:focus {
+  left: 0;
+  outline: 3px solid #00bff3;
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------------------
+   Respect user motion preferences. Drastically reduce animation costs
+   for users who opted out (vestibular disorders, etc.).
+---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------------------------------------
+   Print-friendly layout. Hide interactive UI, expand the table onto
+   the full page width with readable typography, keep row colors as
+   hints via borders so clinicians can read an exported view.
+---------------------------------------------------------------------- */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10pt;
+  }
+
+  /* Hide all chrome that makes no sense on paper. */
+  .no-print,
+  button,
+  nav,
+  [role="dialog"],
+  [role="status"],
+  .skip-link,
+  header img,
+  .legend-color + *:empty {
+    display: none !important;
+  }
+
+  /* Only keep the header title; drop backgrounds. */
+  header,
+  .gradient-header,
+  [class*="bg-gradient"] {
+    background: none !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+  }
+
+  /* Let the table breathe on the page. */
+  .table-container,
+  table {
+    overflow: visible !important;
+    box-shadow: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    page-break-inside: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  th,
+  td {
+    border: 1px solid #000 !important;
+    padding: 4pt 6pt !important;
+    color: #000 !important;
+  }
+
+  /* Keep the delay color coding as light backgrounds so print retains
+     meaning even in grayscale printers (via the legend glyph pattern). */
+  .bg-green-100 { background: #e8f5e9 !important; }
+  .bg-yellow-100 { background: #fff9c4 !important; }
+  .bg-red-100 { background: #ffebee !important; }
+
+  a[href]::after {
+    content: "";
+  }
+}

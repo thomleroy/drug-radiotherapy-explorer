@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
+import { readFavorites, writeFavorites } from '../utils/security';
 
 const FavoritesPanel = ({ favorites, onInitializeFavorites, children }) => {
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem('drug-explorer-favorites') || '[]');
+    const savedFavorites = readFavorites();
     if (savedFavorites.length > 0 && onInitializeFavorites) {
       onInitializeFavorites(savedFavorites);
     }
   }, [onInitializeFavorites]);
 
   useEffect(() => {
-    localStorage.setItem('drug-explorer-favorites', JSON.stringify(favorites));
+    writeFavorites(favorites);
   }, [favorites]);
 
   return <>{children}</>;

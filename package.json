@@ -22,15 +22,31 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
+    "build:meta": "node scripts/generate-build-meta.js",
+    "prestart": "node scripts/generate-build-meta.js",
+    "prebuild": "node scripts/generate-build-meta.js && node scripts/validate-drugs.js",
+    "pretest": "node scripts/generate-build-meta.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "validate:data": "node scripts/validate-drugs.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^lucide-react$": "<rootDir>/src/__mocks__/lucide-react.js",
+      "^@vercel/analytics/react$": "<rootDir>/src/__mocks__/vercel-stub.js",
+      "^@vercel/speed-insights/react$": "<rootDir>/src/__mocks__/vercel-stub.js"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(framer-motion|motion-dom|motion-utils)/)",
+      "^.+\\.module\\.(css|sass|scss)$"
     ]
   },
   "browserslist": {
