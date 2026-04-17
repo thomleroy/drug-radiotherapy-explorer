@@ -8,7 +8,7 @@
 // is already in English.
 export const translations = {
   en: {
-    title: "Drug & Radiotherapy Explorer",
+    title: "Radiosync",
     subtitle: "Explore drug interactions with radiotherapy treatments",
     search: "Search by name, INN, or brand name...",
     tableHint: "Click on the drug name to display its associated references.",
@@ -153,7 +153,7 @@ export const translations = {
     }
   },
   fr: {
-    title: "Explorateur Médicaments & Radiothérapie",
+    title: "Radiosync",
     subtitle: "Explorez les interactions des médicaments avec les traitements de radiothérapie",
     search: "Rechercher par nom, DCI ou nom commercial...",
     tableHint: "Cliquez sur le nom de la molécule pour afficher les références associées.",

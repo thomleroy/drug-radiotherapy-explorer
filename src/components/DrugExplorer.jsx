@@ -816,6 +816,13 @@ const displayedDrugs = useMemo(() => {
   // Excel export using the SheetJS xlsx package. We dynamic-import the
   // library only when the user actually clicks the button so the ~90kb
   // payload is kept out of the initial bundle.
+  //
+  // We avoid XLSX.writeFile() on purpose: its internal `write_dl` helper
+  // relies on global sniffing (_fs, IE_SaveFile, saveAs, URL.createObjectURL,
+  // …) that Vite/Rolldown tree-shaking can narrow down in ways that silently
+  // no-op the download. Instead we call XLSX.write() to get the raw bytes
+  // and handle the Blob + anchor click ourselves — the same pattern the CSV
+  // export uses, which is testable and environment-independent.
   const downloadXLSX = useCallback(async () => {
     try {
       const XLSX = await import('xlsx');
@@ -836,8 +843,25 @@ const displayedDrugs = useMemo(() => {
       const worksheet = XLSX.utils.json_to_sheet(rows);
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, 'Radiosync');
-      const today = new Date().toISOString().split('T')[0];
-      XLSX.writeFile(workbook, `drug-radiotherapy-data-${today}.xlsx`);
+
+      // Generate the .xlsx bytes in memory — `type: 'array'` returns a
+      // Uint8Array with no Node Buffer / fs dependency.
+      const buffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute(
+        'download',
+        `drug-radiotherapy-data-${new Date().toISOString().split('T')[0]}.xlsx`
+      );
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
       setToast({ type: 'success', message: t('toast.xlsxSuccess') });
     } catch (error) {
       if (import.meta.env.DEV) {
